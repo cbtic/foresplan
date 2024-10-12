@@ -1,0 +1,13 @@
+id;nro_mes;nombre_mes;trim_mes;nombre_trim;abre_mes;created_at;updated_at
+1;01;ENERO;1;I;ENE;;
+2;02;FEBRERO;1;I;FEB;;
+3;03;MARZO;1;I;MAR;;
+4;04;ABRIL;2;II;ABR;;
+5;05;MAYO;2;II;MAY;;
+6;06;JUNIO;2;II;JUN;;
+7;07;JULIO;3;III;JUL;;
+8;08;AGOSTO;3;III;AGO;;
+9;09;SETIEMBRE;3;III;SET;;
+10;10;OCTUBRE;4;IV;OCT;;
+11;11;NOVIEMBRE;4;IV;NOV;;
+12;12;DICIEMBRE;4;IV;DIC;;

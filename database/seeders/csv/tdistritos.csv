@@ -1,0 +1,1849 @@
+codi_depa_dpt;codi_prov_tpr;codi_dist_tdi;nomb_dist_tdi;codi_sede_sed
+04;03;12;QUICACHA                 ;024
+04;03;13;YAUCA                    ;024
+04;04;02;ANDAGUA                  ;024
+04;04;03;AYO                      ;024
+04;04;04;CHACHAS                  ;024
+04;04;06;CHOCO                    ;024
+04;04;07;HUANCARQUI               ;024
+04;04;08;MACHAGUAY                ;024
+04;04;09;ORCOPAMPA                ;024
+04;04;10;PAMPACOLCA               ;024
+04;04;11;TIPAN                    ;024
+04;04;13;URACA                    ;024
+04;04;14;VIRACO                   ;024
+04;05;01;CHIVAY                   ;024
+04;05;03;CABANACONDE              ;024
+04;05;04;CALLALLI                 ;024
+04;05;05;CAYLLOMA                 ;024
+04;05;06;COPORAQUE                ;024
+04;05;08;HUANCA                   ;024
+04;05;09;ICHUPAMPA                ;024
+04;05;10;LARI                     ;024
+04;05;11;LLUTA                    ;024
+04;05;13;MADRIGAL                 ;024
+04;05;14;SAN ANTONIO DE CHUCA  2/ ;024
+04;05;15;SIBAYO                   ;024
+04;05;16;TAPAY                    ;024
+04;05;18;TUTI                     ;024
+04;05;19;YANQUE                   ;024
+04;05;20;MAJES                    ;024
+04;06;01;CHUQUIBAMBA              ;024
+04;06;03;CAYARANI                 ;024
+04;06;04;CHICHAS                  ;024
+04;06;05;IRAY                     ;024
+04;06;06;RIO GRANDE               ;024
+04;06;08;YANAQUIHUA               ;024
+04;07;01;MOLLENDO                 ;024
+04;07;02;COCACHACRA               ;024
+04;07;03;DEAN VALDIVIA            ;024
+04;07;04;ISLAY                    ;024
+04;07;06;PUNTA DE BOMBON          ;024
+04;08;01;COTAHUASI                ;024
+04;08;02;ALCA                     ;024
+04;08;04;HUAYNACOTAS              ;024
+04;08;05;PAMPAMARCA               ;024
+04;08;06;PUYCA                    ;024
+04;08;07;QUECHUALLA               ;024
+04;08;08;SAYLA                    ;024
+04;08;10;TOMEPAMPA                ;024
+04;08;11;TORO                     ;024
+05;01;01;AYACUCHO                 ;014
+05;01;02;ACOCRO                   ;014
+05;01;04;CARMEN ALTO              ;014
+05;01;05;CHIARA                   ;014
+05;01;06;OCROS                    ;014
+05;01;07;PACAYCASA                ;014
+05;01;08;QUINUA                   ;014
+05;01;10;SAN JUAN BAUTISTA        ;014
+05;01;11;SANTIAGO DE PISCHA       ;014
+05;01;12;SOCOS                    ;014
+05;01;13;TAMBILLO                 ;014
+05;01;14;VINCHOS                  ;014
+05;01;15;JESUS NAZARENO           ;
+05;02;01;CANGALLO                 ;014
+05;02;02;CHUSCHI                  ;014
+05;02;03;LOS MOROCHUCOS           ;014
+05;02;05;PARAS                    ;014
+05;02;06;TOTOS                    ;014
+05;03;01;SANCOS                   ;016
+05;03;02;CARAPO                   ;016
+05;03;04;SANTIAGO DE LUCANAMARCA  ;016
+05;04;01;HUANTA                   ;014
+05;04;02;AYAHUANCO                ;014
+05;04;03;HUAMANGUILLA             ;014
+05;04;05;LURICOCHA                ;014
+05;04;07;SIVIA                    ;029
+05;04;08;LLOCHEGUA                ;029
+05;05;01;SAN MIGUEL               ;029
+05;05;02;ANCO                     ;029
+05;05;04;CHILCAS                  ;029
+05;05;06;LUIS CARRANZA            ;029
+05;05;07;SANTA ROSA               ;029
+05;06;01;PUQUIO                   ;014
+05;06;02;AUCARA                   ;014
+05;06;04;CARMEN SALCEDO           ;014
+05;06;05;CHAVI?A                  ;014
+05;06;07;HUAC-HUAS                ;016
+05;06;09;LEONCIO PRADO            ;014
+05;06;10;LLAUTA                   ;016
+05;06;11;LUCANAS                  ;014
+05;06;13;OTOCA                    ;016
+05;06;15;SAN CRISTOBAL            ;014
+05;06;16;SAN JUAN                 ;014
+05;06;17;SAN PEDRO                ;014
+05;06;20;SANTA ANA DE HUAYCAHUACHO;014
+05;06;21;SANTA LUCIA              ;014
+05;07;01;CORACORA                 ;014
+05;07;02;CHUMPI                   ;014
+05;07;03;CORONEL CASTA?EDA        ;014
+05;07;04;PACAPAUSA                ;014
+05;07;05;PULLO                    ;014
+05;07;08;UPAHUACHO                ;014
+05;08;01;PAUSA                    ;014
+05;08;02;COLTA                    ;014
+05;08;03;CORCULLA                 ;014
+05;08;05;MARCABAMBA               ;014
+05;08;06;OYOLO                    ;014
+05;08;07;PARARCA                  ;014
+05;08;08;SAN JAVIER DE ALPABAMBA  ;014
+05;08;10;SARA SARA                ;014
+05;09;02;BELEN                    ;014
+05;09;03;CHALCOS                  ;014
+05;09;04;CHILCAYOC                ;014
+05;09;05;HUACA?A                  ;014
+05;09;06;MORCOLLA                 ;014
+05;09;09;SAN SALVADOR DE QUIJE    ;014
+05;09;11;SORAS                    ;014
+05;10;01;HUANCAPI                 ;014
+05;10;02;ALCAMENCA                ;014
+05;10;04;ASQUIPATA                ;014
+05;10;05;CANARIA                  ;014
+05;10;06;CAYARA                   ;014
+05;10;07;COLCA                    ;014
+05;10;10;HUAYA                    ;014
+05;10;11;SARHUA                   ;014
+05;10;12;VILCANCHOS               ;014
+05;11;01;VILCAS HUAMAN            ;014
+05;11;02;ACCOMARCA                ;014
+05;11;05;HUAMBALPA                ;014
+05;11;06;INDEPENDENCIA            ;014
+05;11;07;SAURAMA                  ;014
+05;11;08;VISCHONGO                ;014
+06;01;01;CAJAMARCA                ;005
+06;01;04;COSPAN                   ;005
+06;01;05;ENCA?ADA                 ;005
+06;01;06;JESUS                    ;005
+06;01;07;LLACANORA                ;005
+06;01;08;LOS BA?OS DEL INCA       ;005
+06;01;09;MAGDALENA                ;005
+06;01;10;MATARA                   ;005
+06;01;11;NAMORA                   ;005
+06;01;12;SAN JUAN                 ;005
+06;02;02;CACHACHI                 ;005
+06;02;03;CONDEBAMBA               ;005
+06;02;04;SITACOCHA                ;005
+06;03;01;CELENDIN                 ;005
+06;03;02;CHUMUCH                  ;005
+06;03;04;HUASMIN                  ;005
+06;03;05;JORGE CHAVEZ             ;005
+06;03;06;JOSE GALVEZ              ;005
+06;03;07;MIGUEL IGLESIAS          ;005
+06;03;08;OXAMARCA                 ;005
+06;03;10;SUCRE                    ;005
+06;03;11;UTCO                     ;005
+06;03;12;LA LIBERTAD DE PALLAN    ;005
+06;04;01;CHOTA                    ;005
+06;04;03;CHADIN                   ;005
+06;04;04;CHIGUIRIP                ;005
+06;04;05;CHIMBAN                  ;005
+06;04;06;CHOROPAMPA               ;005
+06;04;08;CONCHAN                  ;005
+06;04;09;HUAMBOS                  ;005
+06;04;10;LAJAS                    ;005
+06;04;11;LLAMA                    ;005
+06;04;12;MIRACOSTA                ;005
+06;04;14;PION                     ;005
+06;04;15;QUEROCOTO                ;005
+06;04;16;SAN JUAN DE LICUPIS      ;005
+06;04;17;TACABAMBA                ;005
+06;04;19;CHALAMARCA               ;005
+06;05;01;CONTUMAZA                ;005
+06;05;02;CHILETE                  ;005
+06;05;03;CUPISNIQUE               ;005
+06;05;04;GUZMANGO                 ;005
+06;05;06;SANTA CRUZ DE TOLED      ;005
+06;05;07;TANTARICA                ;005
+06;05;08;YONAN                    ;005
+06;06;01;CUTERVO                  ;005
+06;06;02;CALLAYUC                 ;005
+06;06;04;CUJILLO                  ;005
+06;06;05;LA RAMADA                ;005
+06;06;06;PIMPINGOS                ;005
+06;06;07;QUEROCOTILLO             ;005
+06;06;09;SAN JUAN DE CUTERVO      ;005
+06;06;10;SAN LUIS DE LUCMA        ;005
+06;06;12;SANTO DOMINGO DE LA CAPIL;005
+06;06;13;SANTO TOMAS              ;005
+06;06;14;SOCOTA                   ;005
+06;06;15;TORIBIO CASANOVA         ;005
+06;07;01;BAMBAMARCA               ;005
+06;07;02;CHUGUR                   ;005
+06;08;01;JAEN                     ;005
+06;08;02;BELLAVISTA               ;005
+06;08;03;CHONTALI                 ;005
+16;01;13;SAN JUAN BAUTISTA        ;020
+16;02;01;YURIMAGUAS               ;020
+16;02;02;BALSAPUERTO              ;020
+16;02;04;CAHUAPANAS               ;020
+16;02;05;JEBEROS                  ;020
+16;02;06;LAGUNAS                  ;020
+16;02;07;MANSERICHE               ;020
+16;02;08;MORONA                   ;020
+16;02;10;SANTA CRUZ               ;020
+16;02;11;TENIENTE CESAR LOPEZ ROJA;020
+16;03;01;NAUTA                    ;020
+16;03;02;PARINARI                 ;020
+16;03;04;TROMPETEROS              ;020
+16;03;05;URARINAS                 ;020
+16;04;01;RAMON CASTILLA           ;020
+16;04;02;PEBAS                    ;020
+16;04;04;SAN PABLO                ;020
+16;05;01;REQUENA                  ;020
+16;05;02;ALTO TAPICHE             ;020
+16;05;03;CAPELO                   ;020
+16;05;05;MAQUIA                   ;020
+16;05;06;PUINAHUA                 ;020
+16;05;07;SAQUENA                  ;020
+16;05;08;SOPLIN                   ;020
+16;05;09;TAPICHE                  ;020
+16;05;10;JENARO HERRERA           ;020
+16;05;11;YAQUERANA                ;020
+15;01;03;ATE VITARTE              ;028
+12;02;07;HEROINAS TOLEDO          ;011
+12;02;08;MANZANARES               ;011
+12;02;09;MARISCAL CASTILLA        ;011
+12;02;12;NUEVE DE JULIO           ;011
+12;02;13;ORCOTUNA                 ;011
+12;02;14;SAN JOSE DE QUERO        ;011
+12;03;02;PERENE                   ;011
+12;03;03;PICHANAQUI               ;011
+12;03;05;SAN RAMON                ;011
+12;03;06;VITOC                    ;011
+12;04;01;JAUJA                    ;011
+12;04;03;APATA                    ;011
+12;04;04;ATAURA                   ;011
+12;04;05;CANCHAYLLO               ;011
+12;04;06;CURICACA                 ;011
+12;04;09;HUARIPAMPA               ;011
+12;04;10;HUERTAS                  ;011
+12;04;11;JANJAILLO                ;011
+12;04;12;JULCAN                   ;011
+12;04;14;LLOCLLAPAMPA             ;011
+12;04;16;MASMA                    ;011
+12;04;17;MASMA CHICCHE            ;011
+12;04;18;MOLINOS                  ;011
+12;04;20;MUQUI                    ;011
+12;04;22;PACA                     ;011
+12;04;23;PACCHA                   ;011
+12;04;24;PANCAN                   ;011
+12;04;25;PARCO                    ;011
+12;04;27;RICRAN                   ;011
+12;04;29;SAN PEDRO DE CHUNAN      ;011
+12;04;30;SAUSA                    ;011
+12;04;31;SINCOS                   ;011
+12;04;32;TUNAN MARCA              ;011
+12;04;34;YAUYOS                   ;011
+12;05;02;CARHUAMAYO               ;011
+12;05;03;ONDORES                  ;011
+12;05;04;ULCUMAYO                 ;011
+12;06;03;LLAYLLA                  ;011
+12;06;04;MAZAMARI                 ;011
+12;06;05;PAMPA HERMOSA            ;011
+12;06;06;PANGOA                   ;029
+12;07;02;ACOBAMBA                 ;011
+12;07;03;HUARICOLCA               ;011
+12;07;04;HUASAHUASI               ;011
+12;07;05;LA UNION                 ;011
+12;07;06;PALCA                    ;011
+12;07;07;PALCAMAYO                ;011
+12;07;08;SAN PEDRO DE CAJAS       ;011
+12;07;09;TAPO                     ;011
+12;08;01;LA OROYA                 ;011
+12;08;03;HUAY-HUAY                ;011
+12;08;04;MARCAPOMACOCHA           ;011
+12;08;05;MOROCOCHA                ;011
+08;02;03;ACOS                     ;021
+08;02;04;MOSOC LLACTA             ;021
+08;02;05;POMACANCHI               ;021
+08;02;06;RONDOCAN                 ;021
+08;03;01;ANTA                     ;021
+08;03;02;ANCAHUASI                ;021
+08;03;03;CACHIMAYO                ;021
+08;03;04;CHINCHAYPUJIO            ;021
+08;03;05;HUAROCONDO               ;021
+08;03;07;MOLLEPATA                ;021
+08;03;08;PUCYURA                  ;021
+08;03;09;ZURITE                   ;021
+08;04;01;CALCA                    ;021
+08;04;02;COYA                     ;021
+08;04;04;LARES                    ;021
+08;04;05;PISAC                    ;021
+08;04;06;SAN SALVADOR             ;021
+08;04;07;TARAY                    ;021
+08;05;01;YANAOCA                  ;021
+08;05;02;CHECCA                   ;021
+08;05;03;KUNTURKANKI              ;021
+08;05;04;LANGUI                   ;021
+08;05;06;PAMPAMARCA               ;021
+08;05;07;QUEHUE                   ;021
+08;05;08;TUPAC AMARU              ;021
+08;06;01;SICUANI                  ;021
+08;06;03;COMBAPATA                ;021
+08;06;04;MARANGANI                ;021
+08;06;05;PITUMARCA                ;021
+08;06;06;SAN PABLO                ;021
+08;06;08;TINTA                    ;021
+08;07;01;SANTO TOMAS              ;021
+08;07;02;CAPACMARCA               ;021
+08;07;03;CHAMACA                  ;021
+08;07;04;COLQUEMARCA              ;021
+08;07;06;LLUSCO                   ;021
+08;07;07;QUI?OTA                  ;021
+08;07;08;VELILLE                  ;021
+08;08;01;ESPINAR                  ;021
+08;08;02;CONDOROMA                ;021
+08;08;04;OCORURO                  ;021
+08;08;05;PALLPATA                 ;021
+08;08;06;PICHIGUA                 ;021
+08;08;07;SUYCKUTAMBO              ;021
+08;09;01;SANTA ANA                ;021
+08;09;02;ECHARATE                 ;021
+08;09;03;HUAYOPATA                ;021
+08;09;04;MARANURA                 ;021
+08;09;05;OCOBAMBA                 ;021
+08;09;06;QUELLOUNO                ;021
+08;09;08;SANTA TERESA             ;021
+08;09;09;VILCABAMBA               ;029
+08;09;10;PICHARI                  ;029
+08;10;01;PARURO                   ;021
+08;10;03;CCAPI                    ;021
+21;13;07;UNICACHI                 ;025
+01;05;12;OCALLI                   ;006
+01;05;14;PISUQUIA                 ;006
+01;05;15;PROVIDENCIA              ;006
+01;05;16;SAN CRISTOBAL            ;006
+01;05;17;SAN FRANCISCO DEL YESO   ;006
+01;05;19;SAN JUAN DE LOPECANCHA   ;006
+01;05;20;SANTA CATALINA           ;006
+01;05;21;SANTO TOMAS              ;006
+01;05;22;TINGO                    ;006
+01;05;23;TRITA                    ;006
+01;06;01;SAN NICOLAS              ;006
+01;06;03;COCHAMAL                 ;006
+01;06;04;HUAMBO                   ;006
+01;06;05;LIMABAMBA                ;006
+01;06;06;LONGAR                   ;006
+01;06;07;MARISCAL BENAVIDES       ;006
+01;06;09;OMIA                     ;006
+01;06;10;SANTA ROSA               ;006
+01;06;11;TOTORA                   ;006
+01;06;12;VISTA ALEGRE             ;006
+01;07;02;CAJARURO                 ;006
+01;07;03;CUMBA                    ;006
+01;07;04;EL MILAGRO               ;006
+01;07;05;JAMALCA                  ;006
+01;07;06;LONYA GRANDE             ;006
+02;01;01;HUARAZ                   ;010
+02;01;02;COCHABAMBA               ;010
+02;01;03;COLCABAMBA               ;010
+02;01;04;HUANCHAY                 ;010
+02;01;06;JANGAS                   ;010
+02;01;07;LA LIBERTAD              ;010
+02;01;08;OLLEROS                  ;010
+02;01;09;PAMPAS                   ;010
+02;06;04;ANTA                     ;010
+02;06;05;ATAQUERO                 ;010
+02;06;06;MARCARA                  ;010
+02;06;07;PARIAHUANCA              ;010
+02;06;09;SHILLA                   ;010
+02;06;10;TINCO                    ;010
+02;06;11;YUNGAR                   ;010
+02;07;01;SAN LUIS                 ;010
+02;07;02;SAN NICOLAS              ;010
+02;07;03;YAUYA                    ;010
+02;08;01;CASMA                    ;010
+02;08;03;COMANDANTE NOEL          ;010
+02;08;04;YAUTAN                   ;010
+02;09;01;CORONGO                  ;010
+02;09;02;ACO                      ;010
+02;09;03;BAMBAS                   ;010
+02;09;04;CUSCA                    ;010
+02;09;06;YANAC                    ;010
+02;09;07;YUPAN                    ;010
+02;10;01;HUARI                    ;010
+02;10;02;ANRA                     ;010
+02;10;03;CAJAY                    ;010
+02;10;05;HUACACHI                 ;010
+02;10;06;HUACCHIS                 ;010
+02;10;07;HUACHIS                  ;010
+02;10;08;HUANTAR                  ;010
+02;10;09;MASIN                    ;010
+02;10;10;PAUCAS                   ;010
+02;10;12;RAHUAPAMPA               ;010
+02;10;13;RAPAYAN                  ;010
+02;10;14;SAN MARCOS               ;010
+02;10;15;SAN PEDRO DE CHANA       ;010
+02;11;01;HUARMEY                  ;010
+02;11;02;COCHAPETI                ;010
+02;11;03;CULEBRAS                 ;010
+02;11;05;MALVAS                   ;010
+02;12;01;CARAZ                    ;010
+02;12;02;HUALLANCA                ;010
+02;12;03;HUATA                    ;010
+02;12;05;MATO                     ;010
+02;12;06;PAMPAROMAS               ;010
+02;12;07;PUEBLO LIBRE             ;010
+02;12;08;SANTA CRUZ               ;010
+02;12;09;SANTO TORIBIO            ;010
+02;13;01;PISCOBAMBA               ;010
+02;13;02;CASCA                    ;010
+02;13;03;ELEAZAR GUZMAN BARRON    ;010
+02;13;04;FIDEL OLIVAS ESCUDERO    ;010
+02;13;05;LLAMA                    ;010
+02;13;07;LUCMA                    ;010
+02;13;08;MUSGA                    ;010
+02;14;01;OCROS                    ;010
+02;14;02;ACAS                     ;010
+02;14;04;CARHUAPAMPA              ;010
+02;14;05;COCHAS                   ;010
+02;14;06;CONGAS                   ;010
+02;14;07;LLIPA                    ;010
+02;14;08;SAN CRISTOBAL DE RAJAN   ;010
+02;14;10;SANTIAGO DE CHILCAS      ;010
+02;15;01;CABANA                   ;010
+02;15;02;BOLOGNESI                ;010
+02;15;03;CONCHUCOS                ;010
+02;15;04;HUACASCHUQUE             ;010
+02;15;06;LACABAMBA                ;010
+02;15;07;LLAPO                    ;010
+02;15;08;PALLASCA                 ;010
+02;15;09;PAMPAS                   ;010
+02;15;10;SANTA ROSA               ;010
+02;16;01;POMABAMBA                ;010
+02;16;02;HUAYLLAN                 ;010
+02;16;03;PAROBAMBA                ;010
+02;16;04;QUINUABAMBA              ;010
+02;17;03;COTAPARACO               ;010
+02;17;04;HUAYLLAPAMPA             ;010
+02;17;05;LLACLLIN                 ;010
+02;17;08;PARARIN                  ;010
+02;17;09;TAPACOCHA                ;010
+02;17;10;TICAPAMPA                ;010
+02;18;02;CACERES DEL PERU         ;010
+02;18;03;COISHCO                  ;010
+02;18;04;MACATE                   ;010
+02;18;06;NEPE?A                   ;010
+02;18;07;SAMANCO                  ;010
+02;18;09;NUEVO CHIMBOTE           ;010
+02;19;02;ACOBAMBA                 ;010
+02;19;03;ALFONSO UGARTE           ;010
+02;19;06;HUAYLLABAMBA             ;010
+02;19;08;RAGASH                   ;010
+02;19;09;SAN JUAN                 ;010
+02;19;10;SICSIBAMBA               ;010
+02;20;02;CASCAPARA                ;010
+02;20;03;MANCOS                   ;010
+02;20;05;QUILLO                   ;010
+02;20;07;SHUPLUY                  ;010
+02;20;08;YANAMA                   ;010
+03;01;01;ABANCAY                  ;022
+03;01;03;CIRCA                    ;022
+03;01;04;CURAHUASI                ;022
+03;01;06;LAMBRAMA                 ;022
+03;01;07;PICHIRHUA                ;022
+03;01;08;SAN PEDRO DE CACHORA     ;022
+03;02;01;ANDAHUAYLAS              ;022
+03;02;03;CHIARA                   ;022
+03;02;04;HUANCARAMA               ;022
+03;02;05;HUANCARAY                ;022
+03;02;07;KISHUARA                 ;022
+03;02;09;PACUCHA                  ;022
+03;02;10;PAMPACHIRI               ;022
+03;02;11;POMACOCHA                ;022
+03;02;13;SAN JERONIMO             ;022
+03;02;14;SAN MIGUEL DE CHACCRAMPA ;022
+03;02;16;TALAVERA                 ;022
+03;02;17;TUMAY HUARACA            ;022
+03;02;18;TURPO                    ;022
+03;02;19;KAQUIABAMBA              ;022
+03;03;01;ANTABAMBA                ;022
+03;03;02;EL ORO                   ;022
+03;03;03;HUAQUIRCA                ;022
+03;03;04;JUAN ESPINOZA MEDRANO    ;022
+03;03;05;OROPESA                  ;022
+03;03;06;PACHACONAS               ;022
+03;03;07;SABAINO                  ;022
+03;04;02;CAPAYA                   ;022
+03;04;03;CARAYBAMBA               ;022
+03;04;04;CHAPIMARCA               ;022
+03;04;05;COLCABAMBA               ;022
+03;04;06;COTARUSE                 ;022
+03;04;08;JUSTO APU SAHUARAURA     ;022
+03;04;09;LUCRE                    ;022
+03;04;10;POCOHUANCA               ;022
+03;04;11;SAN JUAN DE CHAC?A       ;022
+03;04;13;SORAYA                   ;022
+15;98;01;BELLAVISTA               ;012
+04;01;09;MARIANO MELGAR           ;024
+04;01;10;MIRAFLORES               ;024
+04;01;12;PAUCARPATA               ;024
+04;01;13;POCSI                    ;024
+04;01;14;POLOBAYA                 ;024
+04;01;15;QUEQUE?A                 ;024
+04;01;17;SACHACA                  ;024
+04;01;18;SAN JUAN DE SIGUAS       ;024
+04;01;19;SAN JUAN DE TARUCANI     ;024
+04;01;20;SANTA ISABEL DE SIGUAS   ;024
+04;01;21;SANTA RITA DE SIGUAS     ;024
+04;01;23;TIABAYA                  ;024
+04;01;24;UCHUMAYO                 ;024
+04;01;26;YANAHUARA                ;024
+04;01;27;YARABAMBA                ;024
+04;01;29;JOSE LUIS BUSTAMANTE Y RI;024
+04;02;01;CAMANA                   ;024
+04;02;02;JOSE MARIA QUIMPER       ;024
+04;02;03;MARIANO NICOLAS VALCARCEL;024
+04;02;05;NICOLAS DE PIEROLA       ;024
+04;02;06;OCO?A                    ;024
+04;02;07;QUILCA                   ;024
+04;02;08;SAMUEL PASTOR            ;024
+04;03;01;CARAVELI                 ;024
+04;03;02;ACARI                    ;024
+04;03;04;ATIQUIPA                 ;024
+04;03;05;BELLA UNION              ;024
+04;03;06;CAHUACHO                 ;024
+04;03;07;CHALA                    ;024
+04;03;09;HUANUHUANU               ;024
+04;03;10;JAQUI                    ;024
+04;03;11;LOMAS                    ;024
+02;01;10;PARIACOTO                ;010
+02;01;11;PIRA                     ;010
+02;02;01;AIJA                     ;010
+02;02;02;CORIS                    ;010
+02;02;03;HUACLLAN                 ;010
+02;02;04;LA MERCED                ;010
+02;03;01;LLAMELLIN                ;010
+02;03;02;ACZO                     ;010
+02;03;03;CHACCHO                  ;010
+02;03;04;CHINGAS                  ;010
+02;03;06;SAN JUAN DE RONTOY       ;010
+02;04;01;CHACAS                   ;010
+02;04;02;ACOCHACA                 ;010
+02;05;01;CHIQUIAN                 ;010
+02;05;03;ANTONIO RAYMONDI         ;010
+02;05;04;AQUIA                    ;010
+02;05;05;CAJACAY                  ;010
+02;05;06;CANIS                    ;010
+02;05;07;COLQUIOC                 ;010
+02;05;08;HUALLANCA                ;010
+02;05;09;HUASTA                   ;010
+02;05;10;HUAYLLACAYAN             ;010
+02;05;12;MANGAS                   ;010
+02;05;13;PACLLON                  ;010
+02;05;14;SAN MIGUEL DE CORPANQUI  ;010
+02;05;15;TICLLOS                  ;010
+02;06;01;CARHUAZ                  ;010
+02;06;03;AMASHCA                  ;010
+15;98;02;LA PUNTA                 ;012
+15;98;03;LA PERLA                 ;012
+15;98;04;CARMEN DE LA LEGUA       ;012
+15;01;44;VENTANILLA               ;028
+08;10;04;COLCHA                   ;021
+08;10;05;HUANOQUITE               ;021
+08;10;06;OMACHA                   ;021
+08;10;08;PILLPINTO                ;021
+08;10;09;YAURISQUE                ;021
+08;11;01;PAUCARTAMBO              ;021
+08;11;02;CAICAY                   ;021
+08;11;03;CHALLABAMBA              ;021
+08;11;04;COLQUEPATA               ;021
+08;11;06;KOS?IPATA                ;021
+08;12;01;URCOS                    ;021
+08;12;02;ANDAHUAYLILLAS           ;021
+08;12;03;CAMANTI                  ;021
+08;12;04;CCARHUAYO                ;021
+08;12;06;CUSIPATA                 ;021
+08;12;07;HUARO                    ;021
+08;12;08;LUCRE                    ;021
+08;12;10;OCONGATE                 ;021
+08;12;12;QUIQUIJANA               ;021
+08;13;01;URUBAMBA                 ;021
+08;13;02;CHINCHERO                ;021
+08;13;03;HUAYLLABAMBA             ;021
+08;13;06;OLLANTAYTAMBO            ;021
+08;13;07;YUCAY                    ;021
+09;01;01;HUANCAVELICA             ;015
+09;01;02;ACOBAMBILLA              ;015
+09;01;05;CUENCA                   ;015
+09;01;06;HUACHOCOLPA              ;015
+09;01;07;HUAYLLAHUARA             ;015
+09;01;08;IZCUCHACA                ;015
+09;01;11;MARISCAL CACERES         ;015
+09;01;12;MOYA                     ;015
+09;01;13;NUEVO OCCORO             ;015
+09;01;16;VILCA                    ;015
+09;01;17;YAULI                    ;015
+09;01;18;ASCENSION                ;015
+09;02;01;ACOBAMBA                 ;015
+09;02;03;ANTA                     ;015
+09;02;04;CAJA                     ;015
+09;02;06;PAUCARA                  ;015
+09;02;07;POMACOCHA                ;015
+09;02;08;ROSARIO                  ;015
+09;03;02;ANCHONGA                 ;015
+09;03;04;CCOCHACCASA              ;015
+09;03;05;CHINCHO                  ;015
+09;03;07;HUANCA-HUANCA            ;015
+09;03;08;HUAYLLAY GRANDE          ;015
+09;03;09;JULCAMARCA               ;015
+09;03;11;SANTO TOMAS DE PATA      ;015
+09;03;12;SECCLLA                  ;015
+09;04;01;CASTROVIRREYNA           ;016
+09;04;03;AURAHUA                  ;016
+09;04;04;CAPILLAS                 ;015
+09;04;05;CHUPAMARCA               ;015
+09;04;06;COCAS                    ;015
+09;04;08;HUAMATAMBO               ;015
+06;08;04;COLASAY                  ;005
+01;01;03;BALSAS                   ;006
+01;01;04;CHETO                    ;006
+01;01;05;CHILIQUIN                ;006
+01;01;06;CHUQUIBAMBA              ;006
+01;01;08;HUANCAS                  ;006
+01;01;09;LA JALCA                 ;006
+01;01;10;LEIMEBAMBA               ;006
+01;01;11;LEVANTO                  ;006
+01;01;13;MARISCAL CASTILLA        ;006
+01;01;14;MOLINOPAMPA              ;006
+01;01;02;ASUNCION                 ;006
+01;01;15;MONTEVIDEO               ;006
+01;01;16;OLLEROS                  ;006
+01;01;17;QUINJALCA                ;006
+01;01;19;SAN ISIDRO DE MAINO      ;006
+01;01;20;SOLOCO                   ;006
+01;01;21;SONCHE                   ;006
+01;02;01;LA PECA                  ;006
+01;02;02;ARAMANGO                 ;006
+01;02;03;COPALLIN                 ;006
+01;02;04;EL PARCO                 ;006
+01;02;05;IMAZA                    ;006
+01;03;02;CHISQUILLA               ;006
+01;03;03;CHURUJA                  ;006
+01;03;04;COROSHA                  ;006
+01;03;05;CUISPES                  ;006
+01;03;06;FLORIDA                  ;006
+01;03;08;RECTA                    ;006
+01;03;09;SAN CARLOS               ;006
+01;03;10;SHIPASBAMBA              ;006
+01;03;11;VALERA                   ;006
+01;04;01;NIEVA                    ;006
+01;04;02;EL CENEPA                ;006
+01;04;03;RIO SANTIAGO             ;006
+01;05;01;LAMUD                    ;006
+01;05;02;CAMPORREDONDO            ;006
+01;05;04;COLCAMAR                 ;006
+01;05;05;CONILA                   ;006
+01;05;06;INGUILPATA               ;006
+01;05;07;LONGUITA                 ;006
+01;05;08;LONYA CHICO              ;006
+01;05;10;LUYA VIEJO               ;006
+01;05;11;MARIA                    ;006
+22;04;02;ALTO SAPOSOA             ;018
+22;05;02;ALONSO DE ALVARADO       ;018
+22;05;10;TABALOSOS                ;018
+22;06;04;PACHIZA                  ;018
+22;07;03;CASPISAPA                ;018
+22;07;09;TINGO DE PONASA          ;018
+22;08;05;PARDO MIGUEL             ;018
+22;09;01;TARAPOTO                 ;018
+22;09;07;HUIMBAYOC                ;018
+22;09;13;SAUCE                    ;018
+22;10;02;NUEVO PROGRESO           ;018
+23;01;03;CALANA                   ;027
+23;01;08;POCOLLAY                 ;027
+23;02;04;CURIBAYA                 ;027
+23;03;02;ILABAYA                  ;027
+23;04;04;ESTIQUE-PAMPA            ;027
+24;01;01;TUMBES                   ;003
+24;01;06;SAN JUAN DE LA VIRGEN    ;003
+08;12;09;MARCAPATA                ;021
+25;02;02;SEPAHUA                  ;019
+25;03;02;IRAZOLA                  ;019
+09;03;01;LIRCAY                   ;015
+12;04;13;LEONOR ORDO?EZ           ;011
+15;05;06;COAYLLO                  ;028
+21;02;03;ARAPA                    ;025
+09;01;19;HUANDO                   ;015
+22;03;01;SAN JOSE DE SISA         ;018
+06;12;01;SAN PABLO                ;005
+06;13;03;CATACHE                  ;005
+06;13;08;SAUCEPAMPA               ;005
+07;01;04;LA PERLA                 ;028
+08;01;04;SAN JERONIMO             ;021
+08;02;02;ACOPIA                   ;021
+08;02;07;SANGARARA                ;021
+08;03;06;LIMATAMBO                ;021
+08;04;03;LAMAY                    ;021
+08;04;08;YANATILE                 ;021
+08;05;05;LAYO                     ;021
+08;06;02;CHECACUPE                ;021
+08;06;07;SAN PEDRO                ;021
+08;07;05;LIVITACA                 ;021
+08;08;03;COPORAQUE                ;021
+08;08;08;ALTO PICHIGUA            ;021
+08;09;07;KIMBIRI                  ;029
+08;10;02;ACCHA                    ;021
+08;10;07;PACCARITAMBO             ;021
+08;11;05;HUANCARANI               ;021
+08;12;05;CCATCA                   ;021
+08;12;11;OROPESA                  ;021
+08;13;05;MARAS                    ;021
+09;01;03;ACORIA                   ;015
+09;01;10;MANTA                    ;015
+09;01;15;PILCHACA                 ;015
+09;02;05;MARCAS                   ;015
+09;03;03;CALLANMARCA              ;015
+09;03;10;SAN ANTONIO DE ANTAPARCO ;015
+09;04;02;ARMA                     ;016
+09;04;07;HUACHOS                  ;016
+09;04;12;TANTARA                  ;016
+09;05;04;EL CARMEN                ;015
+09;05;10;PACHAMARCA               ;015
+09;06;06;OCOYO                    ;016
+09;06;11;SAN FRANCISCO DE SANGAYAI;016
+09;07;05;COLCABAMBA               ;015
+09;07;11;PAZOS                    ;015
+09;07;17;SURCUBAMBA               ;015
+10;01;05;MARGOS                   ;013
+10;01;10;YARUMAYO                 ;013
+10;02;05;HUACAR                   ;013
+10;03;07;CHUQUIS                  ;013
+10;03;21;SHUNQUI                  ;013
+10;04;04;PINRA                    ;013
+10;05;04;JACAS GRANDE             ;013
+10;05;11;TANTAMAYO                ;013
+10;06;06;MARIANO DAMASO BERAUN    ;013
+10;09;01;PUERTO INCA              ;013
+10;10;03;JIVIA                    ;013
+10;10;07;SAN MIGUEL DE CAURI      ;013
+11;01;02;LA TINGUI?A              ;016
+11;01;08;SALAS                    ;016
+11;01;13;TATE                     ;016
+11;02;03;CHAVIN                   ;016
+11;02;08;SAN JUAN DE YANAC        ;016
+11;03;05;VISTA ALEGRE             ;016
+11;05;01;PISCO                    ;016
+11;05;06;SAN ANDRES               ;016
+12;01;06;CHICCHE                  ;011
+12;01;13;CULLHUAS                 ;011
+12;01;21;HUAYUCACHI               ;011
+12;01;28;QUILCAS                  ;011
+12;01;35;SANTO DOMINGO DE ACOBAMBA;011
+12;02;10;MATAHUASI                ;011
+12;03;04;SAN LUIS DE SHUARO       ;011
+12;04;07;EL MANTARO               ;011
+12;04;15;MARCO                    ;011
+12;04;19;MONOBAMBA                ;011
+12;04;26;POMACANCHA               ;011
+12;04;33;YAULI                    ;011
+12;06;01;SATIPO                   ;011
+12;06;07;RIO NEGRO                ;011
+12;08;02;CHACAPALPA               ;011
+12;08;09;SUITUCANCHA              ;011
+12;09;05;HUAMANCACA CHICO         ;011
+13;01;04;HUANCHACO                ;009
+13;01;09;SALAVERRY                ;009
+13;02;04;MAGDALENA DE CAO         ;009
+13;03;04;LONGOTEA                 ;005
+13;04;03;PUEBLO NUEVO             ;009
+13;06;04;CHARAT                   ;009
+13;06;11;SALPO                    ;009
+13;07;02;GUADALUPE                ;009
+13;08;03;CHILLIA                  ;009
+13;08;08;PARCOY                   ;009
+13;08;13;URPAY                    ;009
+13;09;05;MARCABAL                 ;009
+13;10;03;CACHICADAN               ;009
+13;11;01;CASCAS                   ;009
+13;12;02;CHAO                     ;009
+14;01;03;ETEN                     ;004
+14;01;08;MONSEFU                  ;004
+14;01;13;REQUE                    ;004
+14;01;18;POMALCA                  ;004
+14;02;03;INCAHUASI                ;004
+14;03;03;ILLIMO                   ;004
+14;03;08;OLMOS                    ;004
+14;03;12;TUCUME                   ;004
+15;01;10;COMAS                    ;028
+15;01;15;LA VICTORIA              ;028
+15;01;21;PUEBLO LIBRE             ;028
+15;01;28;RIMAC                    ;028
+15;01;32;SAN JUAN DE LURIGANCHO   ;028
+15;01;42;VILLA EL SALVADOR        ;028
+15;03;03;GORGOR                   ;028
+15;04;04;HUAROS                   ;028
+15;05;03;CALANGO                  ;028
+15;05;09;MALA                     ;028
+15;05;15;SANTA CRUZ DE FLORES     ;028
+15;06;08;PACARAOS                 ;028
+15;07;03;CALLAHUANCA              ;028
+15;07;10;LAHUAYTAMBO              ;028
+15;07;18;SAN DAMIAN               ;028
+15;07;25;SAN PEDRO DE HUANCAYRE   ;028
+15;08;03;CALETA DE CARQUIN        ;028
+15;08;10;SANTA MARIA              ;028
+15;09;05;NAVAN                    ;028
+15;10;03;AYAUCA                   ;028
+15;10;08;CATAHUASI                ;028
+15;10;14;HUANCAYA                 ;028
+15;10;20;MADEAN                   ;028
+15;10;25;QUINOCAY                 ;028
+15;10;30;TOMAS                    ;028
+16;01;02;ALTO NANAY               ;020
+16;01;08;PUNCHANA                 ;020
+16;02;03;BARRANCA                 ;020
+16;02;09;PASTAZA                  ;020
+16;03;03;TIGRE                    ;020
+16;04;03;YAVARI                   ;020
+16;05;04;EMILIO SAN MARTIN        ;020
+16;06;02;INAHUAYA                 ;020
+17;01;01;TAMBOPATA                ;023
+17;03;01;I?APARI                  ;023
+18;01;03;CUCHUMBAYA               ;026
+18;02;03;COALAQUE                 ;026
+18;02;09;QUINISTAQUILLAS          ;026
+19;01;02;HUACHON                  ;012
+15;10;02;ALIS                     ;028
+15;10;04;AYAVIRI                  ;028
+15;10;05;AZANGARO                 ;028
+15;10;06;CACRA                    ;028
+15;10;07;CARANIA                  ;028
+15;10;09;CHOCOS                   ;028
+15;10;10;COCHAS                   ;028
+15;10;11;COLONIA                  ;028
+15;10;12;HONGOS                   ;028
+15;10;13;HUAMPARA                 ;028
+15;10;15;HUANGASCAR               ;028
+15;10;16;HUANTAN                  ;028
+15;10;17;HUA?EC                   ;028
+15;10;18;LARAOS                   ;028
+15;10;19;LINCHA                   ;028
+15;10;21;MIRAFLORES               ;028
+15;10;22;OMAS                     ;028
+15;10;23;PUTINZA                  ;028
+15;10;24;QUINCHES                 ;028
+15;10;26;SAN JOAQUIN              ;028
+15;10;27;SAN PEDRO DE PILAS       ;028
+15;10;28;TANTA                    ;028
+15;10;29;TAURIPAMPA               ;028
+15;10;31;TUPE                     ;028
+15;10;32;VI?AC                    ;028
+15;10;33;VITIS                    ;028
+16;01;01;IQUITOS                  ;020
+16;01;03;FERNANDO LORES           ;020
+16;01;04;INDIANA                  ;020
+16;01;05;LAS AMAZONAS             ;020
+16;01;06;MAZAN                    ;020
+16;01;07;NAPO                     ;020
+16;01;09;PUTUMAYO                 ;020
+16;01;10;TORRES CAUSANA           ;020
+16;01;12;BELEN                    ;020
+05;06;12;OCA?A                    ;016
+05;06;18;SAN PEDRO DE PALCO       ;016
+05;07;07;SAN FRANCISCO DE RAVACAYC;014
+05;09;01;QUEROBAMBA               ;014
+05;09;07;PAICO                    ;014
+05;10;03;APONGO                   ;014
+05;10;09;HUANCARAYLLA             ;014
+05;11;03;CARHUANCA                ;014
+06;01;03;CHETILLA                 ;005
+06;02;01;CAJABAMBA                ;005
+06;03;03;CORTEGANA                ;005
+06;03;09;SOROCHUCO                ;005
+06;04;02;ANGUIA                   ;005
+06;04;07;COCHABAMBA               ;005
+06;04;13;PACCHA                   ;005
+06;04;18;TOCMOCHE                 ;005
+06;05;05;SAN BENITO               ;005
+06;06;03;CHOROS                   ;005
+06;06;08;SAN ANDRES DE CUTERVO    ;005
+06;07;03;HUALGAYOC                ;005
+06;08;05;HUABAL                   ;005
+06;08;10;SAN FELIPE               ;005
+06;09;04;LA COIPA                 ;005
+06;10;03;EDUARDO VILLANUEVA       ;005
+06;11;04;CATILLUC                 ;005
+25;03;01;PADRE ABAD               ;019
+21;08;03;CUPI                     ;025
+21;08;04;LLALLI                   ;025
+21;08;05;MACARI                   ;025
+21;08;06;NU?OA                    ;025
+21;08;07;ORURILLO                 ;025
+21;08;08;SANTA ROSA               ;025
+09;06;01;HUAYTARA                 ;016
+09;06;02;AYAVI                    ;016
+09;06;03;CORDOVA                  ;016
+09;06;04;HUAYACUNDO ARMA          ;016
+09;06;05;LARAMARCA                ;016
+09;06;07;PILPICHACA               ;016
+09;06;08;QUERCO                   ;016
+09;06;09;QUITO-ARMA               ;016
+09;06;10;SAN ANTONIO DE CUSICANCHA;016
+09;06;12;SAN ISIDRO               ;016
+09;06;13;SANTIAGO DE CHOCORVOS    ;016
+09;06;14;SANTIAGO DE QUIRAHUARA   ;016
+09;06;15;SANTO DOMINGO DE CAPILLAS;016
+09;06;16;TAMBO                    ;016
+09;07;01;PAMPAS                   ;015
+09;07;02;ACOSTAMBO                ;015
+09;07;03;ACRAQUIA                 ;015
+09;07;04;AHUAYCHA                 ;015
+09;07;06;DANIEL HERNANDEZ         ;015
+09;07;07;HUACHOCOLPA              ;015
+09;07;08;HUANDO                   ;015
+09;07;09;HUARIBAMBA               ;015
+09;07;10;?AHUIMPUQUIO             ;015
+09;07;13;QUISHUAR                 ;015
+09;07;14;SALCABAMBA               ;015
+09;07;15;SALCAHUASI               ;015
+09;07;16;SAN MARCOS DE ROCCHAC    ;015
+09;07;18;TINTAY PUNCU             ;015
+10;01;01;HUANUCO                  ;013
+10;01;02;AMARILIS                 ;013
+10;01;03;CHINCHAO                 ;013
+10;01;04;CHURUBAMBA               ;013
+10;01;06;QUISQUI                  ;013
+10;01;07;SAN FRANCISCO DE CAYRAN  ;013
+10;01;08;SAN PEDRO DE CHAULAN     ;013
+10;01;09;SANTA MARIA DEL VALLE    ;013
+10;01;11;PILLCO MARCA             ;
+10;02;01;AMBO                     ;013
+10;02;02;CAYNA                    ;013
+10;02;03;COLPAS                   ;013
+10;02;04;CONCHAMARCA              ;013
+10;02;06;SAN FRANCISCO            ;013
+10;02;07;SAN RAFAEL               ;013
+10;02;08;TOMAY KICHWA             ;013
+10;03;01;LA UNION                 ;013
+10;03;11;MARIAS                   ;013
+10;03;13;PACHAS                   ;013
+10;03;16;QUIVILLA                 ;013
+10;03;17;RIPAN                    ;013
+10;03;22;SILLAPATA                ;013
+10;03;23;YANAS                    ;013
+10;04;01;HUACAYBAMBA              ;013
+10;04;02;CANCHABAMBA              ;013
+10;04;03;COCHABAMBA               ;013
+10;05;01;LLATA                    ;013
+10;05;02;ARANCAY                  ;013
+10;05;03;CHAVIN DE PARIARCA       ;013
+10;05;05;JIRCAN                   ;013
+10;05;06;MIRAFLORES               ;013
+10;05;07;MONZON                   ;013
+10;05;08;PUNCHAO                  ;013
+10;05;09;PU?OS                    ;013
+10;05;10;SINGA                    ;013
+10;06;01;RUPA-RUPA                ;013
+10;06;02;DANIEL ALOMIA ROBLES     ;013
+10;06;03;HERMILIO VALDIZAN        ;013
+10;06;04;JOSE CRESPO Y CASTILLO   ;013
+10;06;05;LUYANDO                  ;013
+10;07;01;HUACRACHUCO              ;010
+10;07;02;CHOLON                   ;010
+10;07;03;SAN BUENAVENTURA         ;010
+10;08;01;PANAO                    ;013
+10;08;02;CHAGLLA                  ;013
+10;08;03;MOLINO                   ;013
+10;08;04;UMARI                    ;013
+10;09;02;CODO DEL POZUZO          ;013
+10;09;03;HONORIA                  ;013
+10;09;04;TOURNAVISTA              ;013
+10;09;05;YUYAPICHIS               ;013
+10;10;01;JESUS                    ;013
+10;10;02;BA?OS                    ;013
+10;10;04;QUEROPALCA               ;013
+10;10;05;RONDOS                   ;013
+10;10;06;SAN FRANCISCO DE ASIS    ;013
+10;11;01;CHAVINILLO               ;013
+10;11;02;CAHUAC                   ;013
+10;11;03;CHACABAMBA               ;013
+10;11;04;APARICIO POMARES(CHUPAN) ;013
+10;11;05;JACAS CHICO              ;013
+10;11;06;OBAS                     ;013
+10;11;07;PAMPAMARCA               ;013
+10;11;08;CHORAS                   ;
+11;01;01;ICA                      ;016
+11;01;03;LOS AQUIJES              ;016
+11;01;04;OCUCAJE                  ;016
+11;01;05;PACHACUTEC               ;016
+11;01;06;PARCONA                  ;016
+11;01;07;PUEBLO NUEVO             ;016
+11;01;09;SAN JOSE DE LOS MOLINOS  ;016
+11;01;10;SAN JUAN BAUTISTA        ;016
+11;01;11;SANTIAGO                 ;016
+11;01;12;SUBTANJALLA              ;016
+11;01;14;YAUCA DEL ROSARIO  1/    ;016
+11;02;01;CHINCHA ALTA             ;016
+11;02;02;ALTO LARAN               ;016
+11;02;04;CHINCHA BAJA             ;016
+11;02;05;EL CARMEN                ;016
+11;02;06;GROCIO PRADO             ;016
+11;02;07;PUEBLO NUEVO             ;016
+11;02;09;SAN PEDRO DE HUACARPANA  ;016
+11;02;10;SUNAMPE                  ;016
+11;02;11;TAMBO DE MORA            ;016
+11;03;01;NAZCA                    ;016
+11;03;02;CHANGUILLO               ;016
+11;03;03;EL INGENIO               ;016
+11;03;04;MARCONA                  ;016
+11;04;01;PALPA                    ;016
+11;04;02;LLIPATA                  ;016
+11;04;03;RIO GRANDE               ;016
+11;04;04;SANTA CRUZ               ;016
+11;04;05;TIBILLO                  ;016
+11;05;02;HUANCANO                 ;016
+11;05;03;HUMAY                    ;016
+11;05;04;INDEPENDENCIA            ;016
+11;05;05;PARACAS                  ;016
+11;05;07;SAN CLEMENTE             ;016
+11;05;08;TUPAC AMARU INCA         ;016
+12;01;01;HUANCAYO                 ;011
+12;01;04;CARHUACALLANGA           ;011
+12;01;05;CHACAPAMPA               ;011
+12;01;07;CHILCA                   ;011
+12;01;08;CHONGOS ALTO             ;011
+12;01;11;CHUPURO                  ;011
+12;01;12;COLCA                    ;011
+12;01;14;EL TAMBO                 ;011
+12;01;16;HUACRAPUQUIO             ;011
+12;01;17;HUALHUAS                 ;011
+12;01;19;HUANCAN                  ;011
+12;01;20;HUASICANCHA              ;011
+12;01;22;INGENIO                  ;011
+12;01;24;PARIAHUANCA              ;011
+12;01;25;PILCOMAYO                ;011
+12;01;26;PUCARA                   ;011
+12;01;27;QUICHUAY                 ;011
+12;01;29;SAN AGUSTIN              ;011
+12;01;32;SA?O                     ;011
+12;01;33;SAPALLANGA               ;011
+12;01;34;SICAYA                   ;011
+12;01;36;VIQUES                   ;011
+12;02;01;CONCEPCION               ;011
+12;02;02;ACO                      ;011
+12;02;03;ANDAMARCA                ;011
+12;02;04;CHAMBARA                 ;011
+09;04;09;MOLLEPAMPA               ;015
+06;08;06;LAS PIRIAS               ;005
+06;08;07;POMAHUACA                ;005
+06;08;08;PUCARA                   ;005
+06;08;09;SALLIQUE                 ;005
+06;08;11;SAN JOSE DEL ALTO        ;005
+06;08;12;SANTA ROSA               ;005
+06;09;01;SAN IGNACIO              ;005
+06;09;02;CHIRINOS                 ;005
+06;09;03;HUARANGO                 ;005
+06;09;05;NAMBALLE                 ;005
+06;09;06;SAN JOSE DE LOURDES      ;005
+06;09;07;TABACONAS                ;005
+06;10;01;PEDRO GALVEZ             ;005
+06;10;02;CHANCAY                  ;005
+06;10;04;GREGORIO PITA            ;005
+06;10;05;ICHOCAN                  ;005
+06;10;06;JOSE MANUEL QUIROZ       ;005
+06;10;07;JOSE SABOGAL             ;005
+06;11;01;SAN MIGUEL               ;005
+06;11;02;BOLIVAR                  ;005
+06;11;03;CALQUIS                  ;005
+06;11;05;EL PRADO                 ;005
+06;11;06;LA FLORIDA               ;005
+06;11;07;LLAPA                    ;005
+06;11;08;NANCHOC                  ;005
+06;11;10;SAN GREGORIO             ;005
+06;11;11;SAN SILVESTRE DE COCHAN  ;005
+06;11;12;TONGOD                   ;005
+06;11;13;UNION AGUA BLANCA        ;005
+06;12;02;SAN BERNARDINO           ;005
+06;12;03;SAN LUIS                 ;005
+06;12;04;TUMBADEN                 ;005
+06;13;01;SANTA CRUZ               ;005
+06;13;02;ANDABAMBA                ;005
+06;13;04;CHANCAYBA?OS             ;005
+06;13;05;LA ESPERANZA             ;005
+06;13;06;NINABAMBA                ;005
+06;13;07;PULAN                    ;005
+06;13;09;SEXI                     ;005
+06;13;10;UTICYACU                 ;005
+06;13;11;YAUYUCAN                 ;005
+07;01;01;CALLAO                   ;028
+07;01;02;BELLAVISTA               ;028
+07;01;05;LA PUNTA                 ;028
+07;01;06;VENTANILLA               ;028
+08;01;01;CUSCO                    ;021
+08;01;02;CCORCA                   ;021
+08;01;03;POROY                    ;021
+08;01;05;SAN SEBASTIAN            ;021
+08;01;06;SANTIAGO                 ;021
+08;01;07;SAYLLA                   ;021
+08;01;08;WANCHAQ                  ;021
+08;02;01;ACOMAYO                  ;021
+03;06;02;ANCO-HUALLO              ;022
+03;06;03;COCHARCAS                ;022
+03;06;05;OCOBAMBA                 ;022
+03;06;06;ONGOY                    ;022
+03;06;07;URANMARCA                ;022
+03;06;08;RANRACANCHA              ;022
+03;07;02;CURPAHUASI               ;022
+03;07;03;GAMARRA                  ;022
+03;07;04;HUAYLLATI                ;022
+03;07;05;MAMARA                   ;022
+03;07;06;MICAELA BASTIDAS         ;022
+03;07;07;PATAYPAMPA               ;022
+03;07;09;SAN ANTONIO              ;022
+03;07;10;SANTA ROSA               ;022
+03;07;11;TURPAY                   ;022
+03;07;12;VILCABAMBA               ;022
+03;07;13;VIRUNDO                  ;022
+04;01;01;AREQUIPA                 ;024
+04;01;02;ALTO SELVA ALEGRE        ;024
+04;01;03;CAYMA                    ;024
+04;01;04;CERRO COLORADO           ;024
+04;01;06;CHIGUATA                 ;024
+04;01;07;JACOBO HUNTER            ;024
+04;01;08;LA JOYA                  ;024
+19;01;07;PAUCARTAMBO              ;012
+19;01;13;YANACANCHA               ;012
+19;02;06;SANTA ANA DE TUSI        ;012
+19;03;06;PUERTO BERMUDEZ          ;012
+20;01;09;LA ARENA                 ;002
+20;02;03;JILILI                   ;002
+20;02;08;SAPILLICA                ;002
+20;03;04;HUARMACA                 ;002
+20;04;01;CHULUCANAS               ;002
+20;04;07;SAN JUAN DE BIGOTE       ;002
+20;05;05;LA HUACA                 ;002
+20;06;04;LANCONES                 ;002
+20;07;01;PARI?AS                  ;002
+20;07;06;MANCORA                  ;002
+20;08;06;RINCONADA LLICUAR        ;002
+21;01;07;COATA                    ;025
+21;01;13;SAN ANTONIO              ;025
+21;02;05;CAMINACA                 ;025
+21;02;12;SAN JOSE                 ;025
+21;03;03;AYAPATA                  ;025
+21;03;10;USICAYOS                 ;025
+21;04;06;POMATA                   ;025
+21;05;05;CONDURIRI                ;025
+03;02;02;ANDARAPA                 ;022
+22;02;02;ALTO BIAVO               ;018
+06;11;09;NIEPOS                   ;005
+25;03;03;CURIMANA                 ;019
+09;01;09;LARIA                    ;015
+25;04;01;PURUS                    ;019
+09;01;14;PALCA                    ;015
+09;02;02;ANDABAMBA                ;015
+09;03;06;CONGALLA                 ;015
+12;01;30;SAN JERONIMO DE TUNAN    ;011
+12;02;05;COCHAS                   ;011
+12;02;11;MITO                     ;011
+12;03;01;CHANCHAMAYO              ;011
+12;04;02;ACOLLA                   ;011
+12;04;08;HUAMALI                  ;011
+12;04;21;MUQUIYAUYO               ;011
+12;04;28;SAN LORENZO              ;011
+12;05;01;JUNIN                    ;011
+12;06;02;COVIRIALI                ;011
+12;07;01;TARMA                    ;011
+15;01;40;SANTIAGO DE SURCO        ;028
+15;03;01;CAJATAMBO                ;028
+15;04;02;ARAHUAY                  ;028
+15;05;02;ASIA                     ;028
+15;05;12;QUILMANA                 ;028
+15;06;04;AUCALLAMA                ;028
+15;06;11;SUMBILCA                 ;028
+15;07;05;CHICLA                   ;028
+15;07;11;LANGA                    ;028
+15;07;16;SAN ANTONIO              ;028
+15;07;23;SAN MATEO DE OTAO        ;028
+21;01;12;PLATERIA                 ;025
+21;02;09;POTONI                   ;025
+21;02;15;TIRAPATA                 ;025
+21;03;06;CRUCERO                  ;025
+21;04;03;HUACULLANI               ;025
+21;05;03;PILCUYO                  ;025
+17;02;03;MADRE DE DIOS            ;023
+04;01;25;VITOR                    ;024
+06;06;11;SANTA CRUZ               ;005
+12;02;15;SANTA ROSA DE OCOPA      ;011
+12;08;07;SANTA BARBARA DE CARHUACA;011
+05;09;10;SANTIAGO DE PAUCARAY     ;014
+07;01;03;CARMEN DE LA LEGUA REYNOS;028
+12;06;08;RIO TAMBO                ;011
+15;07;31;SANTO DOMINGO DE LOS OLLE;028
+08;09;99;VILCABAMBA-2             ;021
+10;07;99;CHOLON - 2               ;013
+10;10;99;APARICIO POMARES         ;013
+12;06;99;RIO TAMBO-2              ;029
+16;01;11;YAQUERANA                ;020
+15;01;90;MAGDALENA VIEJA          ;028
+99;99;99;DISTRITO X               ;
+15;01;93;TERMINAL PORTUARIO       ;031
+15;01;94;TERMINAL AEREO           ;030
+15;01;95;CONTROL BIOLOGICO        ;033
+15;01;96;MOSCA DE LA FRUTA        ;032
+15;01;97;LAB.SANIDAD VEGETAL      ;035
+15;01;98;LAB.SANIDAD ANIMAL       ;034
+15;01;99;NIVEL CENTRAL            ;001
+01;01;01;CHACHAPOYAS              ;006
+01;01;07;GRANADA                  ;006
+01;01;12;MAGDALENA                ;006
+01;01;18;SAN FRANCISCO DE DAGUAS  ;006
+01;03;01;JUMBILLA                 ;006
+01;03;07;JAZAN                    ;006
+01;03;12;YAMBRASBAMBA             ;006
+01;05;03;COCABAMBA                ;006
+01;05;09;LUYA                     ;006
+01;05;13;OCUMAL                   ;006
+01;05;18;SAN JERONIMO             ;006
+01;06;02;CHIRIMOTO                ;006
+01;06;08;MILPUC                   ;006
+01;07;01;BAGUA GRANDE             ;006
+01;07;07;YAMON                    ;006
+02;01;05;INDEPENDENCIA            ;010
+21;08;09;UMACHIRI                 ;025
+02;18;08;SANTA                    ;010
+21;09;01;MOHO                     ;025
+21;09;02;CONIMA                   ;025
+21;09;03;HUAYRAPATA               ;025
+21;09;04;TILALI                   ;025
+02;19;04;CASHAPAMPA               ;010
+21;10;01;PUTINA                   ;025
+21;10;02;ANANEA                   ;025
+21;10;03;PEDRO VILCA APAZA        ;025
+21;10;04;QUILCAPUNCU              ;025
+21;10;05;SINA                     ;025
+02;20;01;YUNGAY                   ;010
+21;11;01;JULIACA                  ;025
+21;11;02;CABANA                   ;025
+21;11;03;CABANILLAS               ;025
+21;11;04;CARACOTO                 ;025
+02;20;06;RANRAHIRCA               ;010
+21;12;01;SANDIA                   ;025
+21;12;02;CUYOCUYO                 ;025
+21;12;03;LIMBANI                  ;025
+21;12;04;PATAMBUCO                ;025
+21;12;05;PHARA                    ;025
+21;12;06;QUIACA                   ;025
+21;12;07;SAN JUAN DEL ORO         ;025
+21;12;08;YANAHUAYA                ;025
+21;12;09;ALTO INAMBARI            ;025
+03;01;05;HUANIPACA                ;022
+21;13;01;YUNGUYO                  ;025
+21;13;02;ANAPIA                   ;025
+21;13;03;COPANI                   ;025
+21;13;04;CUTURAPI                 ;025
+21;13;05;OLLARAYA                 ;025
+21;13;06;TINICACHI                ;025
+17;01;04;LABERINTO                ;023
+17;02;01;MANU                     ;023
+17;02;02;FITZCARRALD              ;023
+17;02;04;HUEPETUHE                ;
+17;03;02;IBERIA                   ;023
+17;03;03;TAHUAMANU                ;023
+18;01;01;MOQUEGUA                 ;026
+18;01;02;CARUMAS                  ;026
+18;01;04;SAMEGUA                  ;026
+18;01;05;SAN CRISTOBAL            ;026
+18;01;06;TORATA                   ;026
+18;02;01;OMATE                    ;026
+18;02;02;CHOJATA                  ;026
+18;02;04;ICHU?A                   ;026
+18;02;05;LA CAPILLA               ;026
+18;02;06;LLOQUE                   ;026
+18;02;07;MATALAQUE                ;026
+18;02;08;PUQUINA                  ;026
+18;02;10;UBINAS                   ;026
+18;02;11;YUNGA                    ;026
+18;03;01;ILO                      ;026
+18;03;02;EL ALGARROBAL            ;026
+18;03;03;PACOCHA                  ;026
+19;01;01;CHAUPIMARCA              ;012
+19;01;03;HUARIACA                 ;012
+19;01;04;HUAYLLAY                 ;012
+19;01;05;NINACACA                 ;012
+19;01;06;PALLANCHACRA             ;012
+19;01;08;SAN FCO.DE ASIS DE YARUSY;012
+19;01;09;SIMON BOLIVAR            ;012
+19;01;10;TICLACAYAN               ;012
+19;01;11;TINYAHUARCO              ;012
+19;01;12;VICCO                    ;012
+19;02;01;YANAHUANCA               ;012
+19;02;02;CHACAYAN                 ;012
+19;02;03;GOYLLARISQUIZGA          ;012
+19;02;04;PAUCAR                   ;012
+19;02;05;SAN PEDRO DE PILLAO      ;012
+19;02;07;TAPUC                    ;012
+19;02;08;VILCABAMBA               ;012
+19;03;01;OXAPAMPA                 ;012
+19;03;02;CHONTABAMBA              ;012
+19;03;03;HUANCABAMBA              ;012
+19;03;04;PALCAZU                  ;012
+19;03;05;POZUZO                   ;012
+19;03;07;VILLA RICA               ;012
+20;01;01;PIURA                    ;002
+20;01;04;CASTILLA                 ;002
+20;01;05;CATACAOS                 ;002
+20;01;07;CURA MORI                ;002
+20;01;08;EL TALLAN                ;002
+20;01;10;LA UNION                 ;002
+20;01;11;LAS LOMAS                ;002
+20;01;14;TAMBO GRANDE             ;002
+20;02;01;AYABACA                  ;002
+20;02;02;FRIAS                    ;002
+20;02;04;LAGUNAS                  ;002
+20;02;05;MONTERO                  ;002
+20;02;06;PACAIPAMPA               ;002
+20;02;07;PAIMAS                   ;002
+20;02;09;SICCHEZ                  ;002
+20;02;10;SUYO                     ;002
+20;03;01;HUANCABAMBA              ;002
+20;03;02;CANCHAQUE                ;002
+20;03;03;EL CARMEN DE LA FRONTERA ;002
+20;03;05;LALAQUIZ                 ;002
+20;03;06;SAN MIGUEL DE EL FAIQUE  ;002
+20;03;07;SONDOR                   ;002
+20;03;08;SONDORILLO               ;002
+20;04;02;BUENOS AIRES             ;002
+20;04;03;CHALACO                  ;002
+20;04;04;LA MATANZA               ;002
+20;04;05;MORROPON                 ;002
+20;04;06;SALITRAL                 ;002
+20;04;08;SANTA CATALINA DE MOSSA  ;002
+20;04;09;SANTO DOMINGO            ;002
+20;04;10;YAMANGO                  ;002
+20;05;01;PAITA                    ;002
+20;05;02;AMOTAPE                  ;002
+20;05;03;ARENAL                   ;002
+20;05;04;COLAN                    ;002
+20;05;06;TAMARINDO                ;002
+20;05;07;VICHAYAL                 ;002
+20;06;01;SULLANA                  ;002
+20;06;02;BELLAVISTA               ;002
+20;06;03;IGNACIO ESCUDERO         ;002
+20;06;05;MARCAVELICA              ;002
+20;06;06;MIGUEL CHECA             ;002
+20;06;07;QUERECOTILLO             ;002
+20;06;08;SALITRAL                 ;002
+20;07;02;EL ALTO                  ;002
+20;07;03;LA BREA                  ;002
+20;07;04;LOBITOS                  ;002
+20;07;05;LOS ORGANOS              ;002
+20;08;01;SECHURA                  ;002
+20;08;02;BELLAVISTA DE LA UNION   ;002
+20;08;03;BERNAL                   ;002
+22;01;01;MOYOBAMBA                ;018
+22;01;02;CALZADA                  ;018
+22;01;03;HABANA                   ;018
+22;01;04;JEPELACIO                ;018
+22;01;05;SORITOR                  ;018
+22;01;06;YANTALO                  ;018
+03;02;08;PACOBAMBA                ;022
+22;02;01;BELLAVISTA               ;018
+22;02;03;BAJO BIAVO               ;018
+22;02;04;HUALLAGA                 ;018
+22;02;05;SAN PABLO                ;018
+22;02;06;SAN RAFAEL               ;018
+03;02;15;SANTA MARIA DE CHICMO    ;022
+22;03;02;AGUA BLANCA              ;018
+22;03;03;SAN MARTIN               ;018
+22;03;04;SANTA ROSA               ;018
+22;03;05;SHATOJA                  ;018
+05;03;03;SACSAMARCA               ;016
+22;04;01;SAPOSOA                  ;018
+22;04;03;EL ESLABON               ;018
+22;04;04;PISCOYACU                ;018
+22;04;05;SACANCHE                 ;018
+22;04;06;TINGO DE SAPOSOA         ;018
+05;04;06;SANTILLANA               ;014
+22;05;01;LAMAS                    ;018
+22;05;03;BARRANQUITA              ;018
+22;05;04;CAYNARACHI               ;018
+22;05;05;CU?UMBUQUI               ;018
+22;05;06;PINTO RECODO             ;018
+22;05;07;RUMISAPA                 ;018
+22;05;08;SAN ROQUE DE CUMBAZA     ;018
+22;05;09;SHANAO                   ;018
+22;09;11;PAPAPLAYA                ;018
+22;09;12;SAN ANTONIO              ;018
+22;09;14;SHAPAJA                  ;018
+05;06;19;SANCOS                   ;014
+22;10;01;TOCACHE                  ;018
+22;10;03;POLVORA                  ;018
+22;10;04;SHUNTE                   ;018
+22;10;05;UCHIZA                   ;018
+05;07;06;PUYUSCA                  ;014
+23;01;01;TACNA                    ;027
+23;01;02;ALTO DE LA ALIANZA       ;027
+23;01;04;CIUDAD NUEVA             ;027
+23;01;05;INCLAN                   ;027
+23;01;06;PACHIA                   ;027
+23;01;07;PALCA                    ;027
+23;01;09;SAMA                     ;027
+23;01;10;CORONEL GREGORIO ALBARRAC;
+05;08;04;LAMPA                    ;014
+23;02;01;CANDARAVE                ;027
+23;02;02;CAIRANI                  ;027
+23;02;03;CAMILACA                 ;027
+23;02;05;HUANUARA                 ;027
+23;02;06;QUILAHUANI               ;027
+05;08;09;SAN JOSE DE USHUA        ;014
+23;03;01;LOCUMBA                  ;027
+23;03;03;ITE                      ;027
+05;09;08;SAN PEDRO DE LARCAY      ;014
+23;04;01;TARATA                   ;027
+23;04;02;CHUCATAMANI              ;027
+23;04;03;ESTIQUE                  ;027
+23;04;05;SITAJARA                 ;027
+23;04;06;SUSAPAYA                 ;027
+02;19;05;CHINGALPO                ;010
+03;04;14;TAPAIRIHUA               ;022
+03;04;15;TINTAY                   ;022
+03;04;16;TORAYA                   ;022
+03;05;01;TAMBOBAMBA               ;022
+03;05;02;COTABAMBAS               ;022
+03;05;03;COYLLURQUI               ;022
+03;05;04;HAQUIRA                  ;022
+03;05;06;CHALLHUAHUACHO           ;022
+03;06;01;CHINCHEROS               ;022
+12;08;06;PACCHA                   ;011
+12;08;08;SANTA ROSA DE SACCO      ;011
+12;08;10;YAULI                    ;011
+12;09;01;CHUPACA                  ;011
+12;09;02;AHUAC                    ;011
+12;09;03;CHONGOS BAJO             ;011
+12;09;04;HUACHAC                  ;011
+12;09;06;SAN JUAN DE ISCOS        ;011
+12;09;07;SAN JUAN DE JARPA        ;011
+12;09;08;TRES DE DICIEMBRE        ;011
+12;09;09;YANACANCHA               ;011
+13;01;01;TRUJILLO                 ;009
+13;01;02;EL PORVENIR              ;009
+13;01;03;FLORENCIA DE MORA        ;009
+13;01;05;LA ESPERANZA             ;009
+13;01;06;LAREDO                   ;009
+13;01;07;MOCHE                    ;009
+13;01;08;POROTO                   ;009
+13;01;10;SIMBAL                   ;009
+13;01;11;VICTOR LARCO HERRERA     ;009
+13;02;01;ASCOPE                   ;009
+13;02;02;CHICAMA                  ;009
+13;02;03;CHOCOPE                  ;009
+13;02;05;PAIJAN                   ;009
+13;02;06;RAZURI                   ;009
+13;02;07;SANTIAGO DE CAO          ;009
+13;02;08;CASA GRANDE              ;009
+13;03;01;BOLIVAR                  ;005
+13;03;02;BAMBAMARCA               ;005
+13;03;03;CONDORMARCA              ;005
+13;03;05;UCHUMARCA                ;005
+13;03;06;UCUNCHA                  ;005
+13;04;01;CHEPEN                   ;009
+13;04;02;PACANGA                  ;009
+13;05;01;JULCAN                   ;009
+13;05;02;CALAMARCA                ;009
+13;05;03;CARABAMBA                ;009
+13;05;04;HUASO                    ;009
+13;06;01;OTUZCO                   ;009
+13;06;02;AGALLPAMPA               ;009
+13;06;05;HUARANCHAL               ;009
+13;06;06;LA CUESTA                ;009
+13;06;08;MACHE                    ;009
+13;06;10;PARANDAY                 ;009
+13;06;13;SINSICAP                 ;009
+13;06;14;USQUIL                   ;009
+13;07;01;SAN PEDRO DE LLOC        ;009
+13;07;03;JEQUETEPEQUE             ;009
+13;07;04;PACASMAYO                ;009
+13;07;05;SAN JOSE                 ;009
+13;08;01;TAYABAMBA                ;009
+13;08;02;BULDIBUYO                ;009
+13;08;04;HUANCASPATA              ;009
+13;08;05;HUAYLILLAS               ;009
+13;08;06;HUAYO                    ;009
+13;08;07;ONGON                    ;009
+13;08;09;PATAZ                    ;009
+13;08;10;PIAS                     ;009
+13;08;11;SANTIAGO DE CHALLAS      ;009
+13;08;12;TAURIJA                  ;009
+13;09;01;HUAMACHUCO               ;009
+13;09;02;CHUGAY                   ;009
+13;09;03;COCHORCO                 ;009
+13;09;04;CURGOS                   ;009
+13;09;06;SANAGORAN                ;009
+13;09;07;SARIN                    ;009
+13;09;08;SARTIMBAMBA              ;009
+13;10;01;SANTIAGO DE CHUCO        ;009
+13;10;02;ANGASMARCA               ;009
+13;10;04;MOLLEBAMBA               ;009
+13;10;05;MOLLEPATA                ;009
+13;10;06;QUIRUVILCA               ;009
+13;10;07;SANTA CRUZ DE CHUCA      ;009
+13;10;08;SITABAMBA                ;009
+13;11;02;LUCMA                    ;009
+13;11;03;MARMOT                   ;009
+13;11;04;SAYAPULLO                ;009
+13;12;01;VIRU                     ;009
+13;12;03;GUADALUPITO              ;009
+14;01;01;CHICLAYO                 ;004
+14;01;02;CHONGOYAPE               ;004
+14;01;04;ETEN PUERTO              ;004
+14;01;05;JOSE LEONARDO ORTIZ      ;004
+14;01;06;LA VICTORIA              ;004
+14;01;07;LAGUNAS                  ;004
+14;01;09;NUEVA ARICA              ;004
+14;01;10;OYOTUN                   ;004
+14;01;11;PICSI                    ;004
+14;01;12;PIMENTEL                 ;004
+14;01;14;SANTA ROSA               ;004
+25;01;07;MANANTAY                 ;019
+14;01;15;SA?A                     ;004
+14;01;16;CAYALTI                  ;004
+14;01;17;PATAPO                   ;004
+14;01;19;PUCALA                   ;004
+14;01;20;TUMAN                    ;004
+14;02;01;FERRE?AFE                ;004
+14;02;02;CA?ARIS                  ;004
+14;02;04;MANUEL ANTONIO MESONES MU;004
+14;02;05;PITIPO                   ;004
+14;02;06;PUEBLO NUEVO             ;004
+14;03;01;LAMBAYEQUE               ;004
+14;03;02;CHOCHOPE                 ;004
+14;03;04;JAYANCA                  ;004
+14;03;05;MOCHUMI                  ;004
+14;03;06;MORROPE                  ;004
+14;03;07;MOTUPE                   ;004
+14;03;09;PACORA                   ;004
+14;03;10;SALAS                    ;004
+14;03;11;SAN JOSE                 ;004
+15;01;01;CERCADO DE LIMA          ;028
+15;01;02;ANCON                    ;028
+12;02;06;COMAS                    ;011
+09;04;10;SAN JUAN                 ;015
+09;04;11;SANTA ANA                ;015
+09;04;13;TICRAPO                  ;015
+09;05;01;CHURCAMPA                ;015
+09;05;02;ANCO                     ;015
+09;05;03;CHINCHIHUASI             ;015
+09;05;05;LA MERCED                ;015
+09;05;06;LOCROJA                  ;015
+09;05;07;PAUCARBAMBA              ;015
+09;05;08;SAN MIGUEL DE MAYOCC     ;015
+09;05;09;SAN PEDRO DE CORIS       ;015
+22;05;11;ZAPATERO                 ;018
+05;05;05;CHUNGUI                  ;029
+22;06;01;JUANJUI                  ;018
+22;06;02;CAMPANILLA               ;018
+22;06;03;HUICUNGO                 ;018
+22;06;05;PAJARILLO                ;018
+05;06;03;CABANA                   ;014
+22;07;01;PICOTA                   ;018
+22;07;02;BUENOS AIRES             ;018
+22;07;04;PILLUANA                 ;018
+22;07;05;PUCACACA                 ;018
+22;07;06;SAN CRISTOBAL            ;018
+22;07;07;SAN HILARION             ;018
+22;07;08;SHAMBOYACU               ;018
+22;07;10;TRES UNIDOS              ;018
+05;06;08;LARAMATE                 ;016
+22;08;01;RIOJA                    ;018
+22;08;02;AWAJUN                   ;018
+22;08;03;ELIAS SOPLIN VARGAS      ;018
+22;08;04;NUEVA CAJAMARCA          ;018
+22;08;06;POSIC                    ;018
+22;08;07;SAN FERNANDO             ;018
+22;08;08;YORONGOS                 ;018
+22;08;09;YURACYACU                ;018
+05;06;14;SAISA                    ;014
+22;09;02;ALBERTO LEVEAU           ;018
+22;09;03;CACATACHI                ;018
+22;09;04;CHAZUTA                  ;018
+22;09;05;CHIPURANA                ;018
+22;09;06;EL PORVENIR              ;018
+22;09;08;JUAN GUERRA              ;018
+22;09;09;LA BANDA DE SHILCAYO     ;018
+22;09;10;MORALES                  ;018
+02;01;12;TARICA                   ;010
+02;02;05;SUCCHA                   ;010
+02;03;05;MIRGAS                   ;010
+02;05;02;ABELARDO PARDO LEZAMETA  ;010
+02;05;11;LA PRIMAVERA             ;010
+02;06;02;ACOPAMPA                 ;010
+02;06;08;SAN MIGUEL DE ACO        ;010
+02;08;02;BUENA VISTA ALTA         ;010
+02;09;05;LA PAMPA                 ;010
+02;10;04;CHAVIN DE HUANTAR        ;010
+02;10;11;PONTO                    ;010
+02;10;16;UCO                      ;010
+02;11;04;HUAYAN                   ;010
+02;12;04;HUAYLAS                  ;010
+02;12;10;YURACMARCA               ;010
+02;13;06;LLUMPA                   ;010
+02;14;03;CAJAMARQUILLA            ;010
+02;14;09;SAN PEDRO                ;010
+02;15;05;HUANDOVAL                ;010
+02;15;11;TAUCA                    ;010
+02;17;02;CATAC                    ;010
+02;17;07;PAMPAS CHICO             ;010
+02;18;05;MORO                     ;010
+02;19;01;SIHUAS                   ;010
+02;19;07;QUICHES                  ;010
+02;20;04;MATACOTO                 ;010
+03;01;02;CHACOCHE                 ;022
+03;01;09;TAMBURCO                 ;022
+03;02;06;HUAYANA                  ;022
+03;02;12;SAN ANTONIO DE CACHI     ;022
+03;04;01;CHALHUANCA               ;022
+03;04;07;HUAYLLO                  ;022
+03;04;12;SA?AYCA                  ;022
+03;04;17;YANACA                   ;022
+03;05;05;MARA                     ;022
+03;06;04;HUACCANA                 ;022
+03;07;01;CHUQUIBAMBILLA           ;022
+03;07;08;PROGRESO                 ;022
+03;07;14;CURASCO                  ;022
+04;01;05;CHARACATO                ;024
+04;01;11;MOLLEBAYA                ;024
+04;01;16;SABANDIA                 ;024
+04;01;22;SOCABAYA                 ;024
+04;01;28;YURA                     ;024
+04;02;04;MARISCAL CACERES         ;024
+04;03;03;ATICO                    ;024
+04;03;08;CHAPARRA                 ;024
+04;04;01;APLAO                    ;024
+04;04;05;CHILCAYMARCA             ;024
+04;04;12;U?ON                     ;024
+04;05;02;ACHOMA                   ;024
+04;05;07;HUAMBO                   ;024
+04;05;12;MACA                     ;024
+04;05;17;TISCO                    ;024
+04;06;02;ANDARAY                  ;024
+04;06;07;SALAMANCA                ;024
+04;07;05;MEJIA                    ;024
+04;08;03;CHARCANA                 ;024
+04;08;09;TAURIA                   ;024
+05;01;03;ACOS VINCHOS             ;014
+05;01;09;SAN JOSE DE TICLLAS      ;014
+05;02;04;MARIA PARADO DE BELLIDO  ;014
+05;04;04;IGUAIN                   ;014
+05;05;03;AYNA                     ;029
+05;05;08;TAMBO                    ;029
+23;04;07;TARUCACHI                ;027
+23;04;08;TICACO                   ;027
+05;10;08;HUAMANQUIQUIA            ;014
+24;01;02;CORRALES                 ;003
+24;01;03;LA CRUZ                  ;003
+24;01;04;PAMPAS DE HOSPITAL       ;003
+24;01;05;SAN JACINTO              ;003
+05;11;04;CONCEPCION               ;014
+24;02;01;ZORRITOS                 ;003
+24;02;02;CASITAS                  ;003
+06;01;02;ASUNCION                 ;005
+24;03;01;ZARUMILLA                ;003
+24;03;02;AGUAS VERDES             ;003
+24;03;03;MATAPALO                 ;003
+24;03;04;PAPAYAL                  ;003
+25;01;01;CALLERIA                 ;019
+25;01;02;CAMPOVERDE               ;019
+25;01;03;IPARIA                   ;019
+25;01;04;MASISEA                  ;019
+25;01;05;YARINACOCHA              ;019
+25;01;06;NUEVA REQUENA            ;019
+08;13;04;MACHUPICCHU              ;021
+25;02;01;RAYMONDI                 ;019
+25;02;03;TAHUANIA                 ;019
+25;02;04;YURUA                    ;019
+09;01;04;CONAYCA                  ;015
+21;08;02;ANTAUTA                  ;025
+16;06;03;PADRE MARQUEZ            ;020
+16;06;04;PAMPA HERMOSA            ;020
+16;06;05;SARAYACU                 ;020
+16;06;06;VARGAS GUERRA            ;020
+17;01;02;INAMBARI                 ;023
+17;01;03;LAS PIEDRAS              ;023
+20;08;04;CRISTO NOS VALGA         ;002
+20;08;05;VICE                     ;002
+21;01;01;PUNO                     ;025
+21;01;02;ACORA                    ;025
+21;01;03;AMANTANI                 ;025
+21;01;04;ATUNCOLLA                ;025
+21;01;05;CAPACHICA                ;025
+21;01;06;CHUCUITO                 ;025
+21;01;08;HUATA                    ;025
+21;01;09;MA?AZO                   ;025
+21;01;10;PAUCARCOLLA              ;025
+21;01;11;PICHACANI                ;025
+21;01;14;TIQUILLACA               ;025
+21;01;15;VILQUE                   ;025
+21;02;01;AZANGARO                 ;025
+21;02;02;ACHAYA                   ;025
+21;02;04;ASILLO                   ;025
+21;02;06;CHUPA                    ;025
+21;02;07;JOSE DOMINGO CHOQUEHUANCA;025
+21;02;08;MU?ANI                   ;025
+21;02;10;SAMAN                    ;025
+21;02;11;SAN ANTON                ;025
+21;02;13;SAN JUAN DE SALINAS      ;025
+21;02;14;SANTIAGO DE PUPUJA       ;025
+21;03;01;MACUSANI                 ;025
+21;03;02;AJOYANI                  ;025
+21;03;04;COASA                    ;025
+21;03;05;CORANI                   ;025
+21;03;07;ITUATA                   ;025
+21;03;08;OLLACHEA                 ;025
+21;03;09;SAN GABAN                ;025
+21;04;01;JULI                     ;025
+21;04;02;DESAGUADERO              ;025
+21;04;04;KELLUYO                  ;025
+21;04;05;PISACOMA                 ;025
+05;06;06;CHIPAO                   ;014
+21;04;07;ZEPITA                   ;025
+21;05;01;ILAVE                    ;025
+21;05;02;CAPAZO                   ;025
+21;05;04;SANTA ROSA               ;025
+02;17;01;RECUAY                   ;010
+21;06;01;HUANCANE                 ;025
+21;06;02;COJATA                   ;025
+21;06;03;HUATASANI                ;025
+21;06;04;INCHUPALLA               ;025
+21;06;05;PUSI                     ;025
+21;06;06;ROSASPATA                ;025
+21;06;07;TARACO                   ;025
+21;06;08;VILQUE CHICO             ;025
+02;17;06;MARCA                    ;010
+21;07;01;LAMPA                    ;025
+21;07;02;CABANILLA                ;025
+21;07;03;CALAPUJA                 ;025
+21;07;04;NICASIO                  ;025
+21;07;05;OCUVIRI                  ;025
+21;07;06;PALCA                    ;025
+21;07;07;PARATIA                  ;025
+21;07;08;PUCARA                   ;025
+21;07;09;SANTA LUCIA              ;025
+21;07;10;VILAVILA                 ;025
+02;18;01;CHIMBOTE                 ;010
+21;08;01;AYAVIRI                  ;025
+16;06;01;CONTAMANA                ;020
+15;01;04;BARRANCO                 ;028
+15;01;06;CARABAYLLO               ;028
+15;01;07;CHACLACAYO               ;028
+15;01;08;CHORRILLOS               ;028
+15;01;09;CIENEGUILLA              ;028
+15;01;11;EL AGUSTINO              ;028
+15;01;12;INDEPENDENCIA            ;028
+15;01;13;JESUS MARIA              ;028
+15;01;14;LA MOLINA                ;028
+15;01;16;LINCE                    ;028
+15;01;17;LOS OLIVOS               ;028
+15;01;18;LURIGANCHO               ;028
+15;01;19;LURIN                    ;028
+15;01;20;MAGDALENA DEL MAR        ;028
+15;01;22;MIRAFLORES               ;028
+15;01;23;PACHACAMAC               ;028
+15;01;24;PUCUSANA                 ;028
+15;01;25;PUENTE PIEDRA            ;028
+15;01;26;PUNTA HERMOSA            ;028
+15;01;27;PUNTA NEGRA              ;028
+15;01;29;SAN BARTOLO              ;028
+15;01;30;SAN BORJA                ;028
+15;01;31;SAN ISIDRO               ;028
+15;01;33;SAN JUAN DE MIRAFLORES   ;028
+15;01;34;SAN LUIS                 ;028
+15;01;35;SAN MARTIN DE PORRES     ;028
+15;01;36;SAN MIGUEL               ;028
+15;01;37;SANTA ANITA              ;028
+15;01;38;SANTA MARIA DEL MAR      ;028
+15;01;39;SANTA ROSA               ;028
+15;01;41;SURQUILLO                ;028
+15;01;43;VILLA MARIA DEL TRIUNFO  ;028
+15;02;01;BARRANCA                 ;028
+15;02;02;PARAMONGA                ;028
+15;02;03;PATIVILCA                ;028
+15;02;04;SUPE                     ;028
+15;02;05;SUPE PUERTO              ;028
+15;03;02;COPA                     ;028
+15;03;04;HUANCAPON                ;028
+15;03;05;MANAS                    ;028
+15;04;01;CANTA                    ;028
+15;04;03;HUAMANTANGA              ;028
+15;04;05;LACHAQUI                 ;028
+15;04;06;SAN BUENAVENTURA         ;028
+15;04;07;SANTA ROSA DE QUIVES     ;028
+15;05;01;SAN VICENTE DE CA?ETE    ;028
+15;05;04;CERRO AZUL               ;028
+15;05;05;CHILCA                   ;028
+15;05;07;IMPERIAL                 ;028
+15;05;08;LUNAHUANA                ;028
+15;05;10;NUEVO IMPERIAL           ;028
+15;05;11;PACARAN                  ;028
+15;05;13;SAN ANTONIO              ;028
+15;05;14;SAN LUIS                 ;028
+15;05;16;ZU?IGA                   ;028
+15;06;01;HUARAL                   ;028
+15;06;02;ATAVILLOS ALTO           ;028
+15;06;03;ATAVILLOS BAJO           ;028
+15;06;05;CHANCAY                  ;028
+15;06;06;IHUARI                   ;028
+15;06;07;LAMPIAN                  ;028
+15;06;09;SAN MIGUEL DE ACOS       ;028
+15;06;10;SANTA CRUZ DE ANDAMARCA  ;028
+15;06;12;VEINTISIETE DE NOVIEMBRE ;028
+15;07;01;MATUCANA                 ;028
+15;07;02;ANTIOQUIA                ;028
+15;07;04;CARAMPOMA                ;028
+15;07;06;CUENCA                   ;028
+15;07;07;HUACHUPAMPA              ;028
+15;07;08;HUANZA                   ;028
+15;07;09;HUAROCHIRI               ;028
+15;07;12;LARAOS                   ;028
+15;07;13;MARIATANA                ;028
+15;07;14;RICARDO PALMA            ;028
+15;07;15;SAN ANDRES DE TUPICOCHA  ;028
+15;07;17;SAN BARTOLOME            ;028
+15;07;19;SAN JUAN DE IRIS         ;028
+15;07;20;SAN JUAN DE TANTARANCHE  ;028
+15;07;21;SAN LORENZO DE QUINTI    ;028
+15;07;22;SAN MATEO                ;028
+15;07;24;SAN PEDRO DE CASTA       ;028
+15;07;26;SANGALLAYA               ;028
+15;07;27;SANTA CRUZ DE COCACHACRA ;028
+15;07;28;SANTA EULALIA            ;028
+15;07;29;SANTIAGO DE ANCHUCAYA    ;028
+15;07;30;SANTIAGO DE TUNA         ;028
+15;07;32;SURCO                    ;028
+15;08;01;HUACHO                   ;028
+15;08;02;AMBAR                    ;028
+15;08;04;CHECRAS                  ;028
+15;08;05;HUALMAY                  ;028
+15;08;06;HUAURA                   ;028
+15;08;07;LEONCIO PRADO            ;028
+15;08;08;PACCHO                   ;028
+15;08;09;SANTA LEONOR             ;028
+15;08;11;SAYAN                    ;028
+15;08;12;VEGUETA                  ;028
+15;09;01;OYON                     ;028
+15;09;02;ANDAJES                  ;028
+15;09;03;CAUJUL                   ;028
+15;09;04;COCHAMARCA               ;028
+15;09;06;PACHANGARA               ;028
+15;10;01;YAUYOS                   ;028

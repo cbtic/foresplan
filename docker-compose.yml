@@ -1,0 +1,63 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: www
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "9001:8000"
+    container_name: laravel-app
+    command: bash -c "
+             composer install &&
+             php artisan migrate &&
+             php artisan serve --host=0.0.0.0 --port=8000"
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - app-network
+  postgres:
+    image: postgres:9.6
+    container_name: postgres-db
+    volumes:
+        # Mounts a persistable volume inside the postgres data folder, so we
+        # don't lose the created databases when this container is removed.
+        - postgres-data:/var/lib/postgresql/data
+        - ./docker-compose/pgsql:/docker-entrypoint-initdb.d/
+    #command: chmod +x ./init_db.sh
+    # ports:
+    #     - 5434:5432
+    environment:
+        # The password we'll use to access the databases:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=secrect
+        - POSTGRES_DB=postgres
+    networks:
+      - app-network
+      
+  nginx:
+    image: nginx:alpine
+    container_name: laravel-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:9000
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+    driver: local

@@ -1,0 +1,15 @@
+codi_nive_tni;nomb_pues_tni;orde_nive_tni;porc_viat_tni;porc_tras_tni;mont_fijo_tni;mont_adic_tni;cant_nive_tni;codi_nive_nvl;codi_cond_lab;codi_cate_cat;codi_subc_sbc;codi_osit_tni
+000;NO DEFINIDO;99;;;;;;;;;;000
+001;Presidente;01;;;;;;;;;;001
+002;Gerente;03;;;;;;;;;;003
+003;Profesional I;06;;;;;;;;;;004
+004;Profesional II;07;;;;;;;;;;005
+005;Profesional III;08;;;;;;;;;;009
+006;Asistente;10;;;;;;;;;;006
+007;Auxiliar;11;;;;;;;;;;007
+008;Gerente General;02;;;;;;;;;;002
+009;Asesor;05;;;;;;;;;;010
+010;Practicante;13;;;;;;;;;;008
+011;Auditor Interno;04;;;;;;;;;;011
+012;Secretaria;09;;;;;;;;;;012
+015;CAS;12;;;;;;;;;;013

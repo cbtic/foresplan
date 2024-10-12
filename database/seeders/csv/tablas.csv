@@ -1,0 +1,14 @@
+tab_ite1_cod;tab_ite2_cod;tab_larg_des;tab_cort_des;tab_mont_imp;tab_orde_vis;tab_tabl_est;created_at;updated_at
+003;1;INGRESOS;INGRESOS;;;A;;
+003;2;EGRESOS;EGRESOS;;;A;;
+003;3;APORTACIONES;APORTACIONES;;;A;;
+003;4;OTROS;OTROS;;;A;;
+000;001;MONEDA;MONEDA;;;A;;
+001;S/.;SOLES;Soles;;;A;;
+001;USD;DOLARES;Dolares;;;A;;
+000;002;DOCUMENTOS;DOCUMENTOS;;;A;;
+002;01;DNI;DNI;;;A;;
+002;02;L.E.;L.E.;;;A;;
+002;03;Carnet Identidad;C.I.;;;A;;
+002;04;Carnet Extranjeria;C.E.;;;A;;
+002;05;Pasaporte;PAS;;;A;;
