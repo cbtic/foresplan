@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("preview","hi",{preview:"प�?रीव�?यू"});

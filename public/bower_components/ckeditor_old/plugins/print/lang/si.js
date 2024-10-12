@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("print","si",{toolbar:"මුද්�?රණය කරන්න"});

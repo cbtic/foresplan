@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("selectall","ko",{toolbar:"ëª¨ë‘? ì„ íƒ?"});

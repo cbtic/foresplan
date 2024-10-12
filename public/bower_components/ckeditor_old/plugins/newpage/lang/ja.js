@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("newpage","ja",{toolbar:"æ–°ã?—ã?„ãƒšãƒ¼ã‚¸"});

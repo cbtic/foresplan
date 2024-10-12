@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("showblocks","gu",{toolbar:"બ�?લૉક બતાવવ�?ં"});

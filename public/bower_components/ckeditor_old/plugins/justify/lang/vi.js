@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("justify","vi",{block:"Canh đ�?u",center:"Canh giữa",left:"Canh trái",right:"Canh phải"});

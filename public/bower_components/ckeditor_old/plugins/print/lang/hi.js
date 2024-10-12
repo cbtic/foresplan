@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("print","hi",{toolbar:"प�?रिन�?ट"});

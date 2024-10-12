@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("newpage","sr",{toolbar:"�?ова �?траница"});

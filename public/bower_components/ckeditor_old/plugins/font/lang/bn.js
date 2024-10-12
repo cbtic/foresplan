@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("font","bn",{fontSize:{label:"সাইজ",voiceLabel:"Font Size",panelTitle:"সাইজ"},label:"ফন�?ট",panelTitle:"ফন�?ট",voiceLabel:"ফন�?ট"});
