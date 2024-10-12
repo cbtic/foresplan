@@ -1,0 +1,84 @@
+.form-select {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    background-clip: padding-box;
+    border: 1px solid;
+    color: #768192;
+    background-color: #fff;
+    border-color: #d8dbe0;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.c-sidebar .c-sidebar-brand {
+    color: #fff;
+    background: #183e39;
+}
+
+.c-sidebar .c-sidebar-header {
+    background: #183e39;
+}
+
+.c-sidebar .c-sidebar-form .c-form-control {
+    color: #fff;
+    background: #183e39;
+    border: 0;
+}
+
+.c-sidebar .c-sidebar-nav-link.c-active,
+.c-sidebar .c-active.c-sidebar-nav-dropdown-toggle {
+    color: #fff;
+    background: #183e39;
+}
+
+.c-sidebar .c-sidebar-nav-dropdown.c-show {
+    background: #183e39;
+}
+
+.c-app {
+    --primary: #321fdb;
+    --secondary: #ced2d8;
+    --success: #2eb85c;
+    --info: #39f;
+    --warning: #f9b115;
+    --danger: #e55353;
+    --light: #ebedef;
+    --dark: #636f83;
+    color: #183e39;
+    background-color: #ebedef;
+    --color: #183e39;
+}
+
+// Select2
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #768192;
+    line-height: 20px !important;
+}
+
+.select2-container .select2-selection--single {
+    display: block;
+    width: 100% !important;
+    height: calc(1.5em + 0.75rem + 2px) !important;
+    padding: 0.375rem 0.75rem !important;
+    padding-left: 0 !important;
+    font-size: 0.875rem !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    background-clip: padding-box !important;
+    border: 1px solid #d8dbe0 !important;
+    color: #768192;
+    background-color: #fff;
+    border-color: #d8dbe0;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.control-label {
+    display: block !important;
+    margin-bottom: 0.5rem;
+}

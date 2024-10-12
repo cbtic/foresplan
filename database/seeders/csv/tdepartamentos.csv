@@ -1,0 +1,28 @@
+codi_depa_dpt;nomb_dpto_dpt;valo_desp_dpt
+01;AMAZONAS                 ;17
+02;ANCASH                   ;17
+03;APURIMAC                 ;18
+04;AREQUIPA                 ;18
+05;AYACUCHO                 ;18
+06;CAJAMARCA                ;17
+07;CALLAO                   ;18
+08;CUSCO                    ;18
+09;HUANCAVELICA             ;18
+10;HUANUCO                  ;18
+11;ICA                      ;18
+12;JUNIN                    ;18
+13;LA LIBERTAD              ;17
+14;LAMBAYEQUE               ;17
+15;LIMA                     ;18
+16;LORETO                   ;18
+17;MADRE DE DIOS            ;19
+18;MOQUEGUA                 ;19
+19;PASCO                    ;18
+20;PIURA                    ;17
+21;PUNO                     ;19
+22;SAN MARTIN               ;18
+23;TACNA                    ;19
+24;TUMBES                   ;17
+25;UCAYALI                  ;18
+99;MULTIDEPARTAMENTAL       ;0
+51;CALLAO                   ;18

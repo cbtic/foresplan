@@ -1,0 +1,6 @@
+docu_iden_did;desc_docu_did;codi_rtps_did;flag_acti_did;abre_docu_did;long_docu_did
+01;DNI;01;1;DNI;
+02;CARNET DE EXTRANJERIA;04;1;CE;
+03;PASAPORTE;07;1;PST;
+04;CEDULA;07;1;CED;
+05;PTP;11;1;PTP;

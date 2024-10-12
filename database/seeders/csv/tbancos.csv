@@ -1,0 +1,41 @@
+codi_banc_tbc;nomb_banc_tbc;nomb_cort_tbc;flag_activ_ban
+26;RENDICION DE CUENTAS                    ;RENDICION           ;1
+02;BANCO CONTINENTAL                       ;CONTINENTAL         ;1
+03;BANCO DE CREDITO DEL PERU               ;DE CREDITO          ;1
+04;INTERBANK                               ;INTERBANK           ;1
+05;BANCO WIESE                             ;WIESE               ;1
+01;BANCO DE LA NACION                      ;DE LA NACION        ;1
+09;BANCO DE COMERCIO                       ;DE COMERCIO         ;1
+14;CREDISCOTIA                             ;CREDISCOTIA         ;1
+17;BANCO SUDAMERICANO                      ;SUDAMERICANO        ;1
+20;CITIBANK NA                             ;CITIBANK            ;1
+22;BANCO INTERAMERICANO DE FINANZAS        ;B.I.F.              ;1
+23;THE CHASE MANHATTAN BANK                ;MANHATTAN           ;1
+24;BANCO FINANCIERO                        ;FINANCIERO          ;1
+25;ORGANISMOS EXTERNOS                     ;ORG. EXT.           ;1
+27;CITIBANK N.A.                           ;CITIBANK            ;1
+28;LATINA SEGUROS Y REASEGUROS SA          ;LATINA SEG.         ;1
+29;REMESAS EN TRANSITO                     ;REMESAS             ;1
+30;SCOTIABANK                              ;SCOTIABANK          ;1
+31;FOGAPI - FUNDAC. FONDO DE GTIA.         ;;1
+52;CAJA DE AHORRO Y CREDITO DE MAYNAS      ;MAYNAS              ;1
+41;CAJA MUNICIPAL DE HUANCAYO              ;CMAC HUANCAYO       ;1
+49;RIMAC SEGUROS                           ;RIMAC               ;1
+50;BANCO CAJA                              ;BANCO CAJA          ;1
+45;CAJA NUESTRA GENTE                      ;NUESTR GENTE        ;1
+46;FINANCIERA TFC S.A.                     ;TFC                 ;1
+47;SECREX CIA DE SEGUROS                   ;SECREX              ;1
+32;BANCO RIPLEY                            ;RIPLEY              ;1
+33;BANCO FALABELLA                         ;FALABELLA           ;1
+34;CAJA MUNICIPAL DE AREQUIPA              ;AREQUIPA            ;1
+35;CAJA MUNICIPAL DE TACNA                 ;TACNA               ;1
+36;CAJA MUNICIPAL DE SULLANA               ;SULLANA             ;1
+37;CAJA MUNICIPAL DE TRUJILLO              ;TRUJILLO            ;1
+38;CAJA MUNICIPAL DE PIURA                 ;PIURA               ;1
+39;MI BANCO                                ;MI BANCO            ;1
+40;BANCO AZTECA                            ;AZTECA              ;1
+42;BANCO SANTANDER                         ;SANTANDER           ;1
+43;HSBC BANK PERU S.A                      ;HSBC                ;1
+48;MAPFRE PERU                             ;MAPFRE              ;1
+51;CAJA METROPOLITANA DE LIMA              ;CAJMETRLIMA         ;1
+00;<SIN BANCO>                             ;SIN BANCO           ;1
