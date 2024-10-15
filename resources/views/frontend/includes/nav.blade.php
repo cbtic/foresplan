@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-0">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #173E39;">
     <div class="container">
         <x-utils.link
             :href="route('frontend.index')"
