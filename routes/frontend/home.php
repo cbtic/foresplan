@@ -181,4 +181,6 @@ Route::get('concepto_plan/eliminar_concepto_plan/{id}/{estado}', [ConceptoPlanCo
 Route::get('concepto_plan/modal_concepto_plan/{id}', [ConceptoPlanController::class, 'modal_concepto_plan'])->name('concepto_plan.modal_concepto_plan');
 Route::post('concepto_plan/send_concepto_plan', [ConceptoPlanController::class, 'send_concepto_plan'])->name('concepto_plan.send_concepto_plan');
 
+Route::get('asistencia/asistencia_automatico/{fecha}', [AsistenciaController::class, 'asistencia_automatico'])->name('asistencia.asistencia_automatico');
+
 

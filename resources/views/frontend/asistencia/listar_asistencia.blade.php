@@ -110,6 +110,35 @@
 	   display: none;
 	}
 
+	.loader {
+		width: 100%;
+		height: 100%;
+		/*height: 1500px;*/
+		overflow: hidden; 
+		top: 0px;
+		left: 0px;
+		z-index: 10000;
+		text-align: center;
+		position:absolute; 
+		background-color: #000;
+		opacity:0.6;
+		filter:alpha(opacity=40);
+		display:none;
+	}
+	
+	.dataTables_processing {
+		position: absolute;
+		top: 400px!important;
+		left: 50%;
+		width: 500px!important;
+		font-size: 1.7em;
+		border: 0px;
+		margin-left: -17%!important;
+		text-align: center;
+		background: #3c8dbc;
+		color: #FFFFFF;
+	}
+
 </style>
 
 @extends('frontend.layouts.app')
@@ -123,6 +152,8 @@
         </li>
     </ol>
 @endsection
+
+<div class="loader"></div>
 
 @section('content')
 
@@ -229,10 +260,22 @@
 						</div>
 					</div>
 
-					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-right:0px">
+					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-right:0px;padding-top:30px">
 						<input class="btn btn-warning pull-rigth" value="Buscar" type="button" id="btnBuscar" />
 						<input class="btn btn-success pull-rigth" value="Nueva Papeleta" type="button" id="btnPapeleta" style="margin-left:15px" />
 					</div>
+
+					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+						<div class="form-group">
+							<label class="form-control-sm">Fecha Proceso</label>
+							<input class="form-control form-control-sm" id="fecha_proceso" name="fecha_proceso" value="" placeholder="Fecha Proceso">
+						</div>
+					</div>
+
+					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-right:0px;padding-top:30px">
+						<input class="btn btn-danger pull-rigth" value="Procesar" type="button" id="btnProcesar" onclick="asistenciaAutomatico()" />
+					</div>
+
 				</div>
 				
                 <div class="card-body">				
