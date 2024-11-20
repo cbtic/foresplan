@@ -280,7 +280,7 @@
 				
                 <div class="card-body">				
 
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
                     <table id="tblAfiliado" class="table table-hover table-sm">
                         <thead>
                         <tr style="font-size:13px">
