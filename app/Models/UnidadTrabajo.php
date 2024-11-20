@@ -14,8 +14,7 @@ class UnidadTrabajo extends Model
         inner join tabla_ubicaciones tu on tu.id_registro = u.id 
         where id_area_trabajo = (select tu1.id_registro from tabla_ubicaciones tu1 where tu1.id = ".$area.") and tu.tabla = 'unidad_trabajos'";
 
-
         $data = DB::select($cad);
         return $data;
-    }   
+    }
 }
