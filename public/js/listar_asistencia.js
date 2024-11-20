@@ -71,6 +71,27 @@ $(document).ready(function () {
 		changeYear: true,
     });
 	
+	$('#fecha_ini').datepicker({
+        autoclose: true,
+		dateFormat: 'dd/mm/yy',
+		changeMonth: true,
+		changeYear: true,
+    });
+
+	$('#fecha_fin').datepicker({
+        autoclose: true,
+		dateFormat: 'dd/mm/yy',
+		changeMonth: true,
+		changeYear: true,
+    });
+
+	$('#fecha_proceso').datepicker({
+        autoclose: true,
+		format: 'dd-mm-yyyy',
+		changeMonth: true,
+		changeYear: true,
+    });
+
 	/*
     $('#tblAlquiler').dataTable({
     	"language": {
@@ -974,3 +995,23 @@ function modalZktecoLog(fecha,numero_documento){
 
 }
 
+function asistenciaAutomatico(){
+    
+	var msgLoader = "";
+	msgLoader = "Procesando, espere un momento por favor";
+	var heightBrowser = $(window).width()/2;
+	$('.loader').css("opacity","0.8").css("height",heightBrowser).html("<div id='Grd1_wrapper' class='dataTables_wrapper'><div id='Grd1_processing' class='dataTables_processing panel-default'>"+msgLoader+"</div></div>");
+    $('.loader').show();
+	//$('#guardar').hide();
+
+	var fecha = $("#fecha_proceso").val();
+	$.ajax({
+			url: "/asistencia/asistencia_automatico/"+fecha,
+			type: "GET",
+			success: function (result) {  
+					$('.loader').hide();
+					datatablenew();
+			}
+	});
+
+}

@@ -191,5 +191,15 @@ class AsistenciaController extends Controller
 		$asistencia_model->recalcular_asistencia($asistencia->id);
 	
 	}
-	
+    
+    public function asistencia_automatico($fecha){
+
+        $asistencia_model = new Asistencia;
+        //$datos[] = str_replace("-","/",$fecha);
+        $datos[] = $fecha;
+        $id_asistencia = $asistencia_model->registrar_asistencia_automatico($datos);
+        echo $id_asistencia;
+
+    }
+
 }

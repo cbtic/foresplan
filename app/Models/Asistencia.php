@@ -85,6 +85,13 @@ class Asistencia extends Model
 
     }
 
+    public function registrar_asistencia_automatico($datos) {
+        
+        $cad = "Select sp_crud_automatico_asistencia_nuevo(?,'".config('values.dblink_dbname')."','".config('values.dblink_port')."','".config('values.dblink_host')."','".config('values.dblink_user')."','".config('values.dblink_password')."')";
+		//echo $datos[0]; exit();
+        $data = DB::select($cad, array($datos[0]));
+        return $data[0]->sp_crud_automatico_asistencia_nuevo;
+    }
 
 	public function readFunctionPostgres($function, $parameters = null){
 	
