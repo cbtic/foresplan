@@ -72,18 +72,20 @@ $(document).ready(function () {
     });
 	
 	$('#fecha_ini').datepicker({
-        autoclose: true,
-		dateFormat: 'dd/mm/yy',
+		autoclose: true,
+		format: 'dd/mm/yyyy',
+		language: 'es',
 		changeMonth: true,
 		changeYear: true,
-    });
+	});
 
 	$('#fecha_fin').datepicker({
-        autoclose: true,
-		dateFormat: 'dd/mm/yy',
+		autoclose: true,
+		format: 'dd/mm/yyyy',
+		language: 'es',
 		changeMonth: true,
 		changeYear: true,
-    });
+	});
 
 	$('#fecha_proceso').datepicker({
         autoclose: true,
