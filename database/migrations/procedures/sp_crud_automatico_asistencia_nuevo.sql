@@ -1,3 +1,4 @@
+-- DROP FUNCTION public.sp_crud_automatico_asistencia_nuevo(varchar, varchar, varchar, varchar, varchar, varchar);
 
 CREATE OR REPLACE FUNCTION public.sp_crud_automatico_asistencia_nuevo(p_fecha character varying, p_dbname character varying, p_port character varying, p_host character varying, p_user character varying, p_password character varying)
  RETURNS character varying
@@ -12,6 +13,14 @@ declare
 	
 begin
 
+	Drop Table If Exists last_asistencias; 
+	Create Temp Table last_asistencias As 
+	Select fech_regi_mar,id_persona,id_deta_operacion,
+	fech_regi_eas,tipo_marc_eas,hora_marc_eas,hora_marc_sal,nume_bole_eas,flag_bole_eas,
+	fech_marc_rel,hora_entrada,hora_salida,hora_entr_rel,fech_sali_rel,hora_sali_rel
+	From asistencias 
+	where to_char(fech_regi_mar::date,'dd-mm-yyyy')=p_fecha;
+
 	delete from asistencias a where to_char(fech_regi_mar::date,'dd-mm-yyyy')=p_fecha;
 	
 	INSERT INTO asistencias(id_persona,minu_tard_eas,minu_tole_eas,nume_bole_eas,fech_regi_mar,flag_labo_dtu,hora_entrada,hora_salida,fech_marc_rel,created_at)
@@ -24,6 +33,29 @@ begin
 	Where t1.estado='A' 
 	--and t1.id=171
 	order by t1.id;
+
+	update asistencias set 
+	id_deta_operacion=R.id_deta_operacion,
+	fech_regi_eas=R.fech_regi_eas,
+	tipo_marc_eas=R.tipo_marc_eas,
+	hora_marc_eas=R.hora_marc_eas,
+	hora_marc_sal=R.hora_marc_sal,
+	nume_bole_eas=R.nume_bole_eas,
+	flag_bole_eas=R.flag_bole_eas,
+	fech_marc_rel=R.fech_marc_rel,
+	hora_entrada=R.hora_entrada,
+	hora_salida=R.hora_salida,
+	hora_entr_rel=R.hora_entr_rel,
+	fech_sali_rel=R.fech_sali_rel,
+	hora_sali_rel=R.hora_sali_rel
+	from (
+	select a.id id_asistencia,la.id_deta_operacion,
+	la.fech_regi_eas,la.tipo_marc_eas,la.hora_marc_eas,la.hora_marc_sal,la.nume_bole_eas,la.flag_bole_eas,
+	la.fech_marc_rel,la.hora_entrada,la.hora_salida,la.hora_entr_rel,la.fech_sali_rel,la.hora_sali_rel 
+	from asistencias a
+	inner join last_asistencias la on a.fech_regi_mar=la.fech_regi_mar and a.id_persona=la.id_persona
+	)R 
+	where id=R.id_asistencia;
 
 	For entradas In
 	select t4.id id_asistencia,t1.id id_persona,t1.numero_documento,R.dia_marcacion,R.hora_marcacion,
@@ -105,4 +137,3 @@ begin
 end;
 $function$
 ;
-
