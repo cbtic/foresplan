@@ -49,13 +49,14 @@ class Asistencia extends Model
     public function get_zkteco_log($fecha,$numero_documento){
 	
 		$cad = "Select t2.id,t1.id,t2.apellido_paterno||' '||t2.apellido_materno||' '||t2.nombres persona,R.numero_documento,R.dia,R.hora,'' tarjeta 
-                select numero_documento,dia,hora from (
+                from (
+                select numero_documento,dia,hora 
 				From dblink ('dbname=".config('values.dblink_dbname')." port=".config('values.dblink_port')." host=".config('values.dblink_host')." user=".config('values.dblink_user')." password=".config('values.dblink_password')."',
-				'select LPAD(emp_code::text, 8, '0') numero_documento,to_char(t1.time_second::timestamp,''dd-mm-yyyy'') dia,to_char(t1.time_second::timestamp,''HH24:MI:SS'') hora  
+				'select LPAD(emp_code::text, 8, ''0'') numero_documento,to_char(t1.punch_time::timestamp,''dd-mm-yyyy'') dia,to_char(t1.punch_time::timestamp,''HH24:MI:SS'') hora  
 				from iclock_transaction t1 
 				where 1=1
 				And to_char(t1.punch_time::timestamp,''dd-mm-yyyy'')=''".$fecha."''
-				And LPAD(t1.emp_code::text, 8, '0')=''".$numero_documento."''
+				And LPAD(t1.emp_code::text, 8, ''0'')=''".$numero_documento."''
 				')ret (numero_documento varchar,dia varchar,hora varchar)
                 )R 
                 inner join personas t2 on t2.numero_documento=R.numero_documento
