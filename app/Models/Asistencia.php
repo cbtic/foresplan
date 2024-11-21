@@ -48,7 +48,7 @@ class Asistencia extends Model
 		
     public function get_zkteco_log($fecha,$numero_documento){
 	
-		$cad = "Select t2.id,t1.id,t2.apellido_paterno||' '||t2.apellido_materno||' '||t2.nombres persona,R.numero_documento,R.dia,R.hora,'' tarjeta 
+		$cad = "Select t2.id,t2.apellido_paterno||' '||t2.apellido_materno||' '||t2.nombres persona,R.numero_documento,R.dia,R.hora,'' tarjeta 
                 from (
                 select numero_documento,dia,hora 
 				From dblink ('dbname=".config('values.dblink_dbname')." port=".config('values.dblink_port')." host=".config('values.dblink_host')." user=".config('values.dblink_user')." password=".config('values.dblink_password')."',
@@ -61,7 +61,7 @@ class Asistencia extends Model
                 )R 
                 inner join personas t2 on t2.numero_documento=R.numero_documento
                 ";
-		echo $cad;
+		//echo $cad;
 		$data = DB::select($cad);
         return $data;
 		
