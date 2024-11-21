@@ -29,7 +29,7 @@ class Asistencia extends Model
 		return $this->readFunctionPostgres('sp_listar_asistencia_resumen_paginado',$p);
     }
 
-    public function get_zkteco_log($fecha,$numero_documento){
+    public function get_zkteco_log____($fecha,$numero_documento){
 	
 		$cad = "Select id,persona,numero_documento,dia,hora,tarjeta 
 				From dblink ('dbname=".config('values.dblink_dbname')." port=".config('values.dblink_port')." host=".config('values.dblink_host')." user=".config('values.dblink_user')." password=".config('values.dblink_password')."',
@@ -45,7 +45,27 @@ class Asistencia extends Model
         return $data;
 		
 	}
-			
+		
+    public function get_zkteco_log($fecha,$numero_documento){
+	
+		$cad = "Select t2.id,t1.id,t2.apellido_paterno||' '||t2.apellido_materno||' '||t2.nombres persona,R.numero_documento,R.dia,R.hora,'' tarjeta 
+                select numero_documento,dia,hora from (
+				From dblink ('dbname=".config('values.dblink_dbname')." port=".config('values.dblink_port')." host=".config('values.dblink_host')." user=".config('values.dblink_user')." password=".config('values.dblink_password')."',
+				'select LPAD(emp_code::text, 8, '0') numero_documento,to_char(t1.time_second::timestamp,''dd-mm-yyyy'') dia,to_char(t1.time_second::timestamp,''HH24:MI:SS'') hora  
+				from iclock_transaction t1 
+				where 1=1
+				And to_char(t1.punch_time::timestamp,''dd-mm-yyyy'')=''".$fecha."''
+				And LPAD(t1.emp_code::text, 8, '0')=''".$numero_documento."''
+				')ret (numero_documento varchar,dia varchar,hora varchar)
+                )R 
+                inner join personas t2 on t2.numero_documento=R.numero_documento
+                ";
+		echo $cad;
+		$data = DB::select($cad);
+        return $data;
+		
+	}
+
 	function recalcular_asistencia($id_asistencia){
   
           $cad = "UPDATE asistencias set 
