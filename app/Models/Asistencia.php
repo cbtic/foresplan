@@ -48,16 +48,17 @@ class Asistencia extends Model
 		
     public function get_zkteco_log($fecha,$numero_documento){
 	
-		$cad = "Select t2.id,t2.apellido_paterno||' '||t2.apellido_materno||' '||t2.nombres persona,R.numero_documento,R.dia,R.hora,'' tarjeta 
+		$cad = "Select t2.id,t2.apellido_paterno||' '||t2.apellido_materno||' '||t2.nombres persona,R.numero_documento,R.dia,R.hora,R.tarjeta 
                 from (
-                select numero_documento,dia,hora 
+                select numero_documento,dia,hora,tarjeta 
 				From dblink ('dbname=".config('values.dblink_dbname')." port=".config('values.dblink_port')." host=".config('values.dblink_host')." user=".config('values.dblink_user')." password=".config('values.dblink_password')."',
-				'select LPAD(emp_code::text, 8, ''0'') numero_documento,to_char(t1.punch_time::timestamp,''dd-mm-yyyy'') dia,to_char(t1.punch_time::timestamp,''HH24:MI:SS'') hora  
+				'select LPAD(t1.emp_code::text, 8, ''0'') numero_documento,to_char(t1.punch_time::timestamp,''dd-mm-yyyy'') dia,to_char(t1.punch_time::timestamp,''HH24:MI:SS'') hora,pe.card_no tarjeta  
 				from iclock_transaction t1 
+                inner join personnel_employee pe on t1.emp_code=pe.emp_code 
 				where 1=1
 				And to_char(t1.punch_time::timestamp,''dd-mm-yyyy'')=''".$fecha."''
 				And LPAD(t1.emp_code::text, 8, ''0'')=''".$numero_documento."''
-				')ret (numero_documento varchar,dia varchar,hora varchar)
+				')ret (numero_documento varchar,dia varchar,hora varchar,tarjeta varchar)
                 )R 
                 inner join personas t2 on t2.numero_documento=R.numero_documento
                 ";
