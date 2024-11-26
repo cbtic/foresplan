@@ -16,6 +16,7 @@ class TablaUbicacione extends Model
 		$data = DB::select($cad);
         return $data;
     }
+    
     public function getTablaUbicacionAll($Tabla, $Cliente){
         $cad = "select * from tabla_ubicaciones where tabla = '".$Tabla."' limit 1";
         $tablaUbic_model = new TablaUbicacione;

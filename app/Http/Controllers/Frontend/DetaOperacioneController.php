@@ -34,7 +34,12 @@ class DetaOperacioneController extends Controller
 
     public function create()
     {
-        return view('frontend.papeleta.create');
+		$empresa = Empresa::all();
+		$tabla_model = new TablaUbicacione;
+
+		$justificacion = $tabla_model->getTablaUbicacionAll("tipo_justificaciones","1");
+
+        return view('frontend.papeleta.create',compact('empresa','justificacion'));
     }
 
     public function listar_papeleta_ajax(Request $request){

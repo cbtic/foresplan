@@ -421,7 +421,7 @@ $('#modalPersonaTitularSaveBtn').click(function (e) {
 
 
 function datatablenew(){
-    var oTable1 = $('#tblAfiliado').dataTable({
+    var oTable1 = $('#tblPapeleta').dataTable({
         "bServerSide": true,
         "sAjaxSource": "/papeleta/listar_papeleta_ajax",
         "bProcessing": true,
@@ -621,13 +621,22 @@ function datatablenew(){
 					"aTargets": [12]
                 },
 				{
+					"mRender": function (data, type, row) {
+						var obse_oper_ope = "";
+						if(row.obse_oper_ope!= null)obse_oper_ope = row.obse_oper_ope;
+						return obse_oper_ope;
+					},
+					"bSortable": false,
+					"aTargets": [13]
+                },
+				/*{
                 "mRender": function (data, type, row) {
 					var estado = "";
 					var clase = "";
 					estado = "Eliminar";
 					clase = "btn-danger";
 					accion = "1";
-/*
+
 					if(row.estado == 'A'){
 						estado = "Eliminar";
 						clase = "btn-danger";
@@ -637,7 +646,7 @@ function datatablenew(){
 						estado = "Activar";
 						clase = "btn-success";
 					}
-*/					
+					
 					var html = '<div class="btn-group btn-group-sm" role="group" aria-label="Log Viewer Actions">';
 					html += '<button style="font-size:12px" type="button" class="btn btn-sm btn-success" data-toggle="modal" onclick="modalPapeleta('+row.id+')" ><i class="fa fa-edit"></i> Editar</button>';
 					html += '<a href="javascript:void(0)" onclick=eliminarPapeleta('+row.id+','+accion+') class="btn btn-sm '+clase+'" style="font-size:12px;margin-left:10px">'+estado+'</a>';
@@ -648,7 +657,7 @@ function datatablenew(){
                 },
                 "bSortable": false,
                 "aTargets": [13],
-                },
+                },*/
             ]
 
 
