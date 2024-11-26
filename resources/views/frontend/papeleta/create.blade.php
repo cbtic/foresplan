@@ -97,6 +97,22 @@
     <div class="card">
 
         <div class="card-body">
+        <div class="row">
+                <div class="col-sm-5">
+                    <h4 class="card-title mb-0 text-primary">
+                        Consultar Personas <!--<small class="text-muted">Usuarios activos</small>-->
+                    </h4>
+                </div><!--col-->
+            </div>
+            <div class="row">
+
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+						<div class="card">
+						
+						<div class="card-header">
+							<strong>Lista de Papeletas</strong>
+						</div>
 
             <form class="form-horizontal" method="post" action="{{ route('frontend.planilla.create')}}" id="frmPlanilla" autocomplete="off">
 				
@@ -109,40 +125,44 @@
 
                         <input type="hidden" name="id_planilla" id="id_planilla" value="0">
                         
-					<div class="row">
-
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-						<div class="card">
-						
-						<div class="card-header">
-							<strong>Lista de Planillas</strong>
-						</div>
+                        
+					
 						
 						<div class="row" style="padding:10px 20px 10px 20px;">
-					
-
-                            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                                <select class="form-control form-control-sm" id="id_unidad_trabajo_" name="id_unidad_trabajo_">
-                                    <option value="">Selec. Unidad</option>
-                                </select>
-                            </div>
                             
+                            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                <input class="form-control form-control-sm" id="numero_documento" name="numero_documento" placeholder="N&uacute;mero Documento">
+                                <div id="numero_documento" style="position: absolute;z-index: 100;background-color:#ffffff;width: 400px;"></div>
+                            </div>
                                 
                             <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                                 <input class="form-control form-control-sm" id="persona" name="persona" placeholder="Apellidos y Nombres">
-                                <div id="persona_busqueda" style="position: absolute;z-index: 100;background-color:#ffffff;width: 400px;"></div>
+                                <div id="persona" style="position: absolute;z-index: 100;background-color:#ffffff;width: 400px;"></div>
                             </div>
                             
+                            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                <select class="form-control form-control-sm" id="empresa" name="empresa">
+                                    <option value="">Selec. Empresa</option>
+                                    <?php
+                                    foreach ($empresa as $row){?>
+                                        <option value="<?php echo $row->id ?>"><?php echo $row->razon_social ?></option>
+                                        <?php 
+                                    }
+                                    ?>
+                                </select>
+                            </div>
 
-
-							<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-								<select name="id_estado" id="id_estado" class="form-control form-control-sm" onchange="">
-									<option value="3,5">Todos</option>
-									<option value="3">CAS</option>
-									<option value="5">TERCEROS</option>
-								</select>
-							</div>
+                            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                <select class="form-control form-control-sm" id="tipo_justifica" name="tipo_justifica">
+                                    <option value="">Selec. Tipo Justificaci&oacute;n</option>
+                                    <?php 
+                                    foreach($justificacion as $row):?>
+												<option value="<?php echo $row->denominacion?>"><?php echo $row->denominacion?></option>
+											<?php  
+                                    endforeach;
+                                    ?>
+                                </select>
+                            </div>
 							
 							<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
 								<input class="btn btn-warning btn-sm pull-rigth" value="Buscar" type="button" id="btnBuscar" />
@@ -153,17 +173,23 @@
 						<div class="card-body">
 							
 							<div class="table-responsive">
-							<table id="tblPlanilla" class="table table-hover table-sm">
+							<table id="tblPapeleta" class="table table-hover table-sm">
 							<thead>
 							<tr style="font-size:13px">
 								<th>Id</th>
                                 <th>Tipo Doc.</th>
                                 <th>N.Documento</th>
                                 <th>Nombres</th>
-                                <th>Planilla</th>
-                                <th>S.Planilla</th>
-                                <th>Empresa</th>
-                                <th>Acciones</th>
+                                <th>Tipo Justificaci&oacute;n</th>
+                                <th>Tipo Hora Operaci&oacute;n</th>
+                                <th>F. Inicio</th>
+                                <th>F. Fin</th>
+                                <th>H. Inicio</th>
+                                <th>H. Fin</th>
+                                <th>Cantidad</th>
+                                <th>Raz&oacute;n Social</th>
+                                <th>Estado Operaci&oacute;n</th>
+                                <th>Observaci&oacute;n</th>
 							</tr>
 							</thead>
 							<tbody style="font-size:13px">
@@ -195,7 +221,7 @@
                     </div>
 					
 					
-					<div class="row" style="padding-top:15px">
+					<!--<div class="row" style="padding-top:15px">
 
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div id="" class="row">
@@ -216,20 +242,20 @@
                                                             <tr style="font-size:13px">
                                                                 <th width="15%">Tipo</th>
 																<th width="15%">Código</th>
-																<th width="70%">Concepto</th>
+																<th width="70%">Concepto</th>-->
 																<!--<th width="5%"></th>-->
-                                                            </tr>
+                                                            <!--</tr>
                                                         </thead>
                                                         <tbody>
 
                                                         </tbody>
                                                     </table>
-                                                </div>
+                                                </div>-->
 												
 												<!--<a class='flotante' name="guardar" id="guardar" onclick="guardarSolicitud()" href='#' ><img src='/img/btn_save.png' border="0"/></a>-->
 												
 
-                                            </div>
+                                            <!--</div>
                                         </div>
                                     </div>
 									
@@ -249,20 +275,19 @@
                                                             <tr style="font-size:13px">
 																<th width="15%">Código</th>
 																<th width="30%">Concepto al Trabajador</th>
-                                                                <th width="55%">Monto</th>
+                                                                <th width="55%">Monto</th>-->
 																<!--<th width="5%"></th>-->
-                                                            </tr>
+                                                            <!--</tr>
                                                         </thead>
                                                         <tbody>
 
                                                         </tbody>
                                                     </table>
-                                                </div>
+                                                </div>-->
 												
 												<!--<a class='flotante' name="guardar" id="guardar" onclick="guardarSolicitud()" href='#' ><img src='/img/btn_save.png' border="0"/></a>-->
 												
-
-                                            </div>
+                                            <!--</div>
                                         </div>
                                     </div>
 									
@@ -276,9 +301,9 @@
 
 
                             </div>
-                        </div>
+                        </div>-->
 						
-						
+
 
                 </div>
 
@@ -314,5 +339,5 @@
 
 @push('after-scripts')
 
-<script src="{{ asset('js/planillaLista.js') }}"></script>
+<script src="{{ asset('js/papeletaLista.js') }}"></script>
 @endpush
