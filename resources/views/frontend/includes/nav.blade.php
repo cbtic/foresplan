@@ -107,7 +107,7 @@
 
                                 <a href="/manten/tdias_feriados" class="dropdown-item">Feriados</a>
 
-                                <a href="/manten/formulas" class="dropdown-item">Formulas</a>
+                                <a href="/formula/create" class="dropdown-item">Formulas</a>
 
                                 <a href="/manten/subtplanillas" class="dropdown-item">Sub Planillas</a>
 
