@@ -183,4 +183,10 @@ Route::post('concepto_plan/send_concepto_plan', [ConceptoPlanController::class, 
 
 Route::get('asistencia/asistencia_automatico/{fecha}', [AsistenciaController::class, 'asistencia_automatico'])->name('asistencia.asistencia_automatico');
 
+Route::get('formula/create', [FormulaController::class, 'create'])->name('formula.create');
+Route::post('formula/listar_formula_ajax', [FormulaController::class, 'listar_formula_ajax'])->name('formula.listar_formula_ajax');
+Route::get('formula/modal_formula/{id}', [FormulaController::class, 'modal_formula'])->name('formula.modal_formula');
+Route::post('formula/send_formula', [FormulaController::class, 'send_formula'])->name('formula.send_formula');
+Route::get('formula/eliminar_formula/{id}/{estado}', [FormulaController::class, 'eliminar_formula'])->name('formula.eliminar_formula');
+
 
