@@ -105,7 +105,7 @@
 								<!--<a href="/manten/detalle_turnos" class="dropdown-item">Detalle Turnos</a>-->
 								<a href="/manten/personal_turnos" class="dropdown-item">Asignar Persona Turno</a>
 
-                                <a href="/manten/tdias_feriados" class="dropdown-item">Feriados</a>
+                                <a href="/feriado/create" class="dropdown-item">Feriados</a>
 
                                 <a href="/formula/create" class="dropdown-item">Formulas</a>
 

@@ -189,4 +189,9 @@ Route::get('formula/modal_formula/{id}', [FormulaController::class, 'modal_formu
 Route::post('formula/send_formula', [FormulaController::class, 'send_formula'])->name('formula.send_formula');
 Route::get('formula/eliminar_formula/{id}/{estado}', [FormulaController::class, 'eliminar_formula'])->name('formula.eliminar_formula');
 
+Route::get('feriado/create', [TdiasFeriadoController::class, 'create'])->name('feriado.create');
+Route::post('feriado/listar_feriado_ajax', [TdiasFeriadoController::class, 'listar_feriado_ajax'])->name('feriado.listar_feriado_ajax');
+Route::get('feriado/modal_feriado/{id}', [TdiasFeriadoController::class, 'modal_feriado'])->name('feriado.modal_feriado');
+Route::post('feriado/send_feriado', [TdiasFeriadoController::class, 'send_feriado'])->name('feriado.send_feriado');
+Route::get('feriado/eliminar_feriado/{id}/{estado}', [TdiasFeriadoController::class, 'eliminar_feriado'])->name('feriado.eliminar_feriado');
 

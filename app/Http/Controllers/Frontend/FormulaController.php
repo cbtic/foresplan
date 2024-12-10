@@ -88,11 +88,11 @@ class FormulaController extends Controller
 
     public function eliminar_formula($id,$estado)
     {
-		$persona = Persona::find($id);
-		$persona->estado = $estado;
-		$persona->save();
+		$formula = Formula::find($id);
+		$formula->estado = $estado;
+		$formula->save();
 
-		echo $persona->id;
+		echo $formula->id;
 
     }
 }
