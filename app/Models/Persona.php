@@ -117,27 +117,39 @@ class Persona extends Model
     }
 
 	function apiperu_dev($dni){
-       
+
 		$curl = curl_init();
 		
 		curl_setopt_array($curl, array(
-		  CURLOPT_URL => 'https://apiperu.dev/api/dni/'.$dni,
-		  CURLOPT_RETURNTRANSFER => true,
-		  CURLOPT_ENCODING => '',
-		  CURLOPT_MAXREDIRS => 10,
-		  CURLOPT_TIMEOUT => 0,
-		  CURLOPT_FOLLOWLOCATION => true,
-		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		  CURLOPT_CUSTOMREQUEST => 'GET',
-		  CURLOPT_HTTPHEADER => array(
-			'Authorization: Bearer 20b6666ddda099db4204cf53854f8ca04d950a4eead89029e77999b0726181cb',
-			'Cookie: XSRF-TOKEN=eyJpdiI6InNWRHJxUGpDT3pqSVRkUlFFTm5XMHc9PSIsInZhbHVlIjoiREtNUVFoTytVcHhRQmdFSGo2ejV1SVBhMnExYmpMc25ZYTZSdlEwYmRJekhDWUVpMC94bFJqeWs5T1pKN1RuUHdYNHhUalI4SXJOYVJoSzFOcUs1MDNiTitRamkxTm5TTElkUU1JMGdPK2ZteXlDQ1I4YkVBZFdrYis1QndCOUsiLCJtYWMiOiJlMjQ4ZWZmZmY0OTQzMDhlYjYyMTljOWVmMjI4ZWQ2M2Q1NTFkYjE2MmZhYWNlMzRkZWI1MmJhZGM2MmY0NjFkIn0%3D; apiperu_session=eyJpdiI6IjVkbkpDQ1MwVGx3THFiR0g0UjlyMnc9PSIsInZhbHVlIjoiUk5IWTFoYjVhWXJGaEhiQ2NMQ1phRHV5RjR5QWxVKzgrRjhpaVRRckQ3OGIrQUpSdk1tcXNTdmRKYk95Rml0MlVkWVdsSHlEbXcvcmNxUFNiNGp2SzdTWHJhYmtnck5KenFla1dPQ0lId3hWZitXaVkyNEtOR25GdVhibHVCS2QiLCJtYWMiOiI2OGI2MTFjNjhjMDFmY2UzMzhlOTJhNGJkZTUzZjY5MDU2ZWNkNDA4OGRkNjlmYjVjY2RlOGQ3ZDljY2E0ZDMxIn0%3D'
+		    CURLOPT_URL => 'https://apiperu.dev/api/dni/'.$dni,
+            CURLOPT_SSL_VERIFYPEER=> false,
+		    CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+		    CURLOPT_HTTPHEADER => array(
+            'Accept: application/json',
+            'Content-Type: application/json',
+			'Authorization: Bearer 20b6666ddda099db4204cf53854f8ca04d950a4eead89029e77999b0726181cb'//,
+			/*'Cookie: XSRF-TOKEN=eyJpdiI6InNWRHJxUGpDT3pqSVRkUlFFTm5XMHc9PSIsInZhbHVlIjoiREtNUVFoTytVcHhRQmdFSGo2ejV1SVBhMnExYmpMc25ZYTZSdlEwYmRJekhDWUVpMC94bFJqeWs5T1pKN1RuUHdYNHhUalI4SXJOYVJoSzFOcUs1MDNiTitRamkxTm5TTElkUU1JMGdPK2ZteXlDQ1I4YkVBZFdrYis1QndCOUsiLCJtYWMiOiJlMjQ4ZWZmZmY0OTQzMDhlYjYyMTljOWVmMjI4ZWQ2M2Q1NTFkYjE2MmZhYWNlMzRkZWI1MmJhZGM2MmY0NjFkIn0%3D; apiperu_session=eyJpdiI6IjVkbkpDQ1MwVGx3THFiR0g0UjlyMnc9PSIsInZhbHVlIjoiUk5IWTFoYjVhWXJGaEhiQ2NMQ1phRHV5RjR5QWxVKzgrRjhpaVRRckQ3OGIrQUpSdk1tcXNTdmRKYk95Rml0MlVkWVdsSHlEbXcvcmNxUFNiNGp2SzdTWHJhYmtnck5KenFla1dPQ0lId3hWZitXaVkyNEtOR25GdVhibHVCS2QiLCJtYWMiOiI2OGI2MTFjNjhjMDFmY2UzMzhlOTJhNGJkZTUzZjY5MDU2ZWNkNDA4OGRkNjlmYjVjY2RlOGQ3ZDljY2E0ZDMxIn0%3D'*/
 		  ),
 		));
         //exit($dni);
 		$response = curl_exec($curl);
         //echo($response);exit();
-		
+        /*
+		$err = curl_error($curl);
+        curl_close($curl);
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            echo $response;
+        }
+        */
+        //exit();
 		curl_close($curl);
 		return $response;
 
