@@ -996,8 +996,140 @@ $(document).ready(function() {
 });
 
 
+function obtenerBeneficiarioAjax(){
+
+	var numero_documento = $("#numero_documento_").val();
+	validaDni(numero_documento);
+
+}
+
+function validaDni(dni){
+	var settings = {
+		"url": "https://apiperu.dev/api/dni/"+dni,
+		"method": "GET",
+		"timeout": 0,
+		"headers": {
+		  "Authorization": "Bearer 20b6666ddda099db4204cf53854f8ca04d950a4eead89029e77999b0726181cb"
+		},
+	  };
+
+	  $.ajax(settings).done(function (response) {
+		console.log(response);
+
+		if (response.success == true){
+
+			var data= response.data;
+
+			//$('#apellido_paterno_').val('')
+			//$('#apellido_materno_').val('')
+			//$('#nombres_').val('')
+			//$('#codigo_').val('')
+			//$('#ocupacion_').val('')
+			//$('#telefono_').val('')
+			//$('#email_').val('')
+			$('#nombres_').val("");
+
+			var nombre = data.apellido_paterno+" "+data.apellido_materno+", "+data.nombres;
+			$('#nombres_').val(nombre);
+			
+			//$('#apellido_paterno_').val(data.apellido_paterno);
+			//$('#apellido_materno_').val(data.apellido_materno);
+			//$('#nombres_').val(data.nombres);
+
+			//alert(data.nombre_o_razon_social);
+
+		}
+		else{
+			bootbox.alert("DNI Invalido,... revise el DNI digitado ¡");
+			return false;
+		}
+
+	  });
+}
+
 
 function obtenerBeneficiario(){
+		
+	var tipo_documento = $("#tipo_documento_").val();
+	var numero_documento = $("#numero_documento_").val();
+	var msg = "";
+
+	if (msg != "") {
+		bootbox.alert(msg);
+		return false;
+	}
+
+	if (tipo_documento == "0" || numero_documento == "") {
+		bootbox.alert(msg);
+		return false;
+	}
+
+	$.ajax({
+		url: '/persona/buscar_persona/' + tipo_documento + '/' + numero_documento,
+		dataType: "json",
+		success: function(result){
+			
+			if(result.sw==2){
+				bootbox.alert("No es colaborador de Felmo, los datos han sido obtenidos de Reniec");
+			}
+			if(result.sw==3){
+				bootbox.alert("El numero de documento no se encontro en Felmo ni en Reniec");
+				return false;
+			}
+
+			var persona = result.persona;
+			var persona_detalle = result.persona_detalle;
+			
+			var nombre = persona.apellido_paterno+" "+persona.apellido_materno+", "+persona.nombres;
+			$('#nombres_').val(nombre);
+			$('#fecha_nacimiento_').val(persona.fecha_nacimiento);
+			$('#sexo_').val(persona.sexo);
+			$('#id').val(persona.id);
+			$('#id_per_det').val(0);
+			
+			$('#telefono_').val(persona_detalle.telefono);
+			$('#email_').val(persona_detalle.email);
+
+			$('#tipo_documento_').attr("disabled",true);
+			$('#numero_documento_').attr("disabled",true);
+		}	
+	},
+	{
+		url: '/persona/buscar_persona/' + tipo_documento + '/' + numero_documento,
+		dataType: "json",
+		success: function(result){
+			
+			if(result.sw==2){
+				bootbox.alert("Todos los datos han sido obtenidos de Reniec");
+			}
+			if(result.sw==3){
+				bootbox.alert("El numero de documento no se encontro en Felmo ni en Reniec");
+				
+				return false;
+			}
+
+			var persona = result.persona;
+			var persona_detalle = result.persona_detalle;
+			
+			var nombre = persona.apellido_paterno+" "+persona.apellido_materno+", "+persona.nombres;
+			$('#nombres_').val(nombre);
+			$('#fecha_nacimiento_').val(persona.fecha_nacimiento);
+			$('#sexo_').val(persona.sexo);
+			$('#id').val(persona.id);
+			$('#id_per_det').val(0);
+
+			$('#telefono_').val(persona_detalle.telefono);
+			$('#email_').val(persona_detalle.email);
+
+			$('#tipo_documento_').attr("disabled",true);
+			$('#numero_documento_').attr("disabled",true);
+		}	
+	}
+	);
+	
+}
+
+function obtenerBeneficiario_old(){
 		
 		var tipo_documento = $("#tipo_documento_").val();
 		var numero_documento = $("#numero_documento_").val();
