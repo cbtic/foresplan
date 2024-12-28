@@ -211,15 +211,15 @@ function fn_save(){
         $('.loader').show();
 		
 		$.ajax({
-				url: "/feriado/send_feriado",
-				type: "POST",
-				data : $('#frmFeriado').serialize(),
-				success: function (result) {
-					datatablenew();
-					$('.loader').hide();
-					bootbox.alert("Se guard&oacute; satisfactoriamente"); 
-					$('#openOverlayOpc').modal('hide');
-				}
+			url: "/feriado/send_feriado",
+			type: "POST",
+			data : $('#frmFeriado').serialize(),
+			success: function (result) {
+				datatablenew();
+				$('.loader').hide();
+				bootbox.alert("Se guard&oacute; satisfactoriamente"); 
+				$('#openOverlayOpc').modal('hide');
+			}
 		});
 	}
 }

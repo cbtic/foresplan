@@ -115,6 +115,17 @@
 								
 								<a href="/maestro/create_ubicacion_maestro" class="dropdown-item">Maestros por Cliente</a>
 
+                                <a href="/cliente_usuario/create" class="dropdown-item">Cliente Usuario</a>
+                                
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownPrueba" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Control de Alimentaci&oacute;n</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownPrueba">
+                            <a href="/menu_persona/create_menu" class="dropdown-item">Registro Menu</a>
+                            <a href="/menu_persona/create_persona_menu" class="dropdown-item">Registro Menu Persona</a>
                         </div>
                     </li>
                    

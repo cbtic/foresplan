@@ -26,6 +26,8 @@ use App\Http\Controllers\Frontend\ConceptoController;
 use App\Http\Controllers\Frontend\PlanillaCalculadaController;
 use App\Http\Controllers\Frontend\BoletaController;
 use App\Http\Controllers\Frontend\ConceptoPlanController;
+use App\Http\Controllers\Frontend\MenuPersonaController;
+use App\Http\Controllers\Frontend\ClienteUserController;
 # Fin importacion de Modelos
 
 use Tabuna\Breadcrumbs\Trail;
@@ -195,3 +197,19 @@ Route::get('feriado/modal_feriado/{id}', [TdiasFeriadoController::class, 'modal_
 Route::post('feriado/send_feriado', [TdiasFeriadoController::class, 'send_feriado'])->name('feriado.send_feriado');
 Route::get('feriado/eliminar_feriado/{id}/{estado}', [TdiasFeriadoController::class, 'eliminar_feriado'])->name('feriado.eliminar_feriado');
 
+Route::get('menu_persona/create_menu', [MenuPersonaController::class, 'create_menu'])->name('menu_persona.create_menu');
+Route::get('menu_persona/create_persona_menu', [MenuPersonaController::class, 'create_persona_menu'])->name('menu_persona.create_persona_menu');
+Route::post('menu_persona/listar_menu_ajax', [MenuPersonaController::class, 'listar_menu_ajax'])->name('menu_persona.listar_menu_ajax');
+Route::post('menu_persona/listar_menu_persona_ajax', [MenuPersonaController::class, 'listar_menu_persona_ajax'])->name('menu_persona.listar_menu_persona_ajax');
+Route::get('menu_persona/modal_menu/{id}', [MenuPersonaController::class, 'modal_menu'])->name('menu_persona.modal_menu');
+Route::get('menu_persona/modal_persona_menu/{id}', [MenuPersonaController::class, 'modal_persona_menu'])->name('menu_persona.modal_persona_menu');
+Route::post('menu_persona/send_menu', [MenuPersonaController::class, 'send_menu'])->name('menu_persona.send_menu');
+Route::post('menu_persona/send_menu_persona', [MenuPersonaController::class, 'send_menu_persona'])->name('menu_persona.send_menu_persona');
+Route::get('menu_persona/eliminar_menu/{id}/{estado}', [MenuPersonaController::class, 'eliminar_menu'])->name('menu_persona.eliminar_menu');
+Route::get('menu_persona/eliminar_menu_persona/{id}/{estado}', [MenuPersonaController::class, 'eliminar_menu_persona'])->name('menu_persona.eliminar_menu_persona');
+Route::get('menu_persona/obtener_menu/{fecha}', [MenuPersonaController::class, 'obtener_menu'])->name('menu_persona.obtener_menu');
+
+Route::get('cliente_usuario/create', [ClienteUserController::class, 'create'])->name('cliente_usuario.create');
+Route::post('cliente_usuario/listar_cliente_user_ajax', [ClienteUserController::class, 'listar_cliente_user_ajax'])->name('cliente_usuario.listar_cliente_user_ajax');
+Route::get('cliente_usuario/modal_cliente_user/{id}', [ClienteUserController::class, 'modal_cliente_user'])->name('cliente_usuario.modal_cliente_user');
+Route::post('cliente_usuario/send_cliente_user', [ClienteUserController::class, 'send_cliente_user'])->name('cliente_usuario.send_cliente_user');
