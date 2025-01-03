@@ -172,6 +172,10 @@ function fn_save(){
             data : {_token:_token,id:id,id_concepto:id_concepto,id_periodo:id_periodo,id_persona:id_persona,precio:precio},
             success: function (result) {
 				
+				if(result==1){
+					bootbox.alert("El concepto ya se encuentra asignado");
+					return false;
+				}
 				$('#openOverlayOpc').modal('hide');
 				//var id_planilla = $('#id_planilla_modal').val();
 				//var id_subplanilla = $('#id_subplanilla_modal').val();

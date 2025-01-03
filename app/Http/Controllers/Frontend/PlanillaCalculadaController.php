@@ -342,6 +342,21 @@ class PlanillaCalculadaController extends Controller
 		$id_subplanilla = $periodo->id_subplanilla;
 		$id_ubicacion = $periodo->id_ubicacion;
 		
+		$cuenta = ConceptoPersona::where('estado',1)
+		->where('id','<>',$request->id)
+		->where('id_periodo',$request->id_periodo)
+		->where('id_ubicacion',$id_ubicacion)
+		->where('id_ubicacion',$id_ubicacion)
+		->where('id_planilla',$id_planilla)
+		->where('id_subplanilla',$id_subplanilla)
+		->where('id_persona',$request->id_persona)
+		->where('id_concepto',$request->id_concepto)->count();
+
+		if($cuenta != 0){
+			echo "1";
+			exit();
+		}
+		
 		if($request->id == 0){
 			$concepto_persona = new ConceptoPersona;
 			$concepto_persona->id_periodo = $request->id_periodo;
