@@ -62,18 +62,18 @@ class PersonalTurno extends Model
 		inner join persona_detalles t2 on t1.id=t2.id_persona
 		left join personal_turnos t3 on t1.id=t3.id_persona and t3.deleted_at is null
 		left join tturnos t4 on t4.id=t3.id_turno
-		Where 1=1 /*and t4.deleted_at is null*/ ";
+		Where 1=1 ";
 		
 		//if($id>0)$cad .= "And (t3.id is null or t1.id=".$id.") ";
 		//else $cad .= "And t3.id is null ";
 
-		if($id>0)$cad .= "And ((t3.id is null or t4.deleted_at is not null) is null or t1.id=".$id.") ";
-		else $cad .= "And (t3.id is null or t4.deleted_at is not null) ";
+		if($id>0)$cad .= " And ((t3.id is null or t4.deleted_at is not null) is null or t1.id=".$id.") ";
+		else $cad .= " And (t3.id is null or t4.deleted_at is not null) ";
 		
-		if($id_area_trabajo>0)$cad .= "And t2.id_area_trabajo=".$id_area_trabajo;
-		if($id_unidad_trabajo>0)$cad .= "And t2.id_unidad_trabajo=".$id_unidad_trabajo;
+		if($id_area_trabajo>0)$cad .= " And t2.id_area_trabajo='".$id_area_trabajo."' ";
+		if($id_unidad_trabajo>0)$cad .= " And t2.id_unidad_trabajo='".$id_unidad_trabajo."' ";
 		
-		$cad .= " And t1.estado='A' order by id desc"; 
+		$cad .= " And t1.estado='A' order by id desc "; 
 		//echo $cad;
 		$data = DB::select($cad);
         return $data;
