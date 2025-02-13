@@ -68,7 +68,7 @@ class PersonalTurno extends Model
 		//else $cad .= "And t3.id is null ";
 
 		if($id>0)$cad .= " And ((t3.id is null or t4.deleted_at is not null) is null or t1.id=".$id.") ";
-		else $cad .= " And (t3.id is null or t4.deleted_at is not null) ";
+		else $cad .= " And (t3.id_turno is null or t4.deleted_at is not null) ";
 		
 		if($id_area_trabajo>0)$cad .= " And t2.id_area_trabajo='".$id_area_trabajo."' ";
 		if($id_unidad_trabajo>0)$cad .= " And t2.id_unidad_trabajo='".$id_unidad_trabajo."' ";
