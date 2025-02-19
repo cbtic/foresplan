@@ -190,6 +190,7 @@
                                 <th>Raz&oacute;n Social</th>
                                 <th>Estado Operaci&oacute;n</th>
                                 <th>Observaci&oacute;n</th>
+                                <th>Acciones</th>
 							</tr>
 							</thead>
 							<tbody style="font-size:13px">

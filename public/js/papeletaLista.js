@@ -629,7 +629,7 @@ function datatablenew(){
 					"bSortable": false,
 					"aTargets": [13]
                 },
-				/*{
+				{
                 "mRender": function (data, type, row) {
 					var estado = "";
 					var clase = "";
@@ -656,8 +656,8 @@ function datatablenew(){
 					return html;
                 },
                 "bSortable": false,
-                "aTargets": [13],
-                },*/
+                "aTargets": [14],
+                },
             ]
 
 
