@@ -178,6 +178,7 @@ class PersonaDetalleController extends Controller
     {
 		$personad = PersonaDetalle::find($id);
 		$personad->eliminado = $estado;
+        $personad->estado = "C";
 		$personad->save();
 
 		echo $personad->id;
