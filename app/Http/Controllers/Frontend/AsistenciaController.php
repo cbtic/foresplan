@@ -186,7 +186,7 @@ class AsistenciaController extends Controller
         $asistencia->hora_entrada = $request->hora_entrada;
         $asistencia->hora_salida = $request->hora_salida;
 
-        $asistencia->save();		
+        $asistencia->save();
 		$asistencia_model = new Asistencia;
 		$asistencia_model->recalcular_asistencia($asistencia->id);
 	
