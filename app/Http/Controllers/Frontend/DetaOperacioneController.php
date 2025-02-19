@@ -350,7 +350,7 @@ class DetaOperacioneController extends Controller
 			$asis->minu_apor_eas = null;
 			$asis->minu_dife_eas = null;
 			$asis->fech_sali_rel = null;
-			$asis->fech_marc_rel = null;
+			//$asis->fech_marc_rel = null;
 			$asis->minu_dife_pap = null;
 
 
