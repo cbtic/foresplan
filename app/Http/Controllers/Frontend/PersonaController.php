@@ -63,7 +63,8 @@ class PersonaController extends Controller
 		if($id>0) $persona = Persona::find($id);else $persona = new Persona;
 
 		$tipo_documento = DocumentoIdentidade::all();
-		if($id>0) $persona_detalle = PersonaDetalle::where('id_persona', '=', $id)->where('estado', '=', 'A')->first();else $persona_detalle = new PersonaDetalle;
+		//if($id>0) $persona_detalle = PersonaDetalle::where('id_persona', '=', $id)->where('estado', '=', 'A')->first();else $persona_detalle = new PersonaDetalle;
+		if($id>0) $persona_detalle = PersonaDetalle::where('id_persona', '=', $id)->first();else $persona_detalle = new PersonaDetalle;
 		//$persona_detalle = PersonaDetalle::where('id_persona', '=', $id)->where('estado', '=', 'A')->first();
 
 		$tabla_model = new TablaUbicacione;		

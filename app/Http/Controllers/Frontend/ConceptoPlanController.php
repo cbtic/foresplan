@@ -61,6 +61,7 @@ class ConceptoPlanController extends Controller
 		$concepto_plan->id_subplanilla = $request->subplanilla;
 		$concepto_plan->id_concepto = $request->concepto;
 		$concepto_plan->predeterminado = $request->predeterminado;
+		$concepto_plan->estado = "A";
 		$concepto_plan->save();
 
 	}

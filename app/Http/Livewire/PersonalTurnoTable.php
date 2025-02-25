@@ -137,7 +137,8 @@ class PersonalTurnoTable extends DataTableComponent
     {
         return Personal_Turnos::query()
 		//->selectRaw("CONCAT(personas.apellido_paterno,' ',personas.apellido_materno,' ',personas.nombres) as persona,tturnos.nomb_desc_tur as turno, personal_turnos.*, fech_asig_ttu")
-		->selectRaw("CONCAT(personas.apellido_paterno,' ',personas.apellido_materno,' ',personas.nombres) as personal,tturnos.nomb_desc_tur as turno, personal_turnos.*,to_char(fech_asig_ttu::date,'dd/mm/yyyy')fech_asig_ttu")
+		->distinct()
+        ->selectRaw("CONCAT(personas.apellido_paterno,' ',personas.apellido_materno,' ',personas.nombres) as personal,tturnos.nomb_desc_tur as turno, personal_turnos.*,to_char(fech_asig_ttu::date,'dd/mm/yyyy')fech_asig_ttu")
 		->Join('personas', 'personas.id', 'personal_turnos.id_persona')
 		->Join('persona_detalles', 'personas.id', 'persona_detalles.id_persona')
 		->Join('tturnos', 'tturnos.id', 'personal_turnos.id_turno')
