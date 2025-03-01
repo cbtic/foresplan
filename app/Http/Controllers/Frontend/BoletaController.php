@@ -149,8 +149,8 @@ class BoletaController extends Controller
 
 		$sw = true;
 		$msg = "";
-        $anio = "2022";
-        $empresa = "Felmo";
+        $anio = "2025";
+        $empresa = "Forespama";
 
 		$planilla_model = new PlanillaCalculada;
 		$p[]=null;       //$request->id_area_trabajo;

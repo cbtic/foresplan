@@ -265,6 +265,8 @@
 						<input class="btn btn-success pull-rigth" value="Nueva Papeleta" type="button" id="btnPapeleta" style="margin-left:15px" />
 					</div>
 
+					@hasanyrole('Control Asistencia|Administrator')
+
 					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 						<div class="form-group">
 							<label class="form-control-sm">Fecha Proceso</label>
@@ -275,10 +277,12 @@
 					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-right:0px;padding-top:30px">
 						<input class="btn btn-danger pull-rigth" value="Procesar" type="button" id="btnProcesar" onclick="asistenciaAutomatico()" />
 					</div>
+					
+					@endhasanyrole
 
 				</div>
 				
-                <div class="card-body">				
+                <div class="card-body">
 
                     <div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
                     <table id="tblAfiliado" class="table table-hover table-sm">
