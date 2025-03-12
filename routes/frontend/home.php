@@ -156,6 +156,7 @@ Route::get('planilla/listar_metas_persona/{id_ubicacion}/{id_planilla}/{id_subpl
 Route::get('planilla/actualizar_periodo/{id}/{estado}', [PlanillaCalculadaController::class, 'actualizar_periodo'])->name('planilla.actualizar_periodo');
 
 Route::get('planilla/generar_planilla_calculada_periodo/{id}', [PlanillaCalculadaController::class, 'generar_planilla_calculada_periodo'])->name('planilla.generar_planilla_calculada_periodo');
+Route::get('planilla/eliminar_planilla_calculada_periodo/{id}', [PlanillaCalculadaController::class, 'eliminar_planilla_calculada_periodo'])->name('planilla.eliminar_planilla_calculada_periodo');
 
 Route::get('planilla/eliminar_meta_persona/{id}', [PlanillaCalculadaController::class, 'eliminar_meta_persona'])->name('planilla.eliminar_meta_persona');
 Route::get('planilla/obtener_concepto_planilla/{id_periodo}/{id_persona}', [PlanillaCalculadaController::class, 'obtener_concepto_planilla'])->name('planilla.obtener_concepto_planilla');

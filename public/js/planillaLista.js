@@ -44,6 +44,10 @@ $(document).ready(function() {
         fn_ListarBusqueda();
     });
 
+    $('#btnEliminar').click(function() {
+        eliminarPlanilla();
+    });
+
 
     $('#btnNuevo').click(function() {
         modalPapeleta(0);
@@ -731,6 +735,39 @@ function modalPapeleta(id) {
         }
     });
 
+}
+
+function eliminarPlanilla() {
+    var id_periodo = $("#id_periodo").val();
+
+    bootbox.confirm({
+        size: "small",
+        message: "&iquest;Deseas Eliminar la Planilla Seleccionada?",
+        callback: function(result) {
+            if (result == true) {
+                fn_elimina_planilla(id_periodo);
+            }
+        }
+    });
+    $(".modal-dialog").css("width", "30%");
+}
+
+function fn_elimina_planilla(id_periodo) {
+
+    $.ajax({
+        url: "/planilla/eliminar_planilla_calculada_periodo/" + id_periodo,
+        type: "GET",
+        dataType: 'json',
+        success: function(result) {
+            //if(result="success")obtenerPlanDetalle(id_plan);
+
+            if (result.sw == false) {
+                bootbox.alert(result.msg);
+            }
+
+            datatablenew();
+        }
+    });
 }
 
 

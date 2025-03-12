@@ -578,6 +578,7 @@ class PlanillaCalculadaController extends Controller
         echo json_encode($array);
 
 	}
+	
 	public function generar_planilla_calculada_periodo($id)
     {
 		$sw = true;
@@ -596,7 +597,23 @@ class PlanillaCalculadaController extends Controller
 
 	}
 
-	
+	public function eliminar_planilla_calculada_periodo($id)
+    {
+		$sw = true;
+		$msg = "";
+		
+		$planilla_model = new Tplanilla;
+		$planilla_model->elimina_planilla_calculada($id);
+
+		$periodo = Tperiodo::find($id);
+		$periodo->esta_plan_cer = '1';
+		$periodo->save();
+		
+		$array["sw"] = $sw;
+        $array["msg"] = $msg;
+        echo json_encode($array);
+
+	}
 	
 	
 }

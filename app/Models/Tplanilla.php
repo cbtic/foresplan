@@ -127,6 +127,16 @@ And t1.id_periodo = ".$id_periodo;
         return $data[0]->sp_procesar_planilla;
     }
 
+    public function elimina_planilla_calculada($id_periodo) {
+		
+        //$cad = "delete from planilla_calculadas where id_periodo = ".$id_periodo;
+        $cad = "update planilla_calculadas set estado='0' where id_periodo = ".$id_periodo;
+
+		//echo $cad; exit();
+		$data = DB::select($cad);
+		return $data;
+    }
+    
 	public function readFunctionPostgres($function, $parameters = null){
 	
         $_parameters = '';

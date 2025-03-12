@@ -144,6 +144,10 @@
                                         <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
                                             <input class="btn btn-warning btn-sm pull-rigth" value="Buscar" type="button" id="btnBuscar" />
                                         </div>
+
+                                        <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+                                            <input class="btn btn-danger btn-sm pull-rigth" value="Eliminar" type="button" id="btnEliminar" />
+                                        </div>
                                         
                                     </div>
                                     
