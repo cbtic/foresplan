@@ -149,7 +149,9 @@ $('#openOverlayOpc').on('shown.bs.modal', function() {
 
 $(document).ready(function() {
 	 
-	 
+	 $('#id_cargo_').select2({
+		width:"100%"
+	 })
 
 });
 
