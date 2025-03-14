@@ -152,8 +152,29 @@ body {
     &nbsp;
     <table class="data" style="width:100%">
       <tr>
+        <th>RUC:</th>
+        <td>20486785994</td>
+      </tr>
+      <tr>
+        <th>Empleador:</th>
+        <td>FORESTAL PAMA S.A.C.</td>
+      </tr>
+      <tr>
+        <th>Periodo:</th>
+        <td>{{ $anio_mes_planilla }}</td>
+      </tr>
+      <tr>
+        <th>PDT Planilla Electronica</th>
+        <td></td>
+        <th>N&uacute;mero de Orden:</th>
+        <td>{{ $id_planilla }}</td>
+      </tr>
+    </table>
+    &nbsp;
+    <table class="data" style="width:100%">
+      <tr>
         <th>Trabajador:</th>
-        <td>{{ $persona->apellido_paterno . " " . $persona->apellido_paterno . ", " . $persona->nombres }}</td>
+        <td>{{ $persona->apellido_paterno . " " . $persona->apellido_materno . ", " . $persona->nombres }}</td>
         <th>{{ ($persona->tipo_documento == 1) ? "DNI" : "C.E./PASSAPORTE" }}:</th>
         <td>{{ $persona->numero_documento }}</td>
         <td>&nbsp;</td>
@@ -296,16 +317,29 @@ body {
       <tr><th><p>OBSERVACIONES: </p></th></tr>
   </table>
   &nbsp;
-  <table class="data" style="width:100%">
-      <tr>
-        <th>
-          <p style="height: 160px;"> &nbsp;</p>
-        </th>
-        <th>
-          <div style="text-align: right; margin-right: 25px">{!! QrCode::size(120)->generate('RemoteStack') !!}</div>
-        </th>
-      </tr>
-      <tr><th class="firma" colspan="2"><h3>EMPLEADOR</h3></th></tr>
-  </table>
+  <div style="display: flex; justify-content: space-between; width: 100%;">
+    <table class="data" style="width:49%">
+        <tr>
+          <th>
+            <p style="height: 160px;"> &nbsp;</p>
+          </th>
+          <th>
+            <div style="text-align: right; margin-right: 25px">{!! QrCode::size(120)->generate('RemoteStack') !!}</div>
+          </th>
+        </tr>
+        <tr><th class="firma" colspan="2"><h3>EMPLEADOR</h3></th></tr>
+    </table>
+    <table class="data" style="width:49%">
+        <tr>
+          <th>
+            <p style="height: 160px;"> &nbsp;</p>
+          </th>
+          <th>
+            <div style="text-align: right; margin-right: 25px"></div>
+          </th>
+        </tr>
+        <tr><th class="firma" colspan="2"><h3>TRABAJADOR</h3></th></tr>
+    </table>
+  </div>
   </body>
 </html>
