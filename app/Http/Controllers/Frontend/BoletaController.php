@@ -107,7 +107,7 @@ class BoletaController extends Controller
 
        // print_r($unidad_trabajo);
        // exit();
-        /*
+        
        $pdf = Pdf::loadView('frontend.boletas.boleta-pdf',compact(
         'persona',
         'persona_detalle',
@@ -122,7 +122,9 @@ class BoletaController extends Controller
         'total_aportes_empleador',
         'total_neto_letras',
         'remuneracion_basica',
-        'unidad_trabajo'
+        'unidad_trabajo',
+        'anio_mes_planilla',
+        'id_planilla'
         ));
        $pdf->getDomPDF()->set_option("enable_php", true);
         
@@ -133,9 +135,9 @@ class BoletaController extends Controller
        $pdf->setOption('margin-left', 100); // Márgen izquierdo en milímetros
                
        return $pdf->stream('reporte.pdf');
-        */
+        
 
-		return view('frontend.boletas.boleta-pdf',compact(
+		/*return view('frontend.boletas.boleta-pdf',compact(
             'persona',
             'persona_detalle',
             'planilla_calculada_ingresos',
@@ -152,7 +154,7 @@ class BoletaController extends Controller
             'unidad_trabajo',
             'anio_mes_planilla',
             'id_planilla'
-        ));
+        ));*/
         
     }
 

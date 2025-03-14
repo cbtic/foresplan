@@ -28,6 +28,7 @@ use App\Http\Controllers\Frontend\BoletaController;
 use App\Http\Controllers\Frontend\ConceptoPlanController;
 use App\Http\Controllers\Frontend\MenuPersonaController;
 use App\Http\Controllers\Frontend\ClienteUserController;
+use App\Http\Controllers\Frontend\TarjetaController;
 # Fin importacion de Modelos
 
 use Tabuna\Breadcrumbs\Trail;
@@ -214,3 +215,11 @@ Route::get('cliente_usuario/create', [ClienteUserController::class, 'create'])->
 Route::post('cliente_usuario/listar_cliente_user_ajax', [ClienteUserController::class, 'listar_cliente_user_ajax'])->name('cliente_usuario.listar_cliente_user_ajax');
 Route::get('cliente_usuario/modal_cliente_user/{id}', [ClienteUserController::class, 'modal_cliente_user'])->name('cliente_usuario.modal_cliente_user');
 Route::post('cliente_usuario/send_cliente_user', [ClienteUserController::class, 'send_cliente_user'])->name('cliente_usuario.send_cliente_user');
+
+Route::get('tarjeta/create', [TarjetaController::class, 'create'])->name('tarjeta.create');
+Route::post('tarjeta/listar_tarjeta_ajax', [TarjetaController::class, 'listar_tarjeta_ajax'])->name('tarjeta.listar_tarjeta_ajax');
+Route::get('tarjeta/modal_tarjeta/{id}', [TarjetaController::class, 'modal_tarjeta'])->name('tarjeta.modal_tarjeta');
+Route::get('tarjeta/list_persona/{term}', [TarjetaController::class, 'list_persona'])->name('tarjeta.list_persona');
+Route::post('tarjeta/send_tarjeta', [TarjetaController::class, 'send_tarjeta'])->name('tarjeta.send_tarjeta');
+Route::get('tarjeta/eliminar_tarjeta/{id}/{estado}', [TarjetaController::class, 'eliminar_tarjeta'])->name('tarjeta.eliminar_tarjeta');
+Route::post('tarjeta/eliminar_tarjeta_bloque', [TarjetaController::class, 'eliminar_tarjeta_bloque'])->name('tarjeta.eliminar_tarjeta_bloque');

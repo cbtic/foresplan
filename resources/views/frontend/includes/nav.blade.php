@@ -116,7 +116,9 @@
 								<a href="/maestro/create_ubicacion_maestro" class="dropdown-item">Maestros por Cliente</a>
 
                                 <a href="/cliente_usuario/create" class="dropdown-item">Cliente Usuario</a>
-                                
+
+                                <a href="/tarjeta/create" class="dropdown-item">Asignar Persona Tarjeta</a>
+
                         </div>
                     </li>
 
