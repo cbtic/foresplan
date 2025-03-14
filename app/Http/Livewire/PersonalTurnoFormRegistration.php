@@ -26,6 +26,7 @@ class PersonalTurnoFormRegistration extends Component
 	public $nomb;
 	public $id_area_trabajo;
 	public $id_unidad_trabajo;
+    public $tipo_marcacion;
 	
 	//public $personalTurnoTable = PersonalTurnoTable::class;
 	

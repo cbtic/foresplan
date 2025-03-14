@@ -71,13 +71,13 @@
 			<div class="input-group" id="persona_busqueda"></div>
 			-->
 			<!--<input placeholder="id_persona" type="text" id="id_persona" class="form-control form-control-sm">-->
-			<select name="id_tipo_marcacion" id="id_tipo_marcacion" class="form-control form-control-sm" wire:model="tipo_marcacion">
+			<select name="tipo_marcacion" id="tipo_marcacion" class="form-control form-control-sm" wire:model="tipo_marcacion">
 				@foreach ($tipos_marcacion as $key => $tipo)
 					<option value="{{ $key }}">{{ $tipo }}</option>
 				@endforeach
 			</select>
 				
-            @error('id_tipo_marcacion') <span ...>Dato requerido</span> @enderror
+            @error('tipo_marcacion') <span ...>Dato requerido</span> @enderror
         </div>
 		<!--
         <div class="col">
