@@ -205,6 +205,7 @@ class BoletaController extends Controller
         $total_neto=0;
         $remuneracion_basica="";
         $anio_mes_periodo="";
+        $id_planilla="";
 
         $planilla_calculada_ingresos = DB::table('planilla_calculadas')
             ->leftJoin('conceptos', 'planilla_calculadas.id_concepto', '=', 'conceptos.id')
@@ -233,23 +234,27 @@ class BoletaController extends Controller
             if ($data->codi_conc_tco == '00101') {
                 $remuneracion_basica = $data->valo_calc_pca;
             }
-            $anio_mes_periodo = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
+            $anio_mes_planilla = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
+            $id_planilla = $data->id;
             $total_ingresos += $data->valo_calc_pca;
         }
 
         foreach($planilla_calculada_egresos as $data) {
             $total_egresos += $data->valo_calc_pca;
-            $anio_mes_periodo = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
+            $anio_mes_planilla = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
+            $id_planilla = $data->id;
         }
 
         foreach($planilla_calculada_aportes as $data) {
             $total_aportes += $data->valo_calc_pca;
-            $anio_mes_periodo = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
+            $anio_mes_planilla = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
+            $id_planilla = $data->id;
         }
 
         foreach($planilla_calculada_aportes_empleador as $data) {
             $total_aportes_empleador += $data->valo_calc_pca;
-            $anio_mes_periodo = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
+            $anio_mes_planilla = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
+            $id_planilla = $data->id;
         }
 
         //dd($anio_mes_periodo);exit();
@@ -285,6 +290,7 @@ class BoletaController extends Controller
             'total_neto_letras',
             'remuneracion_basica',
             'unidad_trabajo',
-            'anio_mes_periodo'));
+            'anio_mes_planilla',
+            'id_planilla'));
     }
 }

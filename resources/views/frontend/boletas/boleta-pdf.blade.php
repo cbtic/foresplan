@@ -318,7 +318,7 @@ body {
   </table>
   &nbsp;
   <div style="display: flex; justify-content: space-between; width: 100%;">
-    <table class="data" style="width:49%">
+    <table class="data" style="width:48%">
         <tr>
           <th>
             <p style="height: 160px;"> &nbsp;</p>
@@ -329,7 +329,7 @@ body {
         </tr>
         <tr><th class="firma" colspan="2"><h3>EMPLEADOR</h3></th></tr>
     </table>
-    <table class="data" style="width:49%">
+    <table class="data" style="width:48%">
         <tr>
           <th>
             <p style="height: 160px;"> &nbsp;</p>
