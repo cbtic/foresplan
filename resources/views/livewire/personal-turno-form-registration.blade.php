@@ -64,6 +64,21 @@
 			-->
             @error('id_turno') <span ...>Dato requerido</span> @enderror
         </div>
+		<div class="col" >
+			<label class="form-control-sm">Tipo Marcaci&oacute;n</label>
+			<!--
+			<input id="persona_" name="persona_" class="form-control form-control-sm ui-autocomplete-input" value="<?php //echo $nomb?>" type="text" autocomplete="off">
+			<div class="input-group" id="persona_busqueda"></div>
+			-->
+			<!--<input placeholder="id_persona" type="text" id="id_persona" class="form-control form-control-sm">-->
+			<select name="id_tipo_marcacion" id="id_tipo_marcacion" class="form-control form-control-sm" wire:model="tipo_marcacion">
+				@foreach ($tipos_marcacion as $key => $tipo)
+					<option value="{{ $key }}">{{ $tipo }}</option>
+				@endforeach
+			</select>
+				
+            @error('id_tipo_marcacion') <span ...>Dato requerido</span> @enderror
+        </div>
 		<!--
         <div class="col">
             <input placeholder="codi_tarj_etu" type="text" wire:model="codi_tarj_etu" id="codi_tarj_etu" class="form-control form-control-sm">
@@ -138,6 +153,13 @@
             //var data = $('#id_persona').select2("val");
             //@this.set('id_persona', data);
 			@this.set('id_persona', e.target.value);
+			
+        });
+
+		$('#id_tipo_marcacion').on('change', function (e) {
+            //var data = $('#id_persona').select2("val");
+            //@this.set('id_persona', data);
+			@this.set('id_tipo_marcacion', e.target.value);
 			
         });
 		

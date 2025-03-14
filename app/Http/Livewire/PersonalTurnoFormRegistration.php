@@ -43,6 +43,7 @@ class PersonalTurnoFormRegistration extends Component
         $this->fech_asig_ttu = $tabla->fech_asig_ttu;
         $this->flag_cont_asis = $tabla->flag_cont_asis;
         $this->flag_sobt_ent = $tabla->flag_sobt_ent;
+        $this->tipo_marcacion = $tabla->tipo_marcacion;
 		
         //$pers = Persona::find($this->id_persona);
 		//$this->nomb = $pers->apellido_paterno." ".$pers->apellido_materno." ".$pers->nombres;
@@ -172,6 +173,18 @@ class PersonalTurnoFormRegistration extends Component
 		
 		//personalTurnoTable
 		
-        return view('livewire.personal-turno-form-registration',compact('turno','personas','area_trabajo','unidad_trabajo','id_area_trabajo','id_unidad_trabajo'));
+        return view('livewire.personal-turno-form-registration',compact('turno','personas','area_trabajo','unidad_trabajo','id_area_trabajo','id_unidad_trabajo'))
+        ->with('tipos_marcacion', $this->tipos_marcacion);
+    }
+
+    public function mount()
+    {
+        $this->tipos_marcacion = [
+            '0' => '--Seleccione Tipo Marcacion--',
+            '1' => 'Presencial',
+            '2' => 'Virtual',
+            '3' => 'Campo',
+            '4' => 'Exonerado de Marcación',
+        ];
     }
 }

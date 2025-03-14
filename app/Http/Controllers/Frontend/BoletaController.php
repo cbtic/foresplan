@@ -204,7 +204,7 @@ class BoletaController extends Controller
         $total_aportes_empleador=0;
         $total_neto=0;
         $remuneracion_basica="";
-        $anio_mes_periodo="";
+        $anio_mes_planilla="";
         $id_planilla="";
 
         $planilla_calculada_ingresos = DB::table('planilla_calculadas')

@@ -22,7 +22,8 @@ class PersonalTurnoTable extends DataTableComponent
 	
 	//protected $id_area_trabajo_;
 	public $id_area_trabajo_;
-	
+	public $id_tipo_marcacion;
+
     public function __construct($id) 
     {
         //$this->year = Carbon::now()->format('Y');
@@ -125,10 +126,11 @@ class PersonalTurnoTable extends DataTableComponent
 		$array_years = array_column($area_trabajo, 'denominacion');
 		$array_years[0] = "Todos";
         $filtered = array_combine($array_id, $array_years);
-		
+
 		return [
             'id_area_trabajo_' => Filter::make('Area')
-                ->select($filtered)
+                ->select($filtered),
+            
         ];
 		
     }
@@ -144,8 +146,7 @@ class PersonalTurnoTable extends DataTableComponent
 		->Join('tturnos', 'tturnos.id', 'personal_turnos.id_turno')
 		//->where('id_area_trabajo', '=', $this->id_area_trabajo_)
         ->whereNull('tturnos.deleted_at')
-		->when($this->getFilter('id_area_trabajo_'), fn ($query, $id_area_trabajo_) => $query->where('id_area_trabajo', '=', $id_area_trabajo_))
-		;
+		->when($this->getFilter('id_area_trabajo_'), fn ($query, $id_area_trabajo_) => $query->where('id_area_trabajo', '=', $id_area_trabajo_));
 		
     }
 	
