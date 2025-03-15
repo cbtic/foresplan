@@ -107,6 +107,21 @@ class PersonalTurnoTable extends DataTableComponent
             Column::make('Sobretiempo', 'flag_sobt_ent')
                 ->sortable()
                 ->searchable(),
+
+            Column::make('Tipo Marcacion', 'tipo_marcacion')
+                ->sortable()
+                ->searchable()
+                ->format(function ($value) {
+                    $tipos_marcacion = [
+                        0 => '--Seleccione Tipo Marcacion--',
+                        1 => 'Presencial',
+                        2 => 'Virtual',
+                        3 => 'Campo',
+                        4 => 'Exonerado de Marcación',
+                    ];
+
+        return $tipos_marcacion[$value] ?? '';
+    }),
             
             Column::make('Acciones', 'id')
                 ->format(function($value) {
