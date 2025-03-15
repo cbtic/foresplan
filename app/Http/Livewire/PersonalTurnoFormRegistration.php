@@ -71,6 +71,7 @@ class PersonalTurnoFormRegistration extends Component
             'fech_asig_ttu' => 'nullable|max:255',
             'flag_cont_asis' => 'nullable|max:1',
             'flag_sobt_ent' => 'nullable|max:1',
+            'tipo_marcacion' => 'nullable|max:1',
             
         ]);
 
@@ -99,6 +100,7 @@ class PersonalTurnoFormRegistration extends Component
         $this->flag_cont_asis = NULL;
         $this->flag_sobt_ent = NULL;
 		$this->nomb = NULL;
+        $this->tipo_marcacion = NULL;
         
     }
 
@@ -111,12 +113,22 @@ class PersonalTurnoFormRegistration extends Component
             'fech_asig_ttu' => 'nullable|max:255',
             'flag_cont_asis' => 'nullable|max:1',
             'flag_sobt_ent' => 'nullable|max:1',
+            'tipo_marcacion' => 'nullable|max:1',
             
         ]);
+
+        
+
+        $validatedData['tipo_marcacion'] = isset($validatedData['tipo_marcacion']) ? (int) $validatedData['tipo_marcacion'] : null;
+
+        //dd($validatedData);
+        //dd($this->tipo_marcacion);
 
         if ($this->personal_turno_registration_id) {
             $tabla = personal_turnos::find($this->personal_turno_registration_id);
             $tabla->update($validatedData);
+            $tabla->tipo_marcacion = (int) $this->tipo_marcacion;
+            $tabla->save();
             $this->updateMode = false;
             // error_log(json_encode($validatedData));
             session()->flash('message', 'Actualizacion exitosa.');
