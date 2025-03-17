@@ -74,6 +74,8 @@ class AsistenciaController extends Controller
 		$p[]=$request->id_persona;
 		$p[]=$request->anio;
 		$p[]=$request->mes;
+        $p[]=$request->fecha_ini;
+        $p[]=$request->fecha_fin;
 		$p[]=$request->estado;
 		$p[]=$request->NumeroPagina;
 		$p[]=$request->NumeroRegistros;
