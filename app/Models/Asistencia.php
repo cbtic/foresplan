@@ -130,5 +130,157 @@ class Asistencia extends Model
         $data = DB::select($cad);
         return $data;
      }
+
+     public function obtenerDiasTrabajados($id_persona, $fecha_inicio, $fecha_fin){
+
+        $cad = "select 
+        (select count(*) 
+        from asistencias 
+        where id_persona = ".$id_persona."
+        and fech_marc_rel::date between '".$fecha_inicio."' and '".$fecha_fin."'
+        and fech_marc_rel is not null 
+        and fech_marc_rel != '') 
+        +
+        (select count(*) 
+        from asistencias 
+        where id_persona = ".$id_persona."
+        and fech_regi_mar::date between '".$fecha_inicio."' and '".$fecha_fin."'
+        and coalesce(id_deta_operacion, 0) > 0) as dias_trabajados;";
+	 	
+        $data = DB::select($cad);
+        return $data;
+
+    }
+
+    public function obtenerDiasNoTrabajados($id_persona, $fecha_inicio, $fecha_fin){
+
+        $cad = "select 
+                coalesce(
+                    (
+                        select count(*)
+                        from generate_series('".$fecha_inicio."'::date, '".$fecha_fin."'::date, '1 day'::interval) fecha_dias
+                        left join personal_turnos pt ON pt.id_persona = ".$id_persona."
+                        left join detalle_turnos dt 
+                            ON dt.id_turno = pt.id_turno 
+                            AND dt.nume_ndia_dtu::INT = CASE 
+                                                            WHEN EXTRACT(DOW FROM fecha_dias)::INT = 0 THEN 7 
+                                                            ELSE EXTRACT(DOW FROM fecha_dias)::INT 
+                                                        END
+                        WHERE dt.flag_labo_dtu = 'S'
+                    ), 0
+                )
+                - COALESCE(
+                    (
+                        SELECT COUNT(*) 
+                        FROM asistencias 
+                        WHERE id_persona = ".$id_persona."
+                        AND fech_marc_rel::DATE BETWEEN '".$fecha_inicio."' AND '".$fecha_fin."'
+                        AND fech_marc_rel IS NOT NULL 
+                        AND fech_marc_rel != ''
+                    ), 0
+                )
+                - COALESCE(
+                    (
+                        SELECT COUNT(*) 
+                        FROM asistencias 
+                        WHERE id_persona = ".$id_persona."
+                        AND fech_regi_mar::DATE BETWEEN '".$fecha_inicio."' AND '".$fecha_fin."'
+                        AND COALESCE(id_deta_operacion, 0) > 0
+                    ), 0
+                )
+                AS dias_inasistencia;";
+	 	
+        $data = DB::select($cad);
+        return $data;
+
+    }
+
+    public function obtenerHorasDiurnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin){
+
+        $cad = "select 
+                    FLOOR(
+                        SUM(
+                            fn_get_diurno_nocturno(
+                                fech_marc_rel, 
+                                hora_entr_rel, 
+                                fech_sali_rel, 
+                                ((hora_sali_rel::INTERVAL + COALESCE(minu_dife_pap, '00:00:00')::INTERVAL)::VARCHAR),
+                                'D'
+                            )::INT
+                        ) / 60
+                    ) AS horas_diurnas_trabajadas
+                FROM asistencias 
+                WHERE id_persona = ".$id_persona."
+                AND fech_marc_rel::DATE BETWEEN '".$fecha_inicio."' AND '".$fecha_fin."'
+                AND fech_marc_rel IS NOT NULL 
+                AND fech_marc_rel != ''
+                AND hora_entr_rel IS NOT NULL 
+                AND hora_entr_rel != ''
+                AND fech_sali_rel IS NOT NULL 
+                AND fech_sali_rel != ''
+                AND hora_sali_rel IS NOT NULL 
+                AND hora_sali_rel != '';";
+	 	
+        $data = DB::select($cad);
+        return $data;
+
+    }
+
+    public function obtenerHorasNocturnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin){
+
+        $cad = "select 
+                    FLOOR(
+                        SUM(
+                            fn_get_diurno_nocturno(
+                                fech_marc_rel, 
+                                hora_entr_rel, 
+                                fech_sali_rel, 
+                                hora_sali_rel, 
+                                'N'
+                            )::INT
+                        ) / 60
+                    ) AS horas_nocturnas_trabajadas
+                FROM asistencias 
+                WHERE id_persona = ".$id_persona."
+                AND fech_marc_rel::DATE BETWEEN '".$fecha_inicio."' AND '".$fecha_fin."'
+                AND fech_marc_rel IS NOT NULL 
+                AND fech_marc_rel != ''
+                AND hora_entr_rel IS NOT NULL 
+                AND hora_entr_rel != ''
+                AND fech_sali_rel IS NOT NULL 
+                AND fech_sali_rel != ''
+                AND hora_sali_rel IS NOT NULL 
+                AND hora_sali_rel != '';";
+                        
+        $data = DB::select($cad);
+        return $data;
+
+    }
+     
+    public function obtenerHorasExtra($id_persona, $id_periodo){
+
+        $cad = "select coalesce(sum(mont_fijo_cmf),0) cantidad from concepto_personas cp 
+        where id_persona ='".$id_persona."'
+        and id_concepto in ('121','122')
+        and id_periodo ='".$id_periodo."'
+        and estado ='1'";
+                        
+        $data = DB::select($cad);
+        return $data;
+
+    }
+
+    public function obtenerDiasSubsidio($id_persona, $id_periodo){
+
+        $cad = "select coalesce(sum(mont_fijo_cmf),0) cantidad from concepto_personas cp 
+        where id_persona ='".$id_persona."'
+        and id_concepto ='123'
+        and id_periodo ='".$id_periodo."'
+        and estado ='1'";
+        
+        $data = DB::select($cad);
+        return $data;
+
+    }
 	 	
 }

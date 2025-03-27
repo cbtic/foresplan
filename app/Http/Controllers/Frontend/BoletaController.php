@@ -14,6 +14,8 @@ use App\Models\MetaPersona;
 use Illuminate\Support\Facades\DB;
 use Luecano\NumeroALetras\NumeroALetras;
 use App\Models\UnidadTrabajo;
+use App\Models\RegimenPensionario;
+use App\Models\Asistencia;
 use App\Models\Tperiodo;
 
 class BoletaController extends Controller
@@ -60,6 +62,29 @@ class BoletaController extends Controller
             ->where('conceptos.tipo_conc_tco', '4')
             ->get();
         // $planilla_calculada_egresos = PlanillaCalculada::where('ano_peri_tpe', $anio)->where('nume_peri_tpe', $mes)->where('id_persona', $id_persona)->where('nume_peri_tpe', $mes)->where('tipo_conc_tco', '2')->firstOrFail();
+
+        $periodo = DB::table('tperiodos')
+        ->where('id', $id_periodo)
+        ->where('estado', 1)
+        ->get();
+
+        $fecha_inicio = $periodo[0]->fech_inic_tpe;
+
+        $fecha_fin = $periodo[0]->fech_fina_tpe;
+
+        $asistencia_model = new Asistencia;
+
+        $dias_trabajados = $asistencia_model->obtenerDiasTrabajados($id_persona, $fecha_inicio, $fecha_fin); 
+
+        $dias_no_trabajados = $asistencia_model->obtenerDiasNoTrabajados($id_persona, $fecha_inicio, $fecha_fin); 
+        
+        $horas_diurnas_trabajados = $asistencia_model->obtenerHorasDiurnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin); 
+
+        $horas_nocturnas_trabajados = $asistencia_model->obtenerHorasNocturnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin); 
+
+        $dias_subsidio = $asistencia_model->obtenerDiasSubsidio($id_persona, $id_periodo);
+        
+        $horas_extras = $asistencia_model->obtenerHorasExtra($id_persona, $id_periodo);
 
         //Calculando totales
         foreach($planilla_calculada_ingresos as $data) {
@@ -135,7 +160,16 @@ class BoletaController extends Controller
         'remuneracion_basica',
         'unidad_trabajo',
         'anio_mes_planilla',
-        'id_planilla'
+        'id_planilla',
+        'regimen_pensionario',
+        'dias_trabajados',
+        'dias_no_trabajados',
+        'horas_diurnas_trabajados',
+        'horas_nocturnas_trabajados',
+        'situacion',
+        'dias_subsidio',
+        'horas_extras',
+        'condicion'
         ));
        $pdf->getDomPDF()->set_option("enable_php", true);
         
@@ -240,33 +274,66 @@ class BoletaController extends Controller
             ->get();
         // $planilla_calculada_egresos = PlanillaCalculada::where('ano_peri_tpe', $anio)->where('nume_peri_tpe', $mes)->where('id_persona', $id_persona)->where('nume_peri_tpe', $mes)->where('tipo_conc_tco', '2')->firstOrFail();
 
+        $periodo = DB::table('tperiodos')
+        ->where('id', $id_periodo)
+        ->where('estado', 1)
+        ->get();
+
+        $fecha_inicio = $periodo[0]->fech_inic_tpe;
+
+        $fecha_fin = $periodo[0]->fech_fina_tpe;
+
+        $asistencia_model = new Asistencia;
+
+        $dias_trabajados = $asistencia_model->obtenerDiasTrabajados($id_persona, $fecha_inicio, $fecha_fin); 
+
+        $dias_no_trabajados = $asistencia_model->obtenerDiasNoTrabajados($id_persona, $fecha_inicio, $fecha_fin); 
+        
+        $horas_diurnas_trabajados = $asistencia_model->obtenerHorasDiurnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin); 
+
+        $horas_nocturnas_trabajados = $asistencia_model->obtenerHorasNocturnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin); 
+
+        $dias_subsidio = $asistencia_model->obtenerDiasSubsidio($id_persona, $id_periodo);
+        
+        $horas_extras = $asistencia_model->obtenerHorasExtra($id_persona, $id_periodo);
+
         //Calculando totales
         foreach($planilla_calculada_ingresos as $data) {
             if ($data->codi_conc_tco == '00101') {
                 $remuneracion_basica = $data->valo_calc_pca;
             }
-            $anio_mes_planilla = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
+            //$anio_mes_planilla = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
             $id_planilla = $data->id;
             $total_ingresos += $data->valo_calc_pca;
         }
 
         foreach($planilla_calculada_egresos as $data) {
             $total_egresos += $data->valo_calc_pca;
-            $anio_mes_planilla = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
+            //$anio_mes_planilla = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
             $id_planilla = $data->id;
         }
 
         foreach($planilla_calculada_aportes as $data) {
             $total_aportes += $data->valo_calc_pca;
-            $anio_mes_planilla = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
+            //$anio_mes_planilla = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
             $id_planilla = $data->id;
         }
 
         foreach($planilla_calculada_aportes_empleador as $data) {
             $total_aportes_empleador += $data->valo_calc_pca;
-            $anio_mes_planilla = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
+            //$anio_mes_planilla = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
             $id_planilla = $data->id;
         }
+
+        $id_periodo = $planilla_calculada_ingresos[0]->id_periodo;
+
+        $periodo = Tperiodo::find($id_periodo);
+
+        $mes = $periodo->id_mes;
+
+        $anio = $periodo->ano_peri_tpe;
+
+        $anio_mes_planilla=$mes."/".$anio;
 
         //dd($anio_mes_periodo);exit();
         $total_neto = $total_ingresos - $total_egresos - $total_aportes;
@@ -302,6 +369,16 @@ class BoletaController extends Controller
             'remuneracion_basica',
             'unidad_trabajo',
             'anio_mes_planilla',
-            'id_planilla'));
+            'id_planilla',
+            'regimen_pensionario',
+            'dias_trabajados',
+            'dias_no_trabajados',
+            'horas_diurnas_trabajados',
+            'horas_nocturnas_trabajados',
+            'situacion',
+            'dias_subsidio',
+            'horas_extras',
+            'condicion'
+        ));
     }
 }
