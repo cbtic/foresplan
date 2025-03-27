@@ -14,6 +14,7 @@ use App\Models\MetaPersona;
 use Illuminate\Support\Facades\DB;
 use Luecano\NumeroALetras\NumeroALetras;
 use App\Models\UnidadTrabajo;
+use App\Models\Tperiodo;
 
 class BoletaController extends Controller
 {
@@ -65,28 +66,38 @@ class BoletaController extends Controller
             if ($data->codi_conc_tco == '00101') {
                 $remuneracion_basica = $data->valo_calc_pca;
             }
-            $anio_mes_planilla=$data->nume_peri_tpe."/".$data->ano_peri_tpe;
+            //$anio_mes_planilla=$data->nume_peri_tpe."/".$data->ano_peri_tpe;
             $id_planilla = $data->id;
             $total_ingresos += $data->valo_calc_pca;
         }
 
         foreach($planilla_calculada_egresos as $data) {
             $total_egresos += $data->valo_calc_pca;
-            $anio_mes_planilla=$data->nume_peri_tpe."/".$data->ano_peri_tpe;
+            //$anio_mes_planilla=$data->nume_peri_tpe."/".$data->ano_peri_tpe;
             $id_planilla = $data->id;
         }
 
         foreach($planilla_calculada_aportes as $data) {
             $total_aportes += $data->valo_calc_pca;
-            $anio_mes_planilla=$data->nume_peri_tpe."/".$data->ano_peri_tpe;
+            //$anio_mes_planilla=$data->nume_peri_tpe."/".$data->ano_peri_tpe;
             $id_planilla = $data->id;
         }
 
         foreach($planilla_calculada_aportes_empleador as $data) {
             $total_aportes_empleador += $data->valo_calc_pca;
-            $anio_mes_planilla=$data->nume_peri_tpe."/".$data->ano_peri_tpe;
+            //$anio_mes_planilla=$data->nume_peri_tpe."/".$data->ano_peri_tpe;
             $id_planilla = $data->id;
         }
+
+        $id_periodo = $planilla_calculada_ingresos[0]->id_periodo;
+
+        $periodo = Tperiodo::find($id_periodo);
+
+        $mes = $periodo->id_mes;
+
+        $anio = $periodo->ano_peri_tpe;
+
+        $anio_mes_planilla=$mes."/".$anio;
 
         $total_neto = $total_ingresos - $total_egresos - $total_aportes;
 

@@ -61,6 +61,8 @@ body {
     }
 
     table.data {
+        border-left:solid black 2px;
+        border-bottom:solid black 2px;
         border-collapse:separate;
         border:solid black 2px;
         border-radius:8px;
