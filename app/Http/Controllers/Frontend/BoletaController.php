@@ -141,6 +141,22 @@ class BoletaController extends Controller
             $unidad_trabajo = $unidad_trabajo_array[0]->denominacion;
         }else{$unidad_trabajo='';}
 
+        if ($persona_detalle->id_regimen_pensionario){
+            $regimen_model = new RegimenPensionario;
+            $regimen_pensionario_array = $regimen_model->getRegimen($persona_detalle->id_regimen_pensionario);
+            $regimen_pensionario = $regimen_pensionario_array[0]->denominacion;
+        }else{$regimen_pensionario='';}
+
+        if ($persona_detalle->estado){
+            $situacion = '';
+            if($persona_detalle->estado == 'A'){ $situacion = 'ACTIVO'; }
+            if($persona_detalle->estado == 'C'){ $situacion = 'BAJA'; }
+        }else{$situacion='';}
+
+        if ($persona_detalle->ubigeo){
+            $condicion = 'DOMICILIADO';
+        }else{$condicion='NO DOMICILIADO';}
+
        // print_r($unidad_trabajo);
        // exit();
         
@@ -352,6 +368,22 @@ class BoletaController extends Controller
             $unidad_trabajo_array = $unidad_model->getUnidad($persona_detalle->id_area_trabajo);
             $unidad_trabajo = $unidad_trabajo_array[0]->denominacion;
         }else{$unidad_trabajo='';}
+
+        if ($persona_detalle->id_regimen_pensionario){
+            $regimen_model = new RegimenPensionario;
+            $regimen_pensionario_array = $regimen_model->getRegimen($persona_detalle->id_regimen_pensionario);
+            $regimen_pensionario = $regimen_pensionario_array[0]->denominacion;
+        }else{$regimen_pensionario='';}
+
+        if ($persona_detalle->estado){
+            $situacion = '';
+            if($persona_detalle->estado == 'A'){ $situacion = 'ACTIVO'; }
+            if($persona_detalle->estado == 'C'){ $situacion = 'BAJA'; }
+        }else{$situacion='';}
+
+        if ($persona_detalle->ubigeo){
+            $condicion = 'DOMICILIADO';
+        }else{$condicion='NO DOMICILIADO';}
         
         return PDF::loadView('frontend/boletas/boleta-pdf', compact(
             'persona',
