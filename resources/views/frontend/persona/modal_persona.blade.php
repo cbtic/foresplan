@@ -153,6 +153,10 @@ $(document).ready(function() {
 		width:"100%"
 	 })
 
+	 $('#id_profesion_').select2({
+		width:"100%"
+	 })
+
 });
 
 function validacion(){
