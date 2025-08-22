@@ -79,6 +79,7 @@ class PersonaController extends Controller
 		$nivel = $tabla_model->getTablaUbicacionAll("tniveles","1");
 		$moneda = $tabla_model->getTablaUbicacionAll("tipo_monedas","1");
 		$area_trabajo = $tabla_model->getTablaUbicacionAll("area_trabajos","1");
+		$sedes = $tabla_model->getTablaUbicacionAll("sedes","1");
 
 		$empresa_model = new Empresa();		
 		$empresas = $empresa_model->getEmpresaAll("1");
@@ -112,7 +113,7 @@ class PersonaController extends Controller
 
 		//print_r ($unidad_trabajo);exit();
 
-		return view('frontend.persona.modal_persona',compact('id','persona','persona_detalle','tipo_documento','profesiones','empresas','condLaboral','tipPlanilla','banco','regPension','afp','comisionAfp','cargo','nivel','moneda','departamento','provincia','distrito','area_trabajo','unidad_trabajo'));
+		return view('frontend.persona.modal_persona',compact('id','persona','persona_detalle','tipo_documento','profesiones','empresas','condLaboral','tipPlanilla','banco','regPension','afp','comisionAfp','cargo','nivel','moneda','departamento','provincia','distrito','area_trabajo','unidad_trabajo','sedes'));
 	}
 
     public function obtener_persona($tipo_documento,$numero_documento){

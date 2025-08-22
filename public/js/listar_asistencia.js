@@ -520,6 +520,7 @@ function datatablenew(){
 			var mes = $('#mes').val();
 			var fecha_ini = $('#fecha_ini').val();
 			var fecha_fin = $('#fecha_fin').val();
+            var id_sede = $('#id_sede_').val();
             var estado = $('#estado').val();
 			var _token = $('#_token').val();
             oSettings.jqXHR = $.ajax({
@@ -530,7 +531,7 @@ function datatablenew(){
                 "data":{NumeroPagina:iNroPagina,NumeroRegistros:iCantMostrar,
 						id_area_trabajo:id_area_trabajo,id_unidad_trabajo:id_unidad_trabajo,
 						id_persona:id_persona,anio:anio,
-						mes:mes,estado:estado,fecha_ini:fecha_ini,fecha_fin:fecha_fin,
+						mes:mes,estado:estado,fecha_ini:fecha_ini,fecha_fin:fecha_fin,id_sede:id_sede,
 						_token:_token
                        },
                 "success": function (result) {

@@ -26,6 +26,7 @@ class AsistenciaController extends Controller
     {
 		$tabla_model = new TablaUbicacione;
 		$area_trabajo = $tabla_model->getTablaUbicacionAll("area_trabajos","1");
+		$sedes = $tabla_model->getTablaUbicacionAll("sedes","1");
 		
 		$meses[1]="ENERO";
 		$meses[2]="FEBRERO";
@@ -40,7 +41,7 @@ class AsistenciaController extends Controller
 		$meses[11]="NOVIEMBRE";
 		$meses[12]="DICIEMBRE";
 	
-        return view('frontend.asistencia.listar_asistencia',compact('meses','area_trabajo'));
+        return view('frontend.asistencia.listar_asistencia',compact('meses','area_trabajo','sedes'));
         //
     }
 	
@@ -76,6 +77,7 @@ class AsistenciaController extends Controller
 		$p[]=$request->mes;
         $p[]=$request->fecha_ini;
         $p[]=$request->fecha_fin;
+        $p[]=$request->id_sede;
 		$p[]=$request->estado;
 		$p[]=$request->NumeroPagina;
 		$p[]=$request->NumeroRegistros;

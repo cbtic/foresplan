@@ -232,6 +232,7 @@ function fn_save(){
 	var id_moneda_cts = $('#id_moneda_cts_').val();
 	var estado = $('#estado_').val();
 	var id_ubicacion = $('#id_ubicacion_').val();
+	var id_sede = $('#id_sede_').val();
 	
 	var tipo_documento = $('#tipo_documento_').val();
 	var numero_documento = $('#numero_documento_').val();
@@ -250,11 +251,10 @@ function fn_save(){
 	if(id_condicion_laboral == "0"){msg+="Debe ingresar la Condición Laboral <br>";}
 	if(id_area_trabajo == ""){msg+="Debe ingresar el Area de Trabajo <br>";}
 	if(id_unidad_trabajo == ""){msg+="Debe ingresar la Unidad de Trabajo <br>";}
+	if(id_sede == ""){msg+="Debe ingresar la Sede <br>";}
 
 	var edad = calcularEdad(fecha_nacimiento);
 	if(edad < 18){msg+="El personal es Menor de Edad: "+edad+"<br>";}
-
-	
 
 	if(estado == "0"){msg+="Debe ingresar el Estado Laboral <br>";}
 
@@ -272,7 +272,7 @@ function fn_save(){
 						id_afp:id_afp,fecha_afiliacion_afp:fecha_afiliacion_afp,id_tipo_comision_afp:id_tipo_comision_afp,cuspp:cuspp,fecha_cese:fecha_cese,
 						fecha_termino_contrato:fecha_termino_contrato,num_contrato:num_contrato,id_cargo:id_cargo,id_nivel:id_nivel,id_banco_cts:id_banco_cts,
 						num_cuenta_cts:num_cuenta_cts,id_moneda_cts:id_moneda_cts,estado:estado,id_ubicacion:id_ubicacion,fecha_nacimiento:fecha_nacimiento,sexo:sexo,
-						id_area_trabajo:id_area_trabajo,id_unidad_trabajo:id_unidad_trabajo},
+						id_area_trabajo:id_area_trabajo,id_unidad_trabajo:id_unidad_trabajo,id_sede:id_sede},
 				success: function (result) {
 					$('#openOverlayOpc').modal('hide');
 					datatablenew();
@@ -496,7 +496,7 @@ container: '#myModal modal-body'
 									@error('direccion_') <span ...>Dato requerido</span> @enderror
 								</div>
 							</div>
-							<div class="col-lg-4">
+							<div class="col-lg-2">
 								<div class="form-group" style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px">
 									<label class="control-label">Empresa</label>
 									<select name="id_ubicacion_" id="id_ubicacion_" class="form-control form-control-sm">
@@ -507,7 +507,19 @@ container: '#myModal modal-body'
 									</select>
 									@error('id_ubicacion_') <span ...>Dato requerido</span> @enderror
 								</div>
-							</div>															
+							</div>
+							<div class="col-lg-2">
+								<div class="form-group" style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px">
+									<label class="control-label">Sede</label>
+									<select name="id_sede_" id="id_sede_" class="form-control form-control-sm">
+											<option value="0">Seleccionar</option>
+											<?php foreach($sedes as $row):?>
+												<option value="<?php echo $row->id?>" <?php if($row->id==$persona_detalle->id_sede)echo "selected='selected'"?> ><?php echo $row->denominacion?></option>
+											<?php  endforeach;?>
+									</select>
+									@error('id_sede_') <span ...>Dato requerido</span> @enderror
+								</div>
+							</div>	
 						</div>
 
 						<div class="row">
@@ -781,7 +793,7 @@ container: '#myModal modal-body'
 							</div>	
 							<div class="col-lg-2">
 								<div class="form-group">
-									<label class="control-label">Terrmino Contrato</label>
+									<label class="control-label">Termino Contrato</label>
 									<input placeholder="Fecha termino" autocomplete="off" type="text" wire:model="fecha_termino_contrato_" id="fecha_termino_contrato_" class="form-control form-control-sm datepicker" data-provide="datepicker" data-date-autoclose="true" 
 										data-date-format="yyyy-mm-dd" data-date-today-highlight="true"                        
 										onchange="this.dispatchEvent(new InputEvent('input'))" value="<?php echo $persona_detalle->fecha_termino_contrato?>">

@@ -196,6 +196,20 @@
 				<div class="row" style="padding:20px 20px 0px 20px;">
 					
 					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+						<select class="form-control form-control-sm" id="id_sede_" name="id_sede_" onChange="">
+							<option value="">- Seleccione Sede -</option>
+							<?php 
+							if($sedes!=""){
+								foreach ($sedes as $row) {?>
+								<option value="<?php echo $row->id?>"><?php echo $row->denominacion?></option>
+							<?php 
+								} 
+							}
+							?>
+						</select>
+					</div>
+
+					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 						<select class="form-control form-control-sm" id="id_area_trabajo_" name="id_area_trabajo_" onChange="obtenerUnidad()">
 							<option value="">- Seleccione Area -</option>
 							<?php 
