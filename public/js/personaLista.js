@@ -578,7 +578,7 @@ function datatablenew(){
 					"mRender": function (data, type, row) {
 						var estado = "";
 						if(row.estado == 'A')estado = "Activo";
-						if(row.estado == 'C')estado = "Cerrado";
+						if(row.estado == 'C')estado = "Cesado";
 						return estado;
 					},
 					"bSortable": false,
