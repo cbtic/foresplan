@@ -849,8 +849,8 @@ container: '#myModal modal-body'
 									<select name="estado_" id="estado_"
 										class="form-control form-control-sm">
 										<option value="0">Seleccionar</option>
-										<option value="A" <?php if($persona->estado == "A")echo "selected='selected'" ?> ><?php echo "ACTIVO"?></option>
-										<option value="C" <?php if($persona->estado == "C")echo "selected='selected'" ?> ><?php echo "CESADO"?></option>
+										<option value="A" <?php if($persona_detalle->estado == "A")echo "selected='selected'" ?> ><?php echo "ACTIVO"?></option>
+										<option value="C" <?php if($persona_detalle->estado == "C")echo "selected='selected'" ?> ><?php echo "CESADO"?></option>
 									</select>
 									@error('estado_') <span ...>Dato requerido</span> @enderror
 								</div>
