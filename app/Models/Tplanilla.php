@@ -84,21 +84,21 @@ Where t1.id=".$id;
 	
 	public function getMetasPersona($id_periodo){
         $cad = "select t1.id,t3.id_persona,t1.id_planilla,t1.id_subplanilla,t3.id_ubicacion,t4.abre_docu_did tipo_documento,t2.numero_documento,t2.apellido_paterno||' '||t2.apellido_materno||' '||t2.nombres persona, 
-(select sp_crud_obtiene_tabla_deno (t3.id_condicion_laboral)) condicion_laboral, 
-(select sp_crud_obtiene_tabla_deno (t3.id_regimen_pensionario)) regimen,
-(select sp_crud_obtiene_tabla_deno (t3.id_area_trabajo)) area_trabajo,
-(select sp_crud_obtiene_tabla_deno (t3.id_unidad_trabajo)) unidad_trabajo,
-t6.razon_social 
-from meta_personas t1
-inner join personas t2 on t1.id_persona=t2.id
-inner join persona_detalles t3 on t3.id_persona = t2.id 
-inner join documento_identidades t4 on t4.id = t2.tipo_documento 
-inner join ubicacion_trabajos t5  on t5.id = t1.id_ubicacion 
-inner join empresas t6 on t6.id = t5.id_empresa 
-Where t3.eliminado = 'N' 
-and t3.estado = 'A'
-And coalesce(t1.estado,'1')='1' 
-And t1.id_periodo = ".$id_periodo;
+        (select sp_crud_obtiene_tabla_deno (t3.id_condicion_laboral)) condicion_laboral, 
+        (select sp_crud_obtiene_tabla_deno (t3.id_regimen_pensionario)) regimen,
+        (select sp_crud_obtiene_tabla_deno (t3.id_area_trabajo)) area_trabajo,
+        (select sp_crud_obtiene_tabla_deno (t3.id_unidad_trabajo)) unidad_trabajo,
+        t6.razon_social 
+        from meta_personas t1
+        inner join personas t2 on t1.id_persona=t2.id
+        inner join persona_detalles t3 on t3.id_persona = t2.id 
+        inner join documento_identidades t4 on t4.id = t2.tipo_documento 
+        inner join ubicacion_trabajos t5  on t5.id = t1.id_ubicacion 
+        inner join empresas t6 on t6.id = t5.id_empresa 
+        Where t3.eliminado = 'N' 
+        and t3.estado = 'A'
+        And coalesce(t1.estado,'1')='1' 
+        And t1.id_periodo = ".$id_periodo;
 
 		//echo $cad; exit();
 		$data = DB::select($cad);

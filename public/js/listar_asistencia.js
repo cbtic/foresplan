@@ -94,6 +94,11 @@ $(document).ready(function () {
 		changeYear: true,
     });
 
+	$('#btnDescargarExcel').on('click', function () {
+		descargarReporteExcel();
+
+	});
+
 	/*
     $('#tblAlquiler').dataTable({
     	"language": {
@@ -1019,4 +1024,29 @@ function asistenciaAutomatico(){
 			}
 	});
 
+}
+
+function descargarReporteExcel(){
+
+	var id_area_trabajo = $('#id_area_trabajo_').val(); 
+	var id_unidad_trabajo = $('#id_unidad_trabajo_').val(); 
+	var id_persona = $('#id_persona_bus').val(); 
+	var anio = $('#anio').val();
+	var mes = $('#mes').val();
+	var fecha_ini = $('#fecha_ini').val();
+	var fecha_fin = $('#fecha_fin').val();
+	var id_sede = $('#id_sede_').val();
+	var estado = $('#estado').val();
+
+	if (id_area_trabajo == "")id_area_trabajo = "0";
+	if (id_unidad_trabajo == "")id_unidad_trabajo = "0";
+	if (id_persona == "")id_persona = "0";
+	if (anio == "")anio = "0";
+	if (mes == "")mes = "0";
+	if (fecha_ini == "") fecha_ini = "0"; else fecha_ini = fecha_ini.replace(/\//g, "-");
+    if (fecha_fin == "") fecha_fin = "0"; else fecha_fin = fecha_fin.replace(/\//g, "-");
+	if (id_sede == "")id_sede = "0";
+	if (estado == "")estado = "0";
+	
+	location.href = '/asistencia/exportar_listar_reporte_asistencia/'+id_area_trabajo+'/'+id_unidad_trabajo+'/'+id_persona+'/'+anio+'/'+mes+'/'+fecha_ini+'/'+fecha_fin+'/'+id_sede+'/'+estado;
 }

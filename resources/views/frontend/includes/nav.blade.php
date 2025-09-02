@@ -119,6 +119,8 @@
 
                                 <a href="/tarjeta/create" class="dropdown-item">Asignar Persona Tarjeta</a>
 
+                                <a href="{{route('frontend.persona.create_contacto_emergencia')}}" class="dropdown-item">Contacto Emergencia Personal</a>
+
                         </div>
                     </li>
 

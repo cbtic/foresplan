@@ -48,6 +48,10 @@ class Persona extends Model
 		return $this->readFunctionPostgres('sp_listar_persona_paginado',$p);
     }
 
+    public function listar_persona_contacto_emergencia_ajax($p){
+		return $this->readFunctionPostgres('sp_listar_persona_contacto_emergencia_paginado',$p);
+    }
+
     public function readFunctionPostgres($function, $parameters = null){
 	
         $_parameters = '';

@@ -9,6 +9,13 @@
 <!--<script src="<?php echo URL::to('/') ?>assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>-->
 
 <style>
+
+    .table-hover tbody tr.row_selected td{background-color:#239244!important;color:#ffffff!important}
+
+    .table td.verde{
+        background:#CAE983  !important
+    }
+
 	#tblAfiliado tbody tr{
 		font-size:13px
 	}
@@ -113,14 +120,13 @@
                                     <div class="card-header">
                                         <strong>
                                             Lista de Planillas
-                                            <input class="btn btn-warning btn-sm pull-right" value="GENERAR PLANILLA" type="button" id="btnPlanilla" onclick="generarPlanilla()" style="margin-left:20px" />
+                                            <!--<input class="btn btn-warning btn-sm pull-right" value="GENERAR PLANILLA" type="button" id="btnPlanilla" onclick="generarPlanilla()" style="margin-left:20px" />-->
                                             <input class="btn btn-success btn-sm pull-right" value="GUARDAR PDF DE BOLETAS" type="button" id="btnGuardarPDFPlanilla" onclick="guardarPDFPlanilla()" style="margin-left:20px" disabled="disabled"/>
                                         </strong>
                                     </div>
                                     
                                     <div class="row" style="padding:10px 20px 10px 20px;">
-                                
-                                                                                
+
                                         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                             <input class="form-control form-control-sm" id="persona" name="persona" placeholder="Apellidos y Nombres">
                                             <div id="persona_busqueda" style="position: absolute;z-index: 100;background-color:#ffffff;width: 400px;"></div>
@@ -145,32 +151,53 @@
                                             <input class="btn btn-warning btn-sm pull-rigth" value="Buscar" type="button" id="btnBuscar" />
                                         </div>
 
-                                        <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+                                        <!--<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
                                             <input class="btn btn-danger btn-sm pull-rigth" value="Eliminar" type="button" id="btnEliminar" />
-                                        </div>
+                                        </div>-->
                                         
+                                    </div>
+
+                                    <div class="card-body">
+                                        
+                                        <div class="table-responsive">
+                                            <table id="tblListaPlanilla" class="table table-hover table-sm">
+                                                <thead>
+                                                    <tr style="font-size:13px">
+                                                        <th>Id</th>
+                                                        <th>Empresa</th>
+                                                        <th>Planilla</th>
+                                                        <th>Mes</th>
+                                                        <th>Periodo</th>
+                                                        <th>Fecha Periodo</th>
+                                                        <th>Estado</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="font-size:13px">
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                     
                                     <div class="card-body">
                                         
                                         <div class="table-responsive">
-                                        <table id="tblPlanilla" class="table table-hover table-sm">
-                                        <thead>
-                                        <tr style="font-size:13px">
-                                            <th>Id</th>
-                                            <th>Tipo Doc.</th>
-                                            <th>N.Documento</th>
-                                            <th>Nombres</th>
-                                            <th>Planilla</th>
-                                            <th>S.Planilla</th>
-                                            <th>Empresa</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody style="font-size:13px">
-                                        </tbody>
-                                        </table>
-                                        
+                                            <table id="tblPlanilla" class="table table-hover table-sm">
+                                                <thead>
+                                                    <tr style="font-size:13px">
+                                                        <th>Id</th>
+                                                        <th>Tipo Doc.</th>
+                                                        <th>N.Documento</th>
+                                                        <th>Nombres</th>
+                                                        <th>Planilla</th>
+                                                        <th>S.Planilla</th>
+                                                        <th>Empresa</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="font-size:13px">
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>						
                                 </div>

@@ -101,6 +101,31 @@ class PlanillaCalculadaController extends Controller
 		echo json_encode($result);
 		
 	}
+
+	public function listar_periodo_ajax(Request $request){
+		
+		$planilla_model = new Tplanilla;
+		$p[]=$request->id_ubicacion;
+		$p[]=$request->id_planilla;
+		$p[]=$request->id_subplanilla;
+		$p[]=$request->anio;
+		$p[]=$request->mes;
+		$p[]=$request->NumeroPagina;
+		$p[]=$request->NumeroRegistros;
+		$data = $planilla_model->listar_planilla_persona_ajax($p);
+		$iTotalDisplayRecords = isset($data[0]->totalrows)?$data[0]->totalrows:0;
+		
+		$result["PageStart"] = $request->NumeroPagina;
+		$result["pageSize"] = $request->NumeroRegistros;
+		$result["SearchText"] = "";
+		$result["ShowChildren"] = true;
+		$result["iTotalRecords"] = $iTotalDisplayRecords;
+		$result["iTotalDisplayRecords"] = $iTotalDisplayRecords;
+		$result["aaData"] = $data;
+		
+		echo json_encode($result);
+		
+	}
 	
 	public function listar_planilla_resumen_ajax(Request $request){
 		
@@ -606,7 +631,7 @@ class PlanillaCalculadaController extends Controller
 		$planilla_model->elimina_planilla_calculada($id);
 
 		$periodo = Tperiodo::find($id);
-		$periodo->esta_plan_cer = '1';
+		$periodo->esta_plan_tpe = '1';
 		$periodo->save();
 		
 		$array["sw"] = $sw;

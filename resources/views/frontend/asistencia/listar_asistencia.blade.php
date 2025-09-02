@@ -274,9 +274,10 @@
 						</div>
 					</div>
 
-					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-right:0px;padding-top:30px">
+					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="padding-right:0px;padding-top:30px">
 						<input class="btn btn-warning pull-rigth" value="Buscar" type="button" id="btnBuscar" />
 						<input class="btn btn-success pull-rigth" value="Nueva Papeleta" type="button" id="btnPapeleta" style="margin-left:15px" />
+						<buttom class="btn btn-secondary pull-rigth" type="button" id="btnDescargarExcel" style="margin-left:15px" /><i class="fa fa-download"></i> Descarga Excel</buttom>
 					</div>
 
 					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">

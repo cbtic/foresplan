@@ -12,7 +12,7 @@ use App\Models\Empresa;
 use App\Models\Ubigeo;
 use App\Models\UnidadTrabajo;
 use App\Models\Contrato;
-
+use App\Models\PersonaContactoEmergencia;
 
 //use App\Models\CondicionLaborale;
 
@@ -296,7 +296,7 @@ class PersonaController extends Controller
 		$persona = $persona_model->getPersonaBuscar($term);
 		return response()->json($persona);
     }
-	
+
 	public function modal_persona_contrato($id_persona){
 		$tabla_model = new TablaUbicacione;		
 		$cargo = $tabla_model->getTablaUbicacionAll("tcargos","1");
@@ -330,16 +330,27 @@ class PersonaController extends Controller
 	
 	}
 
-	public function send_persona_contrato(Request $request){
-		/*
-		if($request->img_foto!=""){
-			$filepath_tmp = public_path('img/frontend/tmp_vacuna/');
-			$filepath_nuevo = public_path('img/carnet_vacunacion/');
-			if (file_exists($filepath_tmp.$request->img_foto)) {
-				copy($filepath_tmp.$request->img_foto, $filepath_nuevo.$request->img_foto);
-			}
-		}*/
+	public function modal_persona_contacto_emergencia($id_persona, $id){
+
+		$tabla_model = new TablaUbicacione;
+		$vinculo = $tabla_model->getTablaUbicacionAll("tvinculos","1");
+
+		$buscar_persona_contacto_emergencia = PersonaContactoEmergencia::where('id_persona',$id_persona)->where('estado',1)->OrderBy('id','desc')->first();
+
+		if($buscar_persona_contacto_emergencia){
+			$id = $buscar_persona_contacto_emergencia->id;
+			$persona_contacto_emergencia = PersonaContactoEmergencia::find($id);
+			
+		}else{
+			$persona_contacto_emergencia = new PersonaContactoEmergencia;
+		}
 		
+		return view('frontend.persona.modal_persona_contacto_emergencia',compact('id','id_persona','persona_contacto_emergencia','vinculo'));
+	
+	}
+	
+	public function send_persona_contrato(Request $request){
+				
 		$personaContrato = new Contrato;
 		$personaContrato->id_persona = $request->id_persona;
 		
@@ -360,7 +371,53 @@ class PersonaController extends Controller
 		$personad->id_contrato = $personaContrato->id;
 		$personad->save();
 
-
-
     }
+
+	public function send_contacto_emergencia(Request $request){
+
+		$id_user = Auth::user()->id;
+
+		if($request->id > 0){
+			$PersonaContactoEmergencia = PersonaContactoEmergencia::find($request->id);
+			
+		}else{
+			$PersonaContactoEmergencia = new PersonaContactoEmergencia;
+		}
+		
+		$PersonaContactoEmergencia->id_persona = $request->id_persona;
+		$PersonaContactoEmergencia->nombre_contacto = $request->nombre_contacto;
+		$PersonaContactoEmergencia->celular_contacto = $request->telefono_contacto;
+		$PersonaContactoEmergencia->id_vinculo = $request->id_vinculo;
+		$PersonaContactoEmergencia->estado = 1;
+		$PersonaContactoEmergencia->id_usuario_inserta = $id_user;
+		$PersonaContactoEmergencia->save();
+		
+    }
+
+	public function create_contacto_emergencia()
+    {
+        return view('frontend.persona.create_contacto_emergencia');
+    }
+
+	public function listar_persona_contacto_emergencia_ajax(Request $request){
+		
+		$persona_model = new Persona;
+		$p[]=$request->numero_documento;
+		$p[]=$request->persona;
+		$p[]=1;
+		$p[]=$request->NumeroPagina;
+		$p[]=$request->NumeroRegistros;
+		$data = $persona_model->listar_persona_contacto_emergencia_ajax($p);
+		$iTotalDisplayRecords = isset($data[0]->totalrows)?$data[0]->totalrows:0;
+		
+		$result["PageStart"] = $request->NumeroPagina;
+		$result["pageSize"] = $request->NumeroRegistros;
+		$result["SearchText"] = "";
+		$result["ShowChildren"] = true;
+		$result["iTotalRecords"] = $iTotalDisplayRecords;
+		$result["iTotalDisplayRecords"] = $iTotalDisplayRecords;
+		$result["aaData"] = $data;
+
+		echo json_encode($result);
+	}
 }
