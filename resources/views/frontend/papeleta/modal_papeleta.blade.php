@@ -387,7 +387,7 @@ function fn_save(){
 										$foto = "";
 										if ($papeleta->foto_papeleta != "") $foto = $papeleta->foto_papeleta;
 									?>
-
+									
 									<img src="<?php echo $url_foto ?>" id="img_ruta" width="200px" height="150px" alt="" style="margin-top:10px" />
 									<input type="hidden" id="img_foto" name="img_foto" value="<?php echo $foto ?>" />
 								</div>

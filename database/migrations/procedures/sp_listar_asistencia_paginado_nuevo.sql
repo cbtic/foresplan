@@ -1,4 +1,4 @@
--- DROP FUNCTION public.sp_listar_asistencia_paginado_nuevo(varchar, varchar, varchar, varchar, varchar, varchar, varchar, varchar, varchar, varchar, refcursor);
+-- DROP FUNCTION public.sp_listar_asistencia_paginado_nuevo(varchar, varchar, varchar, varchar, varchar, varchar, varchar, varchar, varchar, varchar, varchar, refcursor);
 
 CREATE OR REPLACE FUNCTION public.sp_listar_asistencia_paginado_nuevo(p_area character varying, p_unidad character varying, p_persona character varying, p_anio character varying, p_mes character varying, p_fecha_ini character varying, p_fecha_fin character varying, p_sede character varying, p_estado character varying, p_pagina character varying, p_limit character varying, p_ref refcursor)
  RETURNS refcursor
@@ -81,7 +81,7 @@ Begin
 	fech_sali_rel,to_char(hora_sali_rel::time,''HH24:MI'')hora_sali_rel,
 	--to_char((fech_sali_rel||'' ''||hora_sali_rel)::timestamp-(fech_marc_rel||'' ''||hora_entr_rel)::timestamp,''HH24:MI'')tiempo_trabajado,
     minu_dife_eas tiempo_trabajado,
-	t9.id_deta_operacion,t9.id id_asistencia,
+	t9.id_deta_operacion, tj.desc_just_jus, t9.id id_asistencia,
 	case when fech_sali_rel!='''' and hora_salida!='''' and fech_marc_rel!='''' and hora_entrada!='''' then to_char((fech_sali_rel||'' ''||hora_salida)::timestamp-(fech_marc_rel||'' ''||hora_entrada)::timestamp,''HH24:MI'') end tiempo_programado,
 	case when minu_tard_eas!=''0'' then to_char(minu_tard_eas::time,''HH24:MI'') else ''00:00'' end minu_tard_eas,
 
@@ -110,6 +110,9 @@ Begin
 			left join tmp_turno_fecha_personas t8 on t2.id_persona=t8.id_persona and t8.nume_ndia_dtu::int=case when extract(dow from fecha_dias::date)::int=0 then 7 else extract(dow from fecha_dias::date)::int end
 			
 			left join asistencias t9 on t9.id_persona=t1.id And t9.fech_regi_mar=to_char(fecha_dias::date,''dd-mm-yyyy'')
+			left join deta_operaciones deo on t9.id_deta_operacion = deo.id
+			left join tabla_ubicaciones tu on deo.id_tipo_operacion = tu.id
+			left join tipo_justificaciones tj on tu.id_registro = tj.id
 			';
 			
 	v_where = ' Where 1=1 ';
