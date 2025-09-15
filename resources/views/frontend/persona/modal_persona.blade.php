@@ -149,7 +149,13 @@ $('#openOverlayOpc').on('shown.bs.modal', function() {
 
 $(document).ready(function() {
 	 
-	 
+	 $('#id_cargo_').select2({
+		width:"100%"
+	 })
+
+	 $('#id_profesion_').select2({
+		width:"100%"
+	 })
 
 });
 
@@ -226,6 +232,7 @@ function fn_save(){
 	var id_moneda_cts = $('#id_moneda_cts_').val();
 	var estado = $('#estado_').val();
 	var id_ubicacion = $('#id_ubicacion_').val();
+	var id_sede = $('#id_sede_').val();
 	
 	var tipo_documento = $('#tipo_documento_').val();
 	var numero_documento = $('#numero_documento_').val();
@@ -244,11 +251,10 @@ function fn_save(){
 	if(id_condicion_laboral == "0"){msg+="Debe ingresar la Condición Laboral <br>";}
 	if(id_area_trabajo == ""){msg+="Debe ingresar el Area de Trabajo <br>";}
 	if(id_unidad_trabajo == ""){msg+="Debe ingresar la Unidad de Trabajo <br>";}
+	if(id_sede == ""){msg+="Debe ingresar la Sede <br>";}
 
 	var edad = calcularEdad(fecha_nacimiento);
 	if(edad < 18){msg+="El personal es Menor de Edad: "+edad+"<br>";}
-
-	
 
 	if(estado == "0"){msg+="Debe ingresar el Estado Laboral <br>";}
 
@@ -266,7 +272,7 @@ function fn_save(){
 						id_afp:id_afp,fecha_afiliacion_afp:fecha_afiliacion_afp,id_tipo_comision_afp:id_tipo_comision_afp,cuspp:cuspp,fecha_cese:fecha_cese,
 						fecha_termino_contrato:fecha_termino_contrato,num_contrato:num_contrato,id_cargo:id_cargo,id_nivel:id_nivel,id_banco_cts:id_banco_cts,
 						num_cuenta_cts:num_cuenta_cts,id_moneda_cts:id_moneda_cts,estado:estado,id_ubicacion:id_ubicacion,fecha_nacimiento:fecha_nacimiento,sexo:sexo,
-						id_area_trabajo:id_area_trabajo,id_unidad_trabajo:id_unidad_trabajo},
+						id_area_trabajo:id_area_trabajo,id_unidad_trabajo:id_unidad_trabajo,id_sede:id_sede},
 				success: function (result) {
 					$('#openOverlayOpc').modal('hide');
 					datatablenew();
@@ -490,7 +496,7 @@ container: '#myModal modal-body'
 									@error('direccion_') <span ...>Dato requerido</span> @enderror
 								</div>
 							</div>
-							<div class="col-lg-4">
+							<div class="col-lg-2">
 								<div class="form-group" style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px">
 									<label class="control-label">Empresa</label>
 									<select name="id_ubicacion_" id="id_ubicacion_" class="form-control form-control-sm">
@@ -501,7 +507,19 @@ container: '#myModal modal-body'
 									</select>
 									@error('id_ubicacion_') <span ...>Dato requerido</span> @enderror
 								</div>
-							</div>															
+							</div>
+							<div class="col-lg-2">
+								<div class="form-group" style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px">
+									<label class="control-label">Sede</label>
+									<select name="id_sede_" id="id_sede_" class="form-control form-control-sm">
+											<option value="0">Seleccionar</option>
+											<?php foreach($sedes as $row):?>
+												<option value="<?php echo $row->id?>" <?php if($row->id==$persona_detalle->id_sede)echo "selected='selected'"?> ><?php echo $row->denominacion?></option>
+											<?php  endforeach;?>
+									</select>
+									@error('id_sede_') <span ...>Dato requerido</span> @enderror
+								</div>
+							</div>	
 						</div>
 
 						<div class="row">
@@ -775,7 +793,7 @@ container: '#myModal modal-body'
 							</div>	
 							<div class="col-lg-2">
 								<div class="form-group">
-									<label class="control-label">Terrmino Contrato</label>
+									<label class="control-label">Termino Contrato</label>
 									<input placeholder="Fecha termino" autocomplete="off" type="text" wire:model="fecha_termino_contrato_" id="fecha_termino_contrato_" class="form-control form-control-sm datepicker" data-provide="datepicker" data-date-autoclose="true" 
 										data-date-format="yyyy-mm-dd" data-date-today-highlight="true"                        
 										onchange="this.dispatchEvent(new InputEvent('input'))" value="<?php echo $persona_detalle->fecha_termino_contrato?>">
@@ -831,8 +849,8 @@ container: '#myModal modal-body'
 									<select name="estado_" id="estado_"
 										class="form-control form-control-sm">
 										<option value="0">Seleccionar</option>
-										<option value="A" <?php if($persona->estado == "A")echo "selected='selected'" ?> ><?php echo "ACTIVO"?></option>
-										<option value="C" <?php if($persona->estado == "C")echo "selected='selected'" ?> ><?php echo "CESADO"?></option>
+										<option value="A" <?php if($persona_detalle->estado == "A")echo "selected='selected'" ?> ><?php echo "ACTIVO"?></option>
+										<option value="C" <?php if($persona_detalle->estado == "C")echo "selected='selected'" ?> ><?php echo "CESADO"?></option>
 									</select>
 									@error('estado_') <span ...>Dato requerido</span> @enderror
 								</div>
@@ -996,8 +1014,140 @@ $(document).ready(function() {
 });
 
 
+function obtenerBeneficiarioAjax(){
+
+	var numero_documento = $("#numero_documento_").val();
+	validaDni(numero_documento);
+
+}
+
+function validaDni(dni){
+	var settings = {
+		"url": "https://apiperu.dev/api/dni/"+dni,
+		"method": "GET",
+		"timeout": 0,
+		"headers": {
+		  "Authorization": "Bearer 20b6666ddda099db4204cf53854f8ca04d950a4eead89029e77999b0726181cb"
+		},
+	  };
+
+	  $.ajax(settings).done(function (response) {
+		console.log(response);
+
+		if (response.success == true){
+
+			var data= response.data;
+
+			//$('#apellido_paterno_').val('')
+			//$('#apellido_materno_').val('')
+			//$('#nombres_').val('')
+			//$('#codigo_').val('')
+			//$('#ocupacion_').val('')
+			//$('#telefono_').val('')
+			//$('#email_').val('')
+			$('#nombres_').val("");
+
+			var nombre = data.apellido_paterno+" "+data.apellido_materno+", "+data.nombres;
+			$('#nombres_').val(nombre);
+			
+			//$('#apellido_paterno_').val(data.apellido_paterno);
+			//$('#apellido_materno_').val(data.apellido_materno);
+			//$('#nombres_').val(data.nombres);
+
+			//alert(data.nombre_o_razon_social);
+
+		}
+		else{
+			bootbox.alert("DNI Invalido,... revise el DNI digitado ¡");
+			return false;
+		}
+
+	  });
+}
+
 
 function obtenerBeneficiario(){
+		
+	var tipo_documento = $("#tipo_documento_").val();
+	var numero_documento = $("#numero_documento_").val();
+	var msg = "";
+
+	if (msg != "") {
+		bootbox.alert(msg);
+		return false;
+	}
+
+	if (tipo_documento == "0" || numero_documento == "") {
+		bootbox.alert(msg);
+		return false;
+	}
+
+	$.ajax({
+		url: '/persona/buscar_persona/' + tipo_documento + '/' + numero_documento,
+		dataType: "json",
+		success: function(result){
+			
+			if(result.sw==2){
+				bootbox.alert("No es colaborador de Felmo, los datos han sido obtenidos de Reniec");
+			}
+			if(result.sw==3){
+				bootbox.alert("El numero de documento no se encontro en Felmo ni en Reniec");
+				return false;
+			}
+
+			var persona = result.persona;
+			var persona_detalle = result.persona_detalle;
+			
+			var nombre = persona.apellido_paterno+" "+persona.apellido_materno+", "+persona.nombres;
+			$('#nombres_').val(nombre);
+			$('#fecha_nacimiento_').val(persona.fecha_nacimiento);
+			$('#sexo_').val(persona.sexo);
+			$('#id').val(persona.id);
+			$('#id_per_det').val(0);
+			
+			$('#telefono_').val(persona_detalle.telefono);
+			$('#email_').val(persona_detalle.email);
+
+			$('#tipo_documento_').attr("disabled",true);
+			$('#numero_documento_').attr("disabled",true);
+		}	
+	},
+	{
+		url: '/persona/buscar_persona/' + tipo_documento + '/' + numero_documento,
+		dataType: "json",
+		success: function(result){
+			
+			if(result.sw==2){
+				bootbox.alert("Todos los datos han sido obtenidos de Reniec");
+			}
+			if(result.sw==3){
+				bootbox.alert("El numero de documento no se encontro en Felmo ni en Reniec");
+				
+				return false;
+			}
+
+			var persona = result.persona;
+			var persona_detalle = result.persona_detalle;
+			
+			var nombre = persona.apellido_paterno+" "+persona.apellido_materno+", "+persona.nombres;
+			$('#nombres_').val(nombre);
+			$('#fecha_nacimiento_').val(persona.fecha_nacimiento);
+			$('#sexo_').val(persona.sexo);
+			$('#id').val(persona.id);
+			$('#id_per_det').val(0);
+
+			$('#telefono_').val(persona_detalle.telefono);
+			$('#email_').val(persona_detalle.email);
+
+			$('#tipo_documento_').attr("disabled",true);
+			$('#numero_documento_').attr("disabled",true);
+		}	
+	}
+	);
+	
+}
+
+function obtenerBeneficiario_old(){
 		
 		var tipo_documento = $("#tipo_documento_").val();
 		var numero_documento = $("#numero_documento_").val();

@@ -14,7 +14,7 @@ public/hot
 # Laravel 5 & Lumen specific with changed public path
 public_html/storage
 public_html/hot
-
+_ide_helper.php
 storage/*.key
 .env
 Homestead.yaml
@@ -25,3 +25,8 @@ database/.DS_Store
 
 # Python environment
 env/
+composer.phar
+yarn-error.log
+.package.json
+.yarn.lock
+.composer.lock

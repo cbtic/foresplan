@@ -101,6 +101,31 @@ class PlanillaCalculadaController extends Controller
 		echo json_encode($result);
 		
 	}
+
+	public function listar_periodo_ajax(Request $request){
+		
+		$planilla_model = new Tplanilla;
+		$p[]=$request->id_ubicacion;
+		$p[]=$request->id_planilla;
+		$p[]=$request->id_subplanilla;
+		$p[]=$request->anio;
+		$p[]=$request->mes;
+		$p[]=$request->NumeroPagina;
+		$p[]=$request->NumeroRegistros;
+		$data = $planilla_model->listar_planilla_persona_ajax($p);
+		$iTotalDisplayRecords = isset($data[0]->totalrows)?$data[0]->totalrows:0;
+		
+		$result["PageStart"] = $request->NumeroPagina;
+		$result["pageSize"] = $request->NumeroRegistros;
+		$result["SearchText"] = "";
+		$result["ShowChildren"] = true;
+		$result["iTotalRecords"] = $iTotalDisplayRecords;
+		$result["iTotalDisplayRecords"] = $iTotalDisplayRecords;
+		$result["aaData"] = $data;
+		
+		echo json_encode($result);
+		
+	}
 	
 	public function listar_planilla_resumen_ajax(Request $request){
 		
@@ -342,6 +367,21 @@ class PlanillaCalculadaController extends Controller
 		$id_subplanilla = $periodo->id_subplanilla;
 		$id_ubicacion = $periodo->id_ubicacion;
 		
+		$cuenta = ConceptoPersona::where('estado',1)
+		->where('id','<>',$request->id)
+		->where('id_periodo',$request->id_periodo)
+		->where('id_ubicacion',$id_ubicacion)
+		->where('id_ubicacion',$id_ubicacion)
+		->where('id_planilla',$id_planilla)
+		->where('id_subplanilla',$id_subplanilla)
+		->where('id_persona',$request->id_persona)
+		->where('id_concepto',$request->id_concepto)->count();
+
+		if($cuenta != 0){
+			echo "1";
+			exit();
+		}
+		
 		if($request->id == 0){
 			$concepto_persona = new ConceptoPersona;
 			$concepto_persona->id_periodo = $request->id_periodo;
@@ -563,6 +603,7 @@ class PlanillaCalculadaController extends Controller
         echo json_encode($array);
 
 	}
+	
 	public function generar_planilla_calculada_periodo($id)
     {
 		$sw = true;
@@ -581,7 +622,23 @@ class PlanillaCalculadaController extends Controller
 
 	}
 
-	
+	public function eliminar_planilla_calculada_periodo($id)
+    {
+		$sw = true;
+		$msg = "";
+		
+		$planilla_model = new Tplanilla;
+		$planilla_model->elimina_planilla_calculada($id);
+
+		$periodo = Tperiodo::find($id);
+		$periodo->esta_plan_tpe = '1';
+		$periodo->save();
+		
+		$array["sw"] = $sw;
+        $array["msg"] = $msg;
+        echo json_encode($array);
+
+	}
 	
 	
 }

@@ -12,7 +12,7 @@ use App\Models\Empresa;
 use App\Models\Ubigeo;
 use App\Models\UnidadTrabajo;
 use App\Models\Contrato;
-
+use App\Models\PersonaContactoEmergencia;
 
 //use App\Models\CondicionLaborale;
 
@@ -63,7 +63,8 @@ class PersonaController extends Controller
 		if($id>0) $persona = Persona::find($id);else $persona = new Persona;
 
 		$tipo_documento = DocumentoIdentidade::all();
-		if($id>0) $persona_detalle = PersonaDetalle::where('id_persona', '=', $id)->where('estado', '=', 'A')->first();else $persona_detalle = new PersonaDetalle;
+		//if($id>0) $persona_detalle = PersonaDetalle::where('id_persona', '=', $id)->where('estado', '=', 'A')->first();else $persona_detalle = new PersonaDetalle;
+		if($id>0) $persona_detalle = PersonaDetalle::where('id_persona', '=', $id)->first();else $persona_detalle = new PersonaDetalle;
 		//$persona_detalle = PersonaDetalle::where('id_persona', '=', $id)->where('estado', '=', 'A')->first();
 
 		$tabla_model = new TablaUbicacione;		
@@ -78,6 +79,7 @@ class PersonaController extends Controller
 		$nivel = $tabla_model->getTablaUbicacionAll("tniveles","1");
 		$moneda = $tabla_model->getTablaUbicacionAll("tipo_monedas","1");
 		$area_trabajo = $tabla_model->getTablaUbicacionAll("area_trabajos","1");
+		$sedes = $tabla_model->getTablaUbicacionAll("sedes","1");
 
 		$empresa_model = new Empresa();		
 		$empresas = $empresa_model->getEmpresaAll("1");
@@ -111,7 +113,7 @@ class PersonaController extends Controller
 
 		//print_r ($unidad_trabajo);exit();
 
-		return view('frontend.persona.modal_persona',compact('id','persona','persona_detalle','tipo_documento','profesiones','empresas','condLaboral','tipPlanilla','banco','regPension','afp','comisionAfp','cargo','nivel','moneda','departamento','provincia','distrito','area_trabajo','unidad_trabajo'));
+		return view('frontend.persona.modal_persona',compact('id','persona','persona_detalle','tipo_documento','profesiones','empresas','condLaboral','tipPlanilla','banco','regPension','afp','comisionAfp','cargo','nivel','moneda','departamento','provincia','distrito','area_trabajo','unidad_trabajo','sedes'));
 	}
 
     public function obtener_persona($tipo_documento,$numero_documento){
@@ -187,102 +189,51 @@ class PersonaController extends Controller
 
 	public function buscar_persona($tipo_documento,$numero_documento){
 
-
 		$sw = 1;//encontrado en Felmo
-		//$tarjeta = NULL;
 		$persona = Persona::where('tipo_documento',$tipo_documento)->where('numero_documento',$numero_documento)->where('estado','A')->first();
 
 		if($persona) $persona_detalle = PersonaDetalle::where('id_persona', '=', $persona->id)->where('estado', '=', 'A')->first();
 		else $persona_detalle = new PersonaDetalle;
-
-
 		
+		$persona_model = new Persona;
+
 		if(!$persona){
 			
-			$persona_model = new Persona;
-			$persona = $persona_model->getPersonaExt($this->getTipoDocumentoR($tipo_documento), $numero_documento);
-
-			//print_r("tipo->".$tipo_documento);
-			//print_r("numero->".$numero_documento);
-			//print_r($persona);
-			
-
-			if($persona){
+			$sw = 3;//no existe
 				
-				$persona_act = new Persona;
+			$arrContextOptions=array(
+				"ssl"=>array(
+					"verify_peer"=>false,
+					"verify_peer_name"=>false,
+				),
+			);
+			//$url = $this->apiperu_dev($numero_documento);
+			//print_r($numero_documento);exit();
+			$url = $persona_model->apiperu_dev($numero_documento);
+			$datos = json_decode($url,true);
 
-				//print($persona->tipo_documento);
-				$persona_act->tipo_documento = $tipo_documento;				
-				$persona_act->numero_documento = $persona->numero_documento;
-				$persona_act->apellido_paterno = $persona->apellido_paterno;
-				$persona_act->apellido_materno = $persona->apellido_materno;
-				$persona_act->nombres = $persona->nombres;
-				$persona_act->fecha_nacimiento = $persona->fecha_nacimiento;
-				$persona_act->sexo = $persona->sexo;			
-				$persona_act->estado = 'A';
-				$persona_act->save();
+			if(isset($datos["data"])){
+				$dato = $datos["data"];
+				$persona = new Persona;
+				$persona->tipo_documento = '1';
+				$persona->numero_documento = $dato['numero'];
+				$persona->apellido_paterno = $dato['apellido_paterno'];
+				$persona->apellido_materno = $dato['apellido_materno'];
+				$persona->nombres = $dato['nombres'];
+				$persona->estado = 'A';
+				$persona->save();
 
 				$persona = Persona::where('tipo_documento',$tipo_documento)->where('numero_documento',$numero_documento)->where('estado','A')->first();
-				//print_r("Persona Act -> ".$persona);
 				
-/*
-				$persona_detalle_act = new PersonaDetalle;
-				$persona_detalle_act->telefono = $persona->telefono;
-				$persona_detalle_act->email = $persona->email;
-				$persona_detalle_act->email = $persona->direccion;
-				$persona_detalle_act->save();
-*/
 
-			}
-				
-			if(!$persona){
-				$sw = 3;//no existe
-				
-				$arrContextOptions=array(
-					"ssl"=>array(
-						"verify_peer"=>false,
-						"verify_peer_name"=>false,
-					),
-				);
-				//$url = $this->apiperu_dev($numero_documento);
-				//print_r($numero_documento);exit();
-				$url = $persona_model->apiperu_dev($numero_documento);
-				//print_r($url);exit();
-				$datos = json_decode($url,true);
-				if(isset($datos["data"])){
-					$dato = $datos["data"];
-					$persona = new Persona;
-					$persona->tipo_documento = '1';
-					$persona->numero_documento = $dato['numero'];
-					$persona->apellido_paterno = $dato['apellido_paterno'];
-					$persona->apellido_materno = $dato['apellido_materno'];
-					$persona->nombres = $dato['nombres'];
-					$persona->estado = 'A';
-					$persona->save();
-
-					$persona = Persona::where('tipo_documento',$tipo_documento)->where('numero_documento',$numero_documento)->where('estado','A')->first();
-					
-
-					$sw = 2;//encontrado en Reniec
-				}		
-			}
+				$sw = 2;//encontrado en Reniec
+			}		
 		}
-		/*
-		if(isset($persona->id) && $persona->id > 0){
-			$persona_model = new Persona;
-			$tarjeta = $persona_model->getTarjetaByIdPersona($persona->numero_documento);
-		}
-		*/
-
-		//$sw = true;
-		//print_r("sw -> ".$sw);
-		//print_r("Persona Act -> ".$persona);
-
+		
         $array["sw"] = $sw;
         $array["persona"] = $persona;
 		$array["persona_detalle"] = $persona_detalle;
-		//$array["tarjeta"] = $tarjeta;
-        echo json_encode($array);
+		echo json_encode($array);
 
     }
 
@@ -345,7 +296,7 @@ class PersonaController extends Controller
 		$persona = $persona_model->getPersonaBuscar($term);
 		return response()->json($persona);
     }
-	
+
 	public function modal_persona_contrato($id_persona){
 		$tabla_model = new TablaUbicacione;		
 		$cargo = $tabla_model->getTablaUbicacionAll("tcargos","1");
@@ -379,16 +330,27 @@ class PersonaController extends Controller
 	
 	}
 
-	public function send_persona_contrato(Request $request){
-		/*
-		if($request->img_foto!=""){
-			$filepath_tmp = public_path('img/frontend/tmp_vacuna/');
-			$filepath_nuevo = public_path('img/carnet_vacunacion/');
-			if (file_exists($filepath_tmp.$request->img_foto)) {
-				copy($filepath_tmp.$request->img_foto, $filepath_nuevo.$request->img_foto);
-			}
-		}*/
+	public function modal_persona_contacto_emergencia($id_persona, $id){
+
+		$tabla_model = new TablaUbicacione;
+		$vinculo = $tabla_model->getTablaUbicacionAll("tvinculos","1");
+
+		$buscar_persona_contacto_emergencia = PersonaContactoEmergencia::where('id_persona',$id_persona)->where('estado',1)->OrderBy('id','desc')->first();
+
+		if($buscar_persona_contacto_emergencia){
+			$id = $buscar_persona_contacto_emergencia->id;
+			$persona_contacto_emergencia = PersonaContactoEmergencia::find($id);
+			
+		}else{
+			$persona_contacto_emergencia = new PersonaContactoEmergencia;
+		}
 		
+		return view('frontend.persona.modal_persona_contacto_emergencia',compact('id','id_persona','persona_contacto_emergencia','vinculo'));
+	
+	}
+	
+	public function send_persona_contrato(Request $request){
+				
 		$personaContrato = new Contrato;
 		$personaContrato->id_persona = $request->id_persona;
 		
@@ -409,7 +371,53 @@ class PersonaController extends Controller
 		$personad->id_contrato = $personaContrato->id;
 		$personad->save();
 
-
-
     }
+
+	public function send_contacto_emergencia(Request $request){
+
+		$id_user = Auth::user()->id;
+
+		if($request->id > 0){
+			$PersonaContactoEmergencia = PersonaContactoEmergencia::find($request->id);
+			
+		}else{
+			$PersonaContactoEmergencia = new PersonaContactoEmergencia;
+		}
+		
+		$PersonaContactoEmergencia->id_persona = $request->id_persona;
+		$PersonaContactoEmergencia->nombre_contacto = $request->nombre_contacto;
+		$PersonaContactoEmergencia->celular_contacto = $request->telefono_contacto;
+		$PersonaContactoEmergencia->id_vinculo = $request->id_vinculo;
+		$PersonaContactoEmergencia->estado = 1;
+		$PersonaContactoEmergencia->id_usuario_inserta = $id_user;
+		$PersonaContactoEmergencia->save();
+		
+    }
+
+	public function create_contacto_emergencia()
+    {
+        return view('frontend.persona.create_contacto_emergencia');
+    }
+
+	public function listar_persona_contacto_emergencia_ajax(Request $request){
+		
+		$persona_model = new Persona;
+		$p[]=$request->numero_documento;
+		$p[]=$request->persona;
+		$p[]=1;
+		$p[]=$request->NumeroPagina;
+		$p[]=$request->NumeroRegistros;
+		$data = $persona_model->listar_persona_contacto_emergencia_ajax($p);
+		$iTotalDisplayRecords = isset($data[0]->totalrows)?$data[0]->totalrows:0;
+		
+		$result["PageStart"] = $request->NumeroPagina;
+		$result["pageSize"] = $request->NumeroRegistros;
+		$result["SearchText"] = "";
+		$result["ShowChildren"] = true;
+		$result["iTotalRecords"] = $iTotalDisplayRecords;
+		$result["iTotalDisplayRecords"] = $iTotalDisplayRecords;
+		$result["aaData"] = $data;
+
+		echo json_encode($result);
+	}
 }

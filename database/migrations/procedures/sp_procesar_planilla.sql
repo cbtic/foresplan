@@ -139,8 +139,8 @@ FROM public.resumenes;
 			if _monto::DECIMAL < 0 then _monto:='0'; end if;
 			update resumenes set cant_conc_rem = _monto::DECIMAL where id = cur_resumen.id;
 			
-			insert into planilla_calculadas(id_planilla, id_subplanilla, ano_peri_tpe, nume_peri_tpe, id_persona, id_concepto, valo_calc_pca, id_ubicacion,created_at,updated_at, id_periodo)
-			values (cur_resumen.id_planilla, cur_resumen.id_subplanilla, cur_resumen.ano_peri_tpe, cur_resumen.nume_peri_tpe, cur_resumen.id_persona, cur_resumen.id_concepto, _monto, cur_resumen.id_ubicacion, now(), now(), p_id_periodo::int);
+			insert into planilla_calculadas(id_planilla, id_subplanilla, ano_peri_tpe, nume_peri_tpe, id_persona, id_concepto, valo_calc_pca, id_ubicacion,created_at,updated_at, id_periodo, estado)
+			values (cur_resumen.id_planilla, cur_resumen.id_subplanilla, cur_resumen.ano_peri_tpe, cur_resumen.nume_peri_tpe, cur_resumen.id_persona, cur_resumen.id_concepto, _monto, cur_resumen.id_ubicacion, now(), now(), p_id_periodo::int, 1);
 			
 		End Loop;
 

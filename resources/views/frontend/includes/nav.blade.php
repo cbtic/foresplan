@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-0">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #173E39;">
     <div class="container">
         <x-utils.link
             :href="route('frontend.index')"
@@ -105,9 +105,9 @@
 								<!--<a href="/manten/detalle_turnos" class="dropdown-item">Detalle Turnos</a>-->
 								<a href="/manten/personal_turnos" class="dropdown-item">Asignar Persona Turno</a>
 
-                                <a href="/manten/tdias_feriados" class="dropdown-item">Feriados</a>
+                                <a href="/feriado/create" class="dropdown-item">Feriados</a>
 
-                                <a href="/manten/formulas" class="dropdown-item">Formulas</a>
+                                <a href="/formula/create" class="dropdown-item">Formulas</a>
 
                                 <a href="/manten/subtplanillas" class="dropdown-item">Sub Planillas</a>
 
@@ -115,6 +115,21 @@
 								
 								<a href="/maestro/create_ubicacion_maestro" class="dropdown-item">Maestros por Cliente</a>
 
+                                <a href="/cliente_usuario/create" class="dropdown-item">Cliente Usuario</a>
+
+                                <a href="/tarjeta/create" class="dropdown-item">Asignar Persona Tarjeta</a>
+
+                                <a href="{{route('frontend.persona.create_contacto_emergencia')}}" class="dropdown-item">Contacto Emergencia Personal</a>
+
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownPrueba" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Control de Alimentaci&oacute;n</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownPrueba">
+                            <a href="/menu_persona/create_menu" class="dropdown-item">Registro Menu</a>
+                            <a href="/menu_persona/create_persona_menu" class="dropdown-item">Registro Menu Persona</a>
                         </div>
                     </li>
                    

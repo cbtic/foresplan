@@ -578,7 +578,7 @@ function datatablenew(){
 					"mRender": function (data, type, row) {
 						var estado = "";
 						if(row.estado == 'A')estado = "Activo";
-						if(row.estado == 'C')estado = "Cerrado";
+						if(row.estado == 'C')estado = "Cesado";
 						return estado;
 					},
 					"bSortable": false,
@@ -601,7 +601,7 @@ function datatablenew(){
 					estado = "Eliminar";
 					clase = "btn-danger";
 					accion = "1";
-/*
+					/*
 					if(row.estado == 'A'){
 						estado = "Eliminar";
 						clase = "btn-danger";
@@ -611,9 +611,10 @@ function datatablenew(){
 						estado = "Activar";
 						clase = "btn-success";
 					}
-*/					
+					*/					
 					var html = '<div class="btn-group btn-group-sm" role="group" aria-label="Log Viewer Actions">';
 					html += '<button style="font-size:12px" type="button" class="btn btn-sm btn-success" data-toggle="modal" onclick="modalPersona('+row.id_pe+')" ><i class="fa fa-edit"></i> Editar</button>';
+					html += '<button style="font-size:12px; margin-left:10px" type="button" class="btn btn-sm btn-warning" data-toggle="modal" onclick="modalContactoEmergencia('+row.id_pe+')" > Contacto Emergencia</button>';
 					html += '<a href="javascript:void(0)" onclick=eliminarPersona('+row.id_pd+','+accion+') class="btn btn-sm '+clase+'" style="font-size:12px;margin-left:10px">'+estado+'</a>';
 					
 	
@@ -646,14 +647,28 @@ function modalPersonaContrato(id){
 	$('#openOverlayOpc .modal-body').css('height', 'auto');
 
 	$.ajax({
-			url: "/persona/modal_persona_contrato/"+id,
-			type: "GET",
-			success: function (result) {  
-					$("#diveditpregOpc").html(result);
-					$('#openOverlayOpc').modal('show');
-			}
+		url: "/persona/modal_persona_contrato/"+id,
+		type: "GET",
+		success: function (result) {  
+			$("#diveditpregOpc").html(result);
+			$('#openOverlayOpc').modal('show');
+		}
 	});
+}
 
+function modalContactoEmergencia(id_persona){
+	
+	$(".modal-dialog").css("width","85%");
+	$('#openOverlayOpc .modal-body').css('height', 'auto');
+
+	$.ajax({
+		url: "/persona/modal_persona_contacto_emergencia/"+id_persona+"/"+0,
+		type: "GET",
+		success: function (result) {
+			$("#diveditpregOpc").html(result);
+			$('#openOverlayOpc').modal('show');
+		}
+	});
 }
 
 function fn_ListarBusqueda() {

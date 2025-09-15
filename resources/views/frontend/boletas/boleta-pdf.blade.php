@@ -61,6 +61,8 @@ body {
     }
 
     table.data {
+        border-left:solid black 2px;
+        border-bottom:solid black 2px;
         border-collapse:separate;
         border:solid black 2px;
         border-radius:8px;
@@ -152,8 +154,97 @@ body {
     &nbsp;
     <table class="data" style="width:100%">
       <tr>
-        <th>Trabajador:</th>
-        <td>{{ $persona->apellido_paterno . " " . $persona->apellido_paterno . ", " . $persona->nombres }}</td>
+        <th>RUC:</th>
+        <td>20486785994</td>
+      </tr>
+      <tr>
+        <th>Empleador:</th>
+        <td>FORESTAL PAMA S.A.C.</td>
+      </tr>
+      <tr>
+        <th>Periodo:</th>
+        <td>{{ $anio_mes_planilla }}</td>
+      </tr>
+      <tr>
+        <th>PDT Planilla Electronica</th>
+        <td></td>
+        <th>N&uacute;mero de Orden:</th>
+        <td>{{ $id_planilla }}</td>
+      </tr>
+    </table>
+    &nbsp;
+    <table class="data" style="width:100%">
+      <tr>
+        <th class="data" colspan="2">Documento de Identidad</th>
+        <th class="data" rowspan="2" colspan ="4">Nombre y Apellidos</th>
+        <th class="data" rowspan="2" colspan ="2">Situaci&oacute;n</th>
+      </tr>
+      <tr>
+        <th class="data">Tipo</th>
+        <th class="data">N&uacute;mero</th>
+      </tr>
+      <tr>
+        <td class="data">{{ ($persona->tipo_documento == 1) ? "DNI" : "C.E./PASSAPORTE" }}</td>
+        <td class="data">{{ $persona->numero_documento }}</td>
+        <td class="data" colspan ="4">{{ $persona->apellido_paterno . " " . $persona->apellido_materno . ", " . $persona->nombres }}</td>
+        <td class="data" colspan ="2">{{ $situacion }}</td>
+      </tr>
+      <tr>
+        <th class="data" colspan="2">Fecha Ingreso</th>
+        <th class="data" colspan="2">Tipo Empleado</th>
+        <th class="data" colspan="2">Regimen Pensionario</th>
+        <th class="data" colspan="2">CUSPP</th>
+      </tr>
+      <tr>
+        <td class="data" colspan="2">{{ \Carbon\Carbon::parse($persona_detalle->fecha_ingreso)->format('d-m-Y') }}</td>
+        <td class="data" colspan="2">EMPLEADO</td>
+        <td class="data" colspan="2">{{ $regimen_pensionario }}</td>
+        <td class="data" colspan="2">{{ $persona_detalle->cuspp }}</td>
+      </tr>
+      <tr>
+        <th class="data" rowspan="2">D&iacute;as Laborados</th>
+        <th class="data" rowspan="2">D&iacute;as no Laborados</th>
+        <th class="data" rowspan="2">D&iacute;as Subsiciados</th>
+        <th class="data" rowspan="2">Condici&oacute;n</th>
+        <th class="data" colspan="2">Jornada Ordinaria</th>
+        <th class="data" colspan="2">Sobretiempo</th>
+      </tr>
+      <tr>
+        <th class="data">Total Horas</th>
+        <th class="data">Minutos</th>
+        <th class="data">Total Horas</th>
+        <th class="data">Minutos</th>
+      </tr>
+      <tr>
+        <td class="data">{{ $dias_trabajados[0]->dias_trabajados }}</td>
+        <td class="data">{{ $dias_no_trabajados[0]->dias_inasistencia }}</td>
+        <td class="data">{{ $dias_subsidio[0]->cantidad }}</td>
+        <td class="data">{{ $condicion }}</td>
+        <td class="data">{{ $horas_diurnas_trabajados[0]->horas_diurnas_trabajadas }}</td>
+        <td class="data"></td>
+        <td class="data">{{ $horas_extras[0]->cantidad }}</td>
+        <td class="data"></td>
+      </tr>
+      <tr>
+        <th class="data" colspan="6">Motivo de Suspensi&oacute;n de Labores</th>
+        <th class="data" rowspan="2" colspan="2">Otros empleadores por renta de 5ta categor&iacute;a</th>
+      </tr>
+      <tr>
+        <th class="data">Tipo</th>
+        <th class="data"colspan="4">Motivo</th>
+        <th class="data">N° D&iacute;as</th>
+      </tr>
+      <tr>
+        <td class="data">&nbsp;</td>
+        <td class="data" colspan="4"></td>
+        <td class="data"></td>
+        <td class="data" colspan="2"></td>
+      </tr>
+
+
+      <!--<tr>
+        <th >Trabajador:</th>
+        <td>{{ $persona->apellido_paterno . " " . $persona->apellido_materno . ", " . $persona->nombres }}</td>
         <th>{{ ($persona->tipo_documento == 1) ? "DNI" : "C.E./PASSAPORTE" }}:</th>
         <td>{{ $persona->numero_documento }}</td>
         <td>&nbsp;</td>
@@ -174,7 +265,7 @@ body {
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
-      </tr>
+      </tr>-->
     </table>
   &nbsp;
     <table class="data" style="width:100%">
@@ -296,16 +387,29 @@ body {
       <tr><th><p>OBSERVACIONES: </p></th></tr>
   </table>
   &nbsp;
-  <table class="data" style="width:100%">
-      <tr>
-        <th>
-          <p style="height: 160px;"> &nbsp;</p>
-        </th>
-        <th>
-          <div style="text-align: right; margin-right: 25px">{!! QrCode::size(120)->generate('RemoteStack') !!}</div>
-        </th>
-      </tr>
-      <tr><th class="firma" colspan="2"><h3>EMPLEADOR</h3></th></tr>
-  </table>
+  <div style="display: flex; justify-content: space-between; width: 100%;">
+    <table class="data" style="width:48%">
+        <tr>
+          <th>
+            <p style="height: 160px;"> &nbsp;</p>
+          </th>
+          <th>
+            <div style="text-align: right; margin-right: 25px">{!! QrCode::size(120)->generate('RemoteStack') !!}</div>
+          </th>
+        </tr>
+        <tr><th class="firma" colspan="2"><h3>EMPLEADOR</h3></th></tr>
+    </table>
+    <table class="data" style="width:48%">
+        <tr>
+          <th>
+            <p style="height: 160px;"> &nbsp;</p>
+          </th>
+          <th>
+            <div style="text-align: right; margin-right: 25px"></div>
+          </th>
+        </tr>
+        <tr><th class="firma" colspan="2"><h3>TRABAJADOR</h3></th></tr>
+    </table>
+  </div>
   </body>
 </html>

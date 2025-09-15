@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\actualizaAsistenciaAutomaticoCron::class,
     ];
 
     /**
@@ -27,7 +27,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('activitylog:clean')->daily();
+        $schedule->command('actualizaAsistenciaAutomatico:cron')->dailyAt('08:00');
+		$schedule->command('actualizaAsistenciaAutomatico:cron')->dailyAt('09:00');
+		$schedule->command('actualizaAsistenciaAutomatico:cron')->dailyAt('16:00');
+		$schedule->command('actualizaAsistenciaAutomatico:cron')->dailyAt('18:00');
+		$schedule->command('actualizaAsistenciaAutomatico:cron')->dailyAt('23:50');
     }
 
     /**

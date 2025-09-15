@@ -1,12 +1,9 @@
-CREATE OR REPLACE FUNCTION public.sp_crud_automatico_asistencia_nuevo(
-    p_fecha character varying,
-    p_dbname character varying,
-    p_port character varying,
-    p_host character varying,
-    p_user character varying,
-    p_password character varying)
-  RETURNS character varying AS
-$BODY$
+-- DROP FUNCTION public.sp_crud_automatico_asistencia_nuevo(varchar, varchar, varchar, varchar, varchar, varchar);
+
+CREATE OR REPLACE FUNCTION public.sp_crud_automatico_asistencia_nuevo(p_fecha character varying, p_dbname character varying, p_port character varying, p_host character varying, p_user character varying, p_password character varying)
+ RETURNS character varying
+ LANGUAGE plpgsql
+AS $function$
 declare
 	entradas record;
 	idp integer;
@@ -15,6 +12,14 @@ declare
 	v_dia_marcacion varchar;
 	
 begin
+
+	Drop Table If Exists last_asistencias; 
+	Create Temp Table last_asistencias As 
+	Select fech_regi_mar,id_persona,id_deta_operacion,
+	fech_regi_eas,tipo_marc_eas,hora_marc_eas,hora_marc_sal,nume_bole_eas,flag_bole_eas,
+	fech_marc_rel,hora_entrada,hora_salida,hora_entr_rel,fech_sali_rel,hora_sali_rel
+	From asistencias 
+	where to_char(fech_regi_mar::date,'dd-mm-yyyy')=p_fecha;
 
 	delete from asistencias a where to_char(fech_regi_mar::date,'dd-mm-yyyy')=p_fecha;
 	
@@ -29,6 +34,29 @@ begin
 	--and t1.id=171
 	order by t1.id;
 
+	update asistencias set 
+	id_deta_operacion=R.id_deta_operacion,
+	fech_regi_eas=R.fech_regi_eas,
+	tipo_marc_eas=R.tipo_marc_eas,
+	hora_marc_eas=R.hora_marc_eas,
+	hora_marc_sal=R.hora_marc_sal,
+	nume_bole_eas=R.nume_bole_eas,
+	flag_bole_eas=R.flag_bole_eas,
+	fech_marc_rel=R.fech_marc_rel,
+	hora_entrada=R.hora_entrada,
+	hora_salida=R.hora_salida,
+	hora_entr_rel=R.hora_entr_rel,
+	fech_sali_rel=R.fech_sali_rel,
+	hora_sali_rel=R.hora_sali_rel
+	from (
+	select a.id id_asistencia,la.id_deta_operacion,
+	la.fech_regi_eas,la.tipo_marc_eas,la.hora_marc_eas,la.hora_marc_sal,la.nume_bole_eas,la.flag_bole_eas,
+	la.fech_marc_rel,la.hora_entrada,la.hora_salida,la.hora_entr_rel,la.fech_sali_rel,la.hora_sali_rel 
+	from asistencias a
+	inner join last_asistencias la on a.fech_regi_mar=la.fech_regi_mar and a.id_persona=la.id_persona
+	)R 
+	where id=R.id_asistencia;
+
 	For entradas In
 	select t4.id id_asistencia,t1.id id_persona,t1.numero_documento,R.dia_marcacion,R.hora_marcacion,
 	coalesce(to_char(t3.hora_entr_dtu::timestamp,'HH24:MI:SS'),'')hora_entrada,coalesce(to_char(t3.hora_sali_dtu::timestamp,'HH24:MI:SS'),'')hora_salida,
@@ -36,11 +64,10 @@ begin
 	From personas t1
 	inner join (Select numero_documento,dia_marcacion,hora_marcacion 
 		From dblink ('dbname='||p_dbname||' port='||p_port||' host='||p_host||' user='||p_user||' password='||p_password||'',
-		'select t2.numero_documento,to_char(t1.time_second::timestamp,''dd-mm-yyyy'') dia_marcacion,to_char(t1.time_second::timestamp,''HH24:MI:SS'') hora_marcacion
-		from zkteco_logs t1 
-		inner join personas t2 on t1.pin::int=t2.id
-		where t1.eventtype=''0''
-		And to_char(time_second::timestamp,''dd-mm-yyyy'')='''||p_fecha||''' 
+		'select LPAD(emp_code::text, 8, ''0'') numero_documento,to_char(t1.punch_time::timestamp,''dd-mm-yyyy'') dia_marcacion,to_char(t1.punch_time::timestamp,''HH24:MI:SS'') hora_marcacion
+		from iclock_transaction t1 
+		where 1=1 
+		And to_char(punch_time::timestamp,''dd-mm-yyyy'')='''||p_fecha||''' 
 		order by t1.id asc'
 		)ret (numero_documento varchar,dia_marcacion varchar,hora_marcacion varchar)
 	)R on t1.numero_documento=R.numero_documento
@@ -50,7 +77,9 @@ begin
 	Where t1.estado='A' 
 	order by t1.id,hora_marcacion
 	Loop
-
+		
+		
+		--Raise Notice 'ingresa';
 		--SI LA HORA DE LA MARCACIÓN ESTA EN CONCORDANCIA AL TURNO PROGRAMADO DE LA HORA DE ENTRADA, 3 HORAS ANTES Y 3 HORAS DESPUES
 		if (entradas.dia_marcacion||' '||entradas.hora_marcacion)::timestamp 
 			between (entradas.dia_marcacion||' '||entradas.hora_entrada)::timestamp - (interval '3 hours') 
@@ -106,6 +135,5 @@ begin
         idp:=-1;
 	return idp;*/
 end;
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;
+$function$
+;

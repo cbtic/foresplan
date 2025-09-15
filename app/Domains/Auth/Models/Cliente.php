@@ -3,6 +3,7 @@
 namespace App\Domains\Auth\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 /**
  * Class Cliente.

@@ -111,6 +111,31 @@ $(document).ready(function() {
 	activarTipo();
 
 	//$("#id_empresa").select2({ width: '100%' });
+
+	$(".upload").on('click', function() {
+        var formData = new FormData();
+        var files = $('#image')[0].files[0];
+        formData.append('file',files);
+        $.ajax({
+			headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "/papeleta/upload_papeleta",
+            type: 'post',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                if (response != 0) {
+                    $("#img_ruta").attr("src", "/img/tmp_papeleta/"+response);
+					$("#img_foto").val(response);
+                } else {
+                    alert('Formato de imagen incorrecto.');
+                }
+            }
+        });
+        return false;
+    });
 });
 
 
@@ -170,6 +195,7 @@ function fn_save(){
 	var horafinaope = $('#horafinaope').val();
 	var total = $('#total_').val();
 	var persona = $('#persona_').val();
+	var img_foto = $('#img_foto').val();
 
 	//alert(horainicope);
 	//return false;
@@ -202,7 +228,7 @@ function fn_save(){
 				type: "POST",
 				data : {_token:_token,id:id,id_persona:id_persona,id_ubicacion:id_ubicacion,id_tipo_operacion:id_tipo_operacion,tipo_oper_top:tipo_oper_top,
 					fech_inic_ope:fech_inic_ope,fech_fina_ope:fech_fina_ope,horainicope:horainicope,horafinaope:horafinaope,nume_reso_ope:nume_reso_ope,
-					obse_oper_ope:obse_oper_ope,total:total,fecha:fecha},
+					obse_oper_ope:obse_oper_ope,total:total,fecha:fecha, img_foto:img_foto},
 				success: function (result) {
 					$('#openOverlayOpc').modal('hide');
 					datatablenew();
@@ -341,8 +367,33 @@ function fn_save(){
 								</div>
 							</div>																														
 
-						</div>			
+						</div>
+							
+						<div class="row">
+					
+							<div class="col-lg-12">
+							
+								<div class="form-group">
+									
+									<label class="btn btn-sm btn-warning btn-file">
+										Examinar <input id="image" name="image" type="file" hidden>
+									</label>
+									<input type="button" class="btn btn-sm btn-primary upload" value="Subir" style="margin-left:10px">
+									
+									<?php
+										$url_foto = "/img/logo_sigplan.png";
+										if ($papeleta->foto_papeleta != "") $url_foto = "/img/papeleta/" . $papeleta->id_persona . "/" . $papeleta->foto_papeleta;
 										
+										$foto = "";
+										if ($papeleta->foto_papeleta != "") $foto = $papeleta->foto_papeleta;
+									?>
+
+									<img src="<?php echo $url_foto ?>" id="img_ruta" width="200px" height="150px" alt="" style="margin-top:10px" />
+									<input type="hidden" id="img_foto" name="img_foto" value="<?php echo $foto ?>" />
+								</div>
+							</div>
+						</div>
+						
 						<div style="margin-top:10px;float:right" class="form-group">
 							<div class="col-sm-12 controls" id="dvSave">
 								<div class="btn-group btn-group-sm" role="group" aria-label="Log Viewer Actions" >

@@ -34,7 +34,12 @@ class DetaOperacioneController extends Controller
 
     public function create()
     {
-        return view('frontend.papeleta.create');
+		$empresa = Empresa::all();
+		$tabla_model = new TablaUbicacione;
+
+		$justificacion = $tabla_model->getTablaUbicacionAll("tipo_justificaciones","1");
+
+        return view('frontend.papeleta.create',compact('empresa','justificacion'));
     }
 
     public function listar_papeleta_ajax(Request $request){
@@ -67,11 +72,31 @@ class DetaOperacioneController extends Controller
         $papeleta_model = new DetaOperacione;
         //$papeleta = $papeleta_model->getPapeletaById($id);
         if($id>0) $papeleta = $papeleta_model->getPapeletaById($id);else $papeleta = new DetaOperacione;
-                
-		$tabla_model = new TablaUbicacione;		
+        
+		$tabla_model = new TablaUbicacione;
 		$justificacion = $tabla_model->getTablaUbicacionAll("tipo_justificaciones","1");
 		//print_r ($justificacion);exit();
 		return view('frontend.papeleta.modal_papeleta',compact('id','papeleta','justificacion'));
+	}
+
+	function extension($filename){$file = explode(".",$filename); return strtolower(end($file));}
+
+	public function upload_papeleta(Request $request){
+
+		$path = "img/tmp_papeleta";
+		if (!is_dir($path)) {
+			mkdir($path);
+		}
+
+        $filename = date("YmdHis") . substr((string)microtime(), 1, 6);
+		$type="";
+
+    	$filepath = public_path('img/tmp_papeleta/');
+
+        $type=$this->extension($_FILES["file"]["name"]);
+		move_uploaded_file($_FILES["file"]["tmp_name"], $filepath . $filename.".".$type);
+
+		echo $filename.".".$type;
 	}
 
     public function obtener_papeleta($tipo_documento,$numero_documento){
@@ -85,7 +110,6 @@ class DetaOperacioneController extends Controller
 
     }
 	
-	
 	public function fecha_formato($fecha){
 		//echo $fecha;exit();
 		$fecha = substr($fecha,0,10);
@@ -95,6 +119,25 @@ class DetaOperacioneController extends Controller
 	}
 	
     public function send_papeleta(Request $request){
+
+		$persona_id = $request->id_persona;
+		$path = public_path("img/papeleta/".$persona_id);
+		if (!is_dir($path)) {
+			mkdir($path, 0777, true);
+		}
+
+		if($request->img_foto!=""){
+			$filepath_tmp = public_path('img/tmp_papeleta/');
+			$filepath_nuevo = public_path('img/papeleta/'. $persona_id . '/');
+             if (!is_dir($filepath_nuevo)) {
+                mkdir($filepath_nuevo, 0777, true);
+            }
+			if ($request->img_foto != "") {
+                if (file_exists($filepath_tmp . $request->img_foto)) {
+                    copy($filepath_tmp . $request->img_foto, $filepath_nuevo . $request->img_foto);
+                }
+            }
+		}
 		
 		if($request->id == 0){
 			if($request->tipo_oper_top =="D"){
@@ -105,7 +148,6 @@ class DetaOperacioneController extends Controller
 				$fecha = str_replace("/","-",$request->fecha);
 			}
 
-			
 			$papeleta = new DetaOperacione();
 			$papeleta->fech_oper_ope = Carbon::now()->timezone('America/Lima')->format('Y-m-d H:i:s');
 			$papeleta->fech_elab_ope = Carbon::now()->timezone('America/Lima')->format('Y-m-d H:i:s');			
@@ -128,7 +170,8 @@ class DetaOperacioneController extends Controller
             $papeleta->nume_reso_ope = $request->nume_reso_ope;
             $papeleta->obse_oper_ope = $request->obse_oper_ope;
             $papeleta->esta_oper_ope = "1";
-			$papeleta->eliminado = "N";            
+			$papeleta->eliminado = "N";
+			$papeleta->foto_papeleta = $request->img_foto;
 			$papeleta->save();
 			
 			/**************************/
@@ -345,6 +388,8 @@ class DetaOperacioneController extends Controller
 			$asis->minu_apor_eas = null;
 			$asis->minu_dife_eas = null;
 			$asis->fech_sali_rel = null;
+			//$asis->fech_marc_rel = null;
+			$asis->minu_dife_pap = null;
 
 
 			//$asistencia->fech_regi_mar = "";

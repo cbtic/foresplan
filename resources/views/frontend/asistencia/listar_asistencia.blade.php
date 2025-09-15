@@ -110,6 +110,35 @@
 	   display: none;
 	}
 
+	.loader {
+		width: 100%;
+		height: 100%;
+		/*height: 1500px;*/
+		overflow: hidden; 
+		top: 0px;
+		left: 0px;
+		z-index: 10000;
+		text-align: center;
+		position:absolute; 
+		background-color: #000;
+		opacity:0.6;
+		filter:alpha(opacity=40);
+		display:none;
+	}
+	
+	.dataTables_processing {
+		position: absolute;
+		top: 400px!important;
+		left: 50%;
+		width: 500px!important;
+		font-size: 1.7em;
+		border: 0px;
+		margin-left: -17%!important;
+		text-align: center;
+		background: #3c8dbc;
+		color: #FFFFFF;
+	}
+
 </style>
 
 @extends('frontend.layouts.app')
@@ -123,6 +152,8 @@
         </li>
     </ol>
 @endsection
+
+<div class="loader"></div>
 
 @section('content')
 
@@ -164,6 +195,20 @@
 				
 				<div class="row" style="padding:20px 20px 0px 20px;">
 					
+					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+						<select class="form-control form-control-sm" id="id_sede_" name="id_sede_" onChange="">
+							<option value="">- Seleccione Sede -</option>
+							<?php 
+							if($sedes!=""){
+								foreach ($sedes as $row) {?>
+								<option value="<?php echo $row->id?>"><?php echo $row->denominacion?></option>
+							<?php 
+								} 
+							}
+							?>
+						</select>
+					</div>
+
 					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 						<select class="form-control form-control-sm" id="id_area_trabajo_" name="id_area_trabajo_" onChange="obtenerUnidad()">
 							<option value="">- Seleccione Area -</option>
@@ -219,7 +264,7 @@
 					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 						<div class="form-group">
                             <label class="form-control-sm">Fecha inicio</label>
-							<input class="form-control form-control-sm" id="fecha_ini" name="fecha_ini" value="<?php echo date("d-m-Y")?>" placeholder="Fecha Inicio">
+							<input class="form-control form-control-sm" id="fecha_ini" name="fecha_ini" value="<?php echo date("d/m/Y")?>" placeholder="Fecha Inicio">
 						</div>
 					</div>
 					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
@@ -229,15 +274,31 @@
 						</div>
 					</div>
 
-					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-right:0px">
+					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="padding-right:0px;padding-top:30px">
 						<input class="btn btn-warning pull-rigth" value="Buscar" type="button" id="btnBuscar" />
 						<input class="btn btn-success pull-rigth" value="Nueva Papeleta" type="button" id="btnPapeleta" style="margin-left:15px" />
+						<buttom class="btn btn-secondary pull-rigth" type="button" id="btnDescargarExcel" style="margin-left:15px" /><i class="fa fa-download"></i> Descarga Excel</buttom>
 					</div>
+
+					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+						<div class="form-group">
+							<label class="form-control-sm">Fecha Proceso</label>
+							<input class="form-control form-control-sm" id="fecha_proceso" name="fecha_proceso" value="" placeholder="Fecha Proceso">
+						</div>
+					</div>
+					@hasanyrole('Control Asistencia|Administrator')
+
+					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-right:0px;padding-top:30px">
+						<input class="btn btn-danger pull-rigth" value="Procesar" type="button" id="btnProcesar" onclick="asistenciaAutomatico()" />
+					</div>
+					
+					@endhasanyrole
+
 				</div>
 				
-                <div class="card-body">				
+                <div class="card-body">
 
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
                     <table id="tblAfiliado" class="table table-hover table-sm">
                         <thead>
                         <tr style="font-size:13px">

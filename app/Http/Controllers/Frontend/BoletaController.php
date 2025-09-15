@@ -14,6 +14,9 @@ use App\Models\MetaPersona;
 use Illuminate\Support\Facades\DB;
 use Luecano\NumeroALetras\NumeroALetras;
 use App\Models\UnidadTrabajo;
+use App\Models\RegimenPensionario;
+use App\Models\Asistencia;
+use App\Models\Tperiodo;
 
 class BoletaController extends Controller
 {
@@ -35,6 +38,8 @@ class BoletaController extends Controller
         $total_aportes_empleador=0;
         $total_neto=0;
         $remuneracion_basica="";
+        $anio_mes_planilla="";
+        $id_planilla="";
 
         $planilla_calculada_ingresos = DB::table('planilla_calculadas')
             ->leftJoin('conceptos', 'planilla_calculadas.id_concepto', '=', 'conceptos.id')
@@ -58,25 +63,66 @@ class BoletaController extends Controller
             ->get();
         // $planilla_calculada_egresos = PlanillaCalculada::where('ano_peri_tpe', $anio)->where('nume_peri_tpe', $mes)->where('id_persona', $id_persona)->where('nume_peri_tpe', $mes)->where('tipo_conc_tco', '2')->firstOrFail();
 
+        $periodo = DB::table('tperiodos')
+        ->where('id', $id_periodo)
+        ->where('estado', 1)
+        ->get();
+
+        $fecha_inicio = $periodo[0]->fech_inic_tpe;
+
+        $fecha_fin = $periodo[0]->fech_fina_tpe;
+
+        $asistencia_model = new Asistencia;
+
+        $dias_trabajados = $asistencia_model->obtenerDiasTrabajados($id_persona, $fecha_inicio, $fecha_fin); 
+
+        $dias_no_trabajados = $asistencia_model->obtenerDiasNoTrabajados($id_persona, $fecha_inicio, $fecha_fin); 
+        
+        $horas_diurnas_trabajados = $asistencia_model->obtenerHorasDiurnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin); 
+
+        $horas_nocturnas_trabajados = $asistencia_model->obtenerHorasNocturnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin); 
+
+        $dias_subsidio = $asistencia_model->obtenerDiasSubsidio($id_persona, $id_periodo);
+        
+        $horas_extras = $asistencia_model->obtenerHorasExtra($id_persona, $id_periodo);
+
         //Calculando totales
         foreach($planilla_calculada_ingresos as $data) {
             if ($data->codi_conc_tco == '00101') {
                 $remuneracion_basica = $data->valo_calc_pca;
             }
+            //$anio_mes_planilla=$data->nume_peri_tpe."/".$data->ano_peri_tpe;
+            $id_planilla = $data->id;
             $total_ingresos += $data->valo_calc_pca;
         }
 
         foreach($planilla_calculada_egresos as $data) {
             $total_egresos += $data->valo_calc_pca;
+            //$anio_mes_planilla=$data->nume_peri_tpe."/".$data->ano_peri_tpe;
+            $id_planilla = $data->id;
         }
 
         foreach($planilla_calculada_aportes as $data) {
             $total_aportes += $data->valo_calc_pca;
+            //$anio_mes_planilla=$data->nume_peri_tpe."/".$data->ano_peri_tpe;
+            $id_planilla = $data->id;
         }
 
         foreach($planilla_calculada_aportes_empleador as $data) {
             $total_aportes_empleador += $data->valo_calc_pca;
+            //$anio_mes_planilla=$data->nume_peri_tpe."/".$data->ano_peri_tpe;
+            $id_planilla = $data->id;
         }
+
+        $id_periodo = $planilla_calculada_ingresos[0]->id_periodo;
+
+        $periodo = Tperiodo::find($id_periodo);
+
+        $mes = $periodo->id_mes;
+
+        $anio = $periodo->ano_peri_tpe;
+
+        $anio_mes_planilla=$mes."/".$anio;
 
         $total_neto = $total_ingresos - $total_egresos - $total_aportes;
 
@@ -95,9 +141,25 @@ class BoletaController extends Controller
             $unidad_trabajo = $unidad_trabajo_array[0]->denominacion;
         }else{$unidad_trabajo='';}
 
+        if ($persona_detalle->id_regimen_pensionario){
+            $regimen_model = new RegimenPensionario;
+            $regimen_pensionario_array = $regimen_model->getRegimen($persona_detalle->id_regimen_pensionario);
+            $regimen_pensionario = $regimen_pensionario_array[0]->denominacion;
+        }else{$regimen_pensionario='';}
+
+        if ($persona_detalle->estado){
+            $situacion = '';
+            if($persona_detalle->estado == 'A'){ $situacion = 'ACTIVO'; }
+            if($persona_detalle->estado == 'C'){ $situacion = 'BAJA'; }
+        }else{$situacion='';}
+
+        if ($persona_detalle->ubigeo){
+            $condicion = 'DOMICILIADO';
+        }else{$condicion='NO DOMICILIADO';}
+
        // print_r($unidad_trabajo);
        // exit();
-
+        
        $pdf = Pdf::loadView('frontend.boletas.boleta-pdf',compact(
         'persona',
         'persona_detalle',
@@ -112,10 +174,21 @@ class BoletaController extends Controller
         'total_aportes_empleador',
         'total_neto_letras',
         'remuneracion_basica',
-        'unidad_trabajo'
+        'unidad_trabajo',
+        'anio_mes_planilla',
+        'id_planilla',
+        'regimen_pensionario',
+        'dias_trabajados',
+        'dias_no_trabajados',
+        'horas_diurnas_trabajados',
+        'horas_nocturnas_trabajados',
+        'situacion',
+        'dias_subsidio',
+        'horas_extras',
+        'condicion'
         ));
        $pdf->getDomPDF()->set_option("enable_php", true);
-       
+        
        $pdf->setPaper('A4', 'landscape'); // Tamaño de papel (puedes cambiarlo según tus necesidades)
        $pdf->setOption('margin-top', 20); // Márgen superior en milímetros
        $pdf->setOption('margin-right', 50); // Márgen derecho en milímetros
@@ -123,9 +196,9 @@ class BoletaController extends Controller
        $pdf->setOption('margin-left', 100); // Márgen izquierdo en milímetros
                
        return $pdf->stream('reporte.pdf');
+        
 
-/*
-		return view('frontend.boletas.boleta-pdf',compact(
+		/*return view('frontend.boletas.boleta-pdf',compact(
             'persona',
             'persona_detalle',
             'planilla_calculada_ingresos',
@@ -139,9 +212,11 @@ class BoletaController extends Controller
             'total_aportes_empleador',
             'total_neto_letras',
             'remuneracion_basica',
-            'unidad_trabajo'
-        ));
-        */
+            'unidad_trabajo',
+            'anio_mes_planilla',
+            'id_planilla'
+        ));*/
+        
     }
 
     // Guardar boletas en version PDF
@@ -149,8 +224,8 @@ class BoletaController extends Controller
 
 		$sw = true;
 		$msg = "";
-        $anio = "2022";
-        $empresa = "Felmo";
+        $anio = "2025";
+        $empresa = "Forespama";
 
 		$planilla_model = new PlanillaCalculada;
 		$p[]=null;       //$request->id_area_trabajo;
@@ -190,6 +265,8 @@ class BoletaController extends Controller
         $total_aportes_empleador=0;
         $total_neto=0;
         $remuneracion_basica="";
+        $anio_mes_planilla="";
+        $id_planilla="";
 
         $planilla_calculada_ingresos = DB::table('planilla_calculadas')
             ->leftJoin('conceptos', 'planilla_calculadas.id_concepto', '=', 'conceptos.id')
@@ -213,26 +290,68 @@ class BoletaController extends Controller
             ->get();
         // $planilla_calculada_egresos = PlanillaCalculada::where('ano_peri_tpe', $anio)->where('nume_peri_tpe', $mes)->where('id_persona', $id_persona)->where('nume_peri_tpe', $mes)->where('tipo_conc_tco', '2')->firstOrFail();
 
+        $periodo = DB::table('tperiodos')
+        ->where('id', $id_periodo)
+        ->where('estado', 1)
+        ->get();
+
+        $fecha_inicio = $periodo[0]->fech_inic_tpe;
+
+        $fecha_fin = $periodo[0]->fech_fina_tpe;
+
+        $asistencia_model = new Asistencia;
+
+        $dias_trabajados = $asistencia_model->obtenerDiasTrabajados($id_persona, $fecha_inicio, $fecha_fin); 
+
+        $dias_no_trabajados = $asistencia_model->obtenerDiasNoTrabajados($id_persona, $fecha_inicio, $fecha_fin); 
+        
+        $horas_diurnas_trabajados = $asistencia_model->obtenerHorasDiurnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin); 
+
+        $horas_nocturnas_trabajados = $asistencia_model->obtenerHorasNocturnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin); 
+
+        $dias_subsidio = $asistencia_model->obtenerDiasSubsidio($id_persona, $id_periodo);
+        
+        $horas_extras = $asistencia_model->obtenerHorasExtra($id_persona, $id_periodo);
+
         //Calculando totales
         foreach($planilla_calculada_ingresos as $data) {
             if ($data->codi_conc_tco == '00101') {
                 $remuneracion_basica = $data->valo_calc_pca;
             }
+            //$anio_mes_planilla = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
+            $id_planilla = $data->id;
             $total_ingresos += $data->valo_calc_pca;
         }
 
         foreach($planilla_calculada_egresos as $data) {
             $total_egresos += $data->valo_calc_pca;
+            //$anio_mes_planilla = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
+            $id_planilla = $data->id;
         }
 
         foreach($planilla_calculada_aportes as $data) {
             $total_aportes += $data->valo_calc_pca;
+            //$anio_mes_planilla = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
+            $id_planilla = $data->id;
         }
 
         foreach($planilla_calculada_aportes_empleador as $data) {
             $total_aportes_empleador += $data->valo_calc_pca;
+            //$anio_mes_planilla = $data->ano_peri_tpe . "/" . $data->nume_peri_tpe;
+            $id_planilla = $data->id;
         }
 
+        $id_periodo = $planilla_calculada_ingresos[0]->id_periodo;
+
+        $periodo = Tperiodo::find($id_periodo);
+
+        $mes = $periodo->id_mes;
+
+        $anio = $periodo->ano_peri_tpe;
+
+        $anio_mes_planilla=$mes."/".$anio;
+
+        //dd($anio_mes_periodo);exit();
         $total_neto = $total_ingresos - $total_egresos - $total_aportes;
 
         //Convirtiendo en letras
@@ -249,6 +368,22 @@ class BoletaController extends Controller
             $unidad_trabajo_array = $unidad_model->getUnidad($persona_detalle->id_area_trabajo);
             $unidad_trabajo = $unidad_trabajo_array[0]->denominacion;
         }else{$unidad_trabajo='';}
+
+        if ($persona_detalle->id_regimen_pensionario){
+            $regimen_model = new RegimenPensionario;
+            $regimen_pensionario_array = $regimen_model->getRegimen($persona_detalle->id_regimen_pensionario);
+            $regimen_pensionario = $regimen_pensionario_array[0]->denominacion;
+        }else{$regimen_pensionario='';}
+
+        if ($persona_detalle->estado){
+            $situacion = '';
+            if($persona_detalle->estado == 'A'){ $situacion = 'ACTIVO'; }
+            if($persona_detalle->estado == 'C'){ $situacion = 'BAJA'; }
+        }else{$situacion='';}
+
+        if ($persona_detalle->ubigeo){
+            $condicion = 'DOMICILIADO';
+        }else{$condicion='NO DOMICILIADO';}
         
         return PDF::loadView('frontend/boletas/boleta-pdf', compact(
             'persona',
@@ -264,6 +399,18 @@ class BoletaController extends Controller
             'total_aportes_empleador',
             'total_neto_letras',
             'remuneracion_basica',
-            'unidad_trabajo'));
+            'unidad_trabajo',
+            'anio_mes_planilla',
+            'id_planilla',
+            'regimen_pensionario',
+            'dias_trabajados',
+            'dias_no_trabajados',
+            'horas_diurnas_trabajados',
+            'horas_nocturnas_trabajados',
+            'situacion',
+            'dias_subsidio',
+            'horas_extras',
+            'condicion'
+        ));
     }
 }

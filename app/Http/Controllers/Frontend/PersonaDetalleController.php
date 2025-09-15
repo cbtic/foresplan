@@ -128,6 +128,7 @@ class PersonaDetalleController extends Controller
             $personad->id_ubicacion = $request->id_ubicacion;
             $personad->id_area_trabajo = $request->id_area_trabajo;
             $personad->id_unidad_trabajo = $request->id_unidad_trabajo;
+            $personad->id_sede = $request->id_sede;
             $personad->eliminado = 'N';
       		      
             $personad->save();
@@ -162,7 +163,8 @@ class PersonaDetalleController extends Controller
             $personad->estado = $request->estado;
             $personad->id_ubicacion = $request->id_ubicacion;
             $personad->id_area_trabajo = $request->id_area_trabajo;
-            $personad->id_unidad_trabajo = $request->id_unidad_trabajo;            
+            $personad->id_unidad_trabajo = $request->id_unidad_trabajo;
+            $personad->id_sede = $request->id_sede;
 
 			$personad->save();
 		}
@@ -178,6 +180,7 @@ class PersonaDetalleController extends Controller
     {
 		$personad = PersonaDetalle::find($id);
 		$personad->eliminado = $estado;
+        $personad->estado = "C";
 		$personad->save();
 
 		echo $personad->id;

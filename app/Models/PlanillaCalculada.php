@@ -31,18 +31,16 @@ class PlanillaCalculada extends Model
 
 	function getConceptoPlanillaResumenByIdPeri($id_periodo, $id_persona, $tipo){
 
-        $cad = "SELECT r.id, c.codi_conc_tco codigo,  c.desc_cort_tco concepto, r.cant_conc_res, r.cant_conc_rem, r.id_subplanilla 
-FROM resumenes r
-inner join conceptos c on c.id = r.id_concepto 
-left join formulas f on f.id_planilla = r.id_planilla and f.id_subplanilla = r.id_subplanilla and f.id_concepto = r.id_concepto 
-WHERE r.id_periodo=".$id_periodo." and r.id_persona =".$id_persona." and c.tipo_conc_tco = '".$tipo."' 
-And formula_for is null";
+        $cad = "select r.id, c.codi_conc_tco codigo,  c.desc_cort_tco concepto, r.cant_conc_res, r.cant_conc_rem, r.id_subplanilla 
+        from resumenes r
+        inner join conceptos c on c.id = r.id_concepto 
+        left join formulas f on f.id_planilla = r.id_planilla and f.id_subplanilla = r.id_subplanilla and f.id_concepto = r.id_concepto 
+        where r.id_periodo=".$id_periodo." and r.id_persona =".$id_persona." and c.tipo_conc_tco = '".$tipo."' 
+        and formula_for is null";
 		$data = DB::select($cad);
         //dd($data); 
         if($data)return $data;
     }
-	
-
 
     public function readFunctionPostgres($function, $parameters = null){
       
@@ -58,7 +56,5 @@ And formula_for is null";
         $data = DB::select($cad);
         return $data;
     }
-
-
 }
 

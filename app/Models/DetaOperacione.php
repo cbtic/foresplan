@@ -52,7 +52,7 @@ class DetaOperacione extends Model
         d.id_tipo_operacion, (select sp_crud_obtiene_tabla_deno (d.id_tipo_operacion)) tipo_justificacion, d.nume_reso_ope, d.tipo_oper_top, 
         to_char(d.fech_inic_ope::timestamp,'dd/mm/yyyy')fech_inic_ope, to_char(d.fech_fina_ope::timestamp,'dd/mm/yyyy')fech_fina_ope, d.nume_dias_ope, 
         to_char(d.fech_inic_ope::timestamp,'HH24:MI:SS') horainicope, to_char(d.fech_fina_ope::timestamp,'HH24:MI:SS') horafinaope,d.obse_oper_ope, '' flag_omis_top,
-        d.tipo_hora_ope, d.codi_relo_per, d.esta_oper_ope, d.obse_jefe_ope, d.obse_rrhh_ope, d.id_ubicacion, e.razon_social, d.nume_dias_ope, d.nume_minut_ope
+        d.tipo_hora_ope, d.codi_relo_per, d.esta_oper_ope, d.obse_jefe_ope, d.obse_rrhh_ope, d.id_ubicacion, e.razon_social, d.nume_dias_ope, d.nume_minut_ope, d.foto_papeleta
         from deta_operaciones d
         inner join personas p on p.id = d.id_persona
         inner join documento_identidades di on di.id = p.tipo_documento

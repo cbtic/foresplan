@@ -5,8 +5,6 @@
 
 $(document).ready(function() {
 
-
-
     $('#persona').keyup(function() {
         this.value = this.value.toLocaleUpperCase();
     });
@@ -44,12 +42,18 @@ $(document).ready(function() {
         fn_ListarBusqueda();
     });
 
+    $('#btnEliminar').click(function() {
+        eliminarPlanilla();
+    });
+
 
     $('#btnNuevo').click(function() {
         modalPapeleta(0);
     });
 
     datatablenew();
+
+    datatablenewPlanilla();
 
     $("#plan_id").select2();
     $("#ubicacion_id").select2();
@@ -114,12 +118,7 @@ $(document).ready(function() {
 });
 
 function habiliarTitular() {
-    /*
-	$('#divTitular').hide();
-	if(!$("#chkTitular").is(':checked')) {
-    	$('#divTitular').show();
-	}
-	*/
+
 }
 
 function guardarAfiliacion() {
@@ -138,15 +137,6 @@ function guardarAfiliacion() {
     if (plan_id == "0") msg += "Debe seleccionar un Plan/Tarifario <br>";
     if (fecha_inicio == "") msg += "Debe ingresar la fecha de inicio de la afiliacion <br>";
     if (fecha_vencimiento == "") msg += "Debe ingresar la fecha de fin de la afiliacion <br>";
-    /*
-    if($('input[name=horario]').is(':checked')==true){
-    	var horario = $('input[name=horario]:checked').val();
-    	var data = horario.split("#");
-    	var fecha_cita = data[0];
-    	var id_medico = data[1];
-    }
-    */
-
 
     if (msg != "") {
         bootbox.alert(msg);
@@ -154,26 +144,16 @@ function guardarAfiliacion() {
     } else {
         fn_save();
     }
-
-    //fn_save();
 }
 
 function fn_save_() {
 
-    //var fecha_atencion_original = $('#fecha_atencion').val();
-    //var id_user = $('#id_user').val();
     $.ajax({
         url: "/afiliacion/send",
         type: "POST",
-        //data : $("#frmCita").serialize()+"&id_medico="+id_medico+"&fecha_cita="+fecha_cita,
         data: $("#frmAfiliacion").serialize(),
         success: function(result) {
-            /*$('#openOverlayOpc').modal('hide');
-					$('#calendar').fullCalendar("refetchEvents");
-					modalDelegar(fecha_atencion_original);*/
-            //modalTurnos();
-            //modalHistorial();
-            //location.href="ver_cita/"+id_user+"/"+result;
+            
             location.href = "/afiliacion";
         }
     });
@@ -394,7 +374,6 @@ $('#modalPersonaTitularSaveBtn').click(function(e) {
     });
 });
 
-
 function datatablenew() {
     var oTable = $('#tblPlanilla').dataTable({
         "bServerSide": true,
@@ -573,6 +552,200 @@ function datatablenew() {
     });
 }
 
+function datatablenewPlanilla() {
+    var oTable = $('#tblListaPlanilla').dataTable({
+        "bServerSide": true,
+        "sAjaxSource": "/planilla/listar_periodo_ajax",
+        "bProcessing": true,
+        "sPaginationType": "full_numbers",
+        "bFilter": false,
+        "bSort": false,
+        //"info": true,
+        "info": false,
+        "lengthChange": false,
+        //"paging":   false,
+        "ordering": false,
+        "language": { "url": "/js/Spanish.json" },
+        "autoWidth": false,
+        "bLengthChange": true,
+        "destroy": true,
+        "lengthMenu": [
+            [10, 50, 100, 200, 60000],
+            [10, 50, 100, 200, "Todos"]
+        ],
+        "aoColumns": [
+            {},
+        ],
+        "dom": '<"top">rt<"bottom"flpi><"clear">',
+        "fnDrawCallback": function(json) {
+            $('[data-toggle="tooltip"]').tooltip();
+        },
+
+        "fnServerData": function(sSource, aoData, fnCallback, oSettings) {
+
+            var sEcho = aoData[0].value;
+            var iNroPagina = parseFloat(fn_util_obtieneNroPagina(aoData[3].value, aoData[4].value)).toFixed();
+            var iCantMostrar = aoData[4].value;
+
+            var id_area_trabajo = $('#id_area_trabajo_').val();
+            var id_unidad_trabajo = $('#id_unidad_trabajo_').val();
+            var id_persona = $('#id_persona_bus').val();
+            var anio = $('#anio').val();
+            var mes = $('#mes').val();
+            var id_periodo = $('#id_periodo').val();
+            var estado = $('#estado').val();
+            var _token = $('#_token').val();
+
+            oSettings.jqXHR = $.ajax({
+                "dataType": 'json',
+                //"contentType": "application/json; charset=utf-8",
+                "type": "POST",
+                "url": sSource,
+                "data": {
+                    NumeroPagina: iNroPagina,
+                    NumeroRegistros: iCantMostrar,
+                    id_area_trabajo: id_area_trabajo,
+                    id_unidad_trabajo: id_unidad_trabajo,
+                    id_persona: id_persona,
+                    id_periodo: id_periodo,
+                    anio: anio,
+                    mes: mes,
+                    estado: estado,
+                    _token: _token
+                },
+                "success": function(result) {
+                    fnCallback(result);
+                },
+                "error": function(msg, textStatus, errorThrown) {
+                    //location.href="login";
+                }
+            });
+        },
+
+        "aoColumnDefs": [{
+                "mRender": function(data, type, row) {
+                    var id = "";
+                    if (row.id != null) id = row.id;
+                    return id;
+                },
+                "bSortable": false,
+                "aTargets": [0],
+                "className": "dt-center",
+                //"className": 'control'
+            },
+
+            {
+                "mRender": function(data, type, row) {
+                    var empresa = "";
+                    if (row.empresa != null) empresa = row.empresa;
+                    return empresa;
+                },
+                "bSortable": false,
+                "aTargets": [1],
+                "className": "dt-center",
+                //"className": 'control'
+            },
+            {
+                "mRender": function(data, type, row) {
+                    var subplanilla = "";
+                    if (row.subplanilla != null) subplanilla = row.subplanilla;
+                    return subplanilla;
+                },
+                "bSortable": false,
+                "aTargets": [2]
+            },
+            {
+                "mRender": function(data, type, row) {
+                    var mes = "";
+                    if (row.mes != null) mes = row.mes;
+                    return mes;
+                },
+                "bSortable": false,
+                "aTargets": [3]
+            },
+            {
+                "mRender": function(data, type, row) {
+                    var anio = "";
+                    if (row.anio != null) anio = row.anio;
+                    return anio;
+                },
+                "bSortable": false,
+                "aTargets": [4]
+            },
+            {
+                "mRender": function(data, type, row) {
+                    var fech_inic_tpe = "";
+                    var fech_fina_tpe = "";
+                    if (row.fech_inic_tpe != null) fech_inic_tpe = row.fech_inic_tpe;
+                    if (row.fech_fina_tpe != null) fech_fina_tpe = row.fech_fina_tpe;
+                    return fech_inic_tpe+'-'+fech_fina_tpe;
+                },
+                "bSortable": false,
+                "aTargets": [5]
+            },
+            {
+                "mRender": function(data, type, row) {
+                    var esta_plan_tpe = "";
+                    if (row.esta_plan_tpe == 1) esta_plan_tpe = "Abierto";
+                    if (row.esta_plan_tpe == 2) esta_plan_tpe = "Cerrado";
+                    return esta_plan_tpe;
+                },
+                "bSortable": false,
+                "aTargets": [6]
+            },
+
+            {
+                "mRender": function(data, type, row) {
+
+                    var estado = "";
+                    var clase = "";
+                    if(row.estado == 1){
+                        estado = "Eliminar";
+                        clase = "btn-danger";
+                    }
+                    if(row.estado == 0){
+                        estado = "Activar";
+                        clase = "btn-success";
+                    }
+                    
+                    var html = '<div class="btn-group btn-group-sm" role="group" aria-label="Log Viewer Actions">';
+                    html += '<button style="font-size:12px" type="button" class="btn btn-sm btn-success" data-toggle="modal" onclick="generarPlanillaLista('+row.id+')" >GENERAR PLANILLA</button>'; 
+                    html += '<a href="javascript:void(0)" onclick=eliminarPlanillaLista('+row.id+') class="btn btn-sm '+clase+'" style="font-size:12px;margin-left:10px">'+estado+'</a>';
+                    return html;
+                },
+                "bSortable": false,
+                "aTargets": [7],
+            },
+        ]
+    });
+
+    fn_util_LineaDatatable("#tblPlanilla");
+
+    $('#tblPlanilla tbody').on('click', 'tr', function() {
+        var anSelected = fn_util_ObtenerNumeroFila(oTable);
+        if (anSelected.length != 0) {
+            var odtable = $("#tblPlanilla").DataTable();
+            var anio = odtable.row(this).data().anio;
+            var mes = odtable.row(this).data().peri;
+            var persona = odtable.row(this).data().id;
+            var id_periodo = $('#id_periodo').val();
+			
+			cargarPlanillaConcepto(id_periodo, persona);
+			
+            //cargarIngreso(id_periodo, persona);
+            //cargarEgreso(id_periodo, persona);
+            //cargarAportaciones(id_periodo, persona);
+            //cargarConcepto(anio, mes, persona);
+        }
+    });
+}
+
+fn_util_LineaDatatable("#tblListaPlanilla");
+
+$('#tblListaPlanilla tbody').on('click', 'tr', function () {
+	
+});
+
 function cargarPlanillaConcepto(id_periodo, persona) {
     //alert(anio); exit();
 
@@ -639,6 +812,20 @@ function generarPlanilla() {
         callback: function(result) {
             if (result == true) {
                 fn_crear_planilla(id_periodo);
+            }
+        }
+    });
+    $(".modal-dialog").css("width", "30%");
+}
+
+function generarPlanillaLista(id) {
+
+    bootbox.confirm({
+        size: "small",
+        message: "&iquest;Deseas generar la Planilla?",
+        callback: function(result) {
+            if (result == true) {
+                fn_crear_planilla(id);
             }
         }
     });
@@ -714,7 +901,7 @@ function cargarAportaciones(anio, mes, persona) {
 
 function fn_ListarBusqueda() {
     //datatablenew();
-	$('#tblPlanilla').DataTable().ajax.reload();;
+	$('#tblPlanilla').DataTable().ajax.reload();
 };
 
 function modalPapeleta(id) {
@@ -733,6 +920,71 @@ function modalPapeleta(id) {
 
 }
 
+function eliminarPlanilla() {
+    var id_periodo = $("#id_periodo").val();
+
+    bootbox.confirm({
+        size: "small",
+        message: "&iquest;Deseas Eliminar la Planilla Seleccionada?",
+        callback: function(result) {
+            if (result == true) {
+                fn_elimina_planilla(id_periodo);
+            }
+        }
+    });
+    $(".modal-dialog").css("width", "30%");
+}
+
+function fn_elimina_planilla(id_periodo) {
+
+    $.ajax({
+        url: "/planilla/eliminar_planilla_calculada_periodo/" + id_periodo,
+        type: "GET",
+        dataType: 'json',
+        success: function(result) {
+            //if(result="success")obtenerPlanDetalle(id_plan);
+
+            if (result.sw == false) {
+                bootbox.alert(result.msg);
+            }
+
+            datatablenew();
+        }
+    });
+}
+
+function eliminarPlanillaLista(id) {
+
+    bootbox.confirm({
+        size: "small",
+        message: "&iquest;Deseas Eliminar la Planilla Seleccionada?",
+        callback: function(result) {
+            if (result == true) {
+                fn_elimina_planilla_lista(id);
+            }
+        }
+    });
+    $(".modal-dialog").css("width", "30%");
+}
+
+function fn_elimina_planilla_lista(id) {
+
+    $.ajax({
+        url: "/planilla/eliminar_planilla_calculada_periodo/" + id,
+        type: "GET",
+        dataType: 'json',
+        success: function(result) {
+            //if(result="success")obtenerPlanDetalle(id_plan);
+
+            if (result.sw == false) {
+                bootbox.alert(result.msg);
+            }
+
+            datatablenew();
+            datatablenewPlanilla();
+        }
+    });
+}
 
 function eliminarPapeleta(id, estado) {
     //alert(id);

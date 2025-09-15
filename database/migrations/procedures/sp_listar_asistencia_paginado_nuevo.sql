@@ -1,4 +1,6 @@
-CREATE OR REPLACE FUNCTION public.sp_listar_asistencia_paginado_nuevo(p_area character varying, p_unidad character varying, p_persona character varying, p_anio character varying, p_mes character varying, p_estado character varying, p_pagina character varying, p_limit character varying, p_ref refcursor)
+-- DROP FUNCTION public.sp_listar_asistencia_paginado_nuevo(varchar, varchar, varchar, varchar, varchar, varchar, varchar, varchar, varchar, varchar, refcursor);
+
+CREATE OR REPLACE FUNCTION public.sp_listar_asistencia_paginado_nuevo(p_area character varying, p_unidad character varying, p_persona character varying, p_anio character varying, p_mes character varying, p_fecha_ini character varying, p_fecha_fin character varying, p_sede character varying, p_estado character varying, p_pagina character varying, p_limit character varying, p_ref refcursor)
  RETURNS refcursor
  LANGUAGE plpgsql
 AS $function$
@@ -116,6 +118,16 @@ Begin
 	 v_where:=v_where||'And t1.id = '||p_persona||' ';
 	End If;
 	
+
+	If p_fecha_ini<>'' Then
+	 v_where:=v_where||'And t9.fech_regi_mar::date >= '''||p_fecha_ini||' :00:00:00'' ';
+	End If;
+	
+	If p_fecha_fin<>'' Then
+	 v_where:=v_where||'And t9.fech_regi_mar::date <= '''||p_fecha_fin||' :23:59'' ';
+	End If;
+	
+
 	If p_estado<>'' Then
 	 		
 		If p_estado='1' Then
@@ -150,6 +162,10 @@ Begin
 	If p_unidad<>'' Then
 	 --v_where:=v_where||'And (select sp_crud_obtiene_tabla_deno (pd.id_unidad_trabajo)) ilike ''%'||p_unidad||'%'' ';
 	 v_where:=v_where||'And t2.id_unidad_trabajo = '''||p_unidad||''' ';
+	End If;
+
+	If p_sede<>'' Then
+	 v_where:=v_where||'And t2.id_sede = '''||p_sede||''' ';
 	End If;
 
 

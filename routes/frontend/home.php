@@ -26,6 +26,9 @@ use App\Http\Controllers\Frontend\ConceptoController;
 use App\Http\Controllers\Frontend\PlanillaCalculadaController;
 use App\Http\Controllers\Frontend\BoletaController;
 use App\Http\Controllers\Frontend\ConceptoPlanController;
+use App\Http\Controllers\Frontend\MenuPersonaController;
+use App\Http\Controllers\Frontend\ClienteUserController;
+use App\Http\Controllers\Frontend\TarjetaController;
 # Fin importacion de Modelos
 
 use Tabuna\Breadcrumbs\Trail;
@@ -154,6 +157,7 @@ Route::get('planilla/listar_metas_persona/{id_ubicacion}/{id_planilla}/{id_subpl
 Route::get('planilla/actualizar_periodo/{id}/{estado}', [PlanillaCalculadaController::class, 'actualizar_periodo'])->name('planilla.actualizar_periodo');
 
 Route::get('planilla/generar_planilla_calculada_periodo/{id}', [PlanillaCalculadaController::class, 'generar_planilla_calculada_periodo'])->name('planilla.generar_planilla_calculada_periodo');
+Route::get('planilla/eliminar_planilla_calculada_periodo/{id}', [PlanillaCalculadaController::class, 'eliminar_planilla_calculada_periodo'])->name('planilla.eliminar_planilla_calculada_periodo');
 
 Route::get('planilla/eliminar_meta_persona/{id}', [PlanillaCalculadaController::class, 'eliminar_meta_persona'])->name('planilla.eliminar_meta_persona');
 Route::get('planilla/obtener_concepto_planilla/{id_periodo}/{id_persona}', [PlanillaCalculadaController::class, 'obtener_concepto_planilla'])->name('planilla.obtener_concepto_planilla');
@@ -181,4 +185,48 @@ Route::get('concepto_plan/eliminar_concepto_plan/{id}/{estado}', [ConceptoPlanCo
 Route::get('concepto_plan/modal_concepto_plan/{id}', [ConceptoPlanController::class, 'modal_concepto_plan'])->name('concepto_plan.modal_concepto_plan');
 Route::post('concepto_plan/send_concepto_plan', [ConceptoPlanController::class, 'send_concepto_plan'])->name('concepto_plan.send_concepto_plan');
 
+Route::get('asistencia/asistencia_automatico/{fecha}', [AsistenciaController::class, 'asistencia_automatico'])->name('asistencia.asistencia_automatico');
 
+Route::get('formula/create', [FormulaController::class, 'create'])->name('formula.create');
+Route::post('formula/listar_formula_ajax', [FormulaController::class, 'listar_formula_ajax'])->name('formula.listar_formula_ajax');
+Route::get('formula/modal_formula/{id}', [FormulaController::class, 'modal_formula'])->name('formula.modal_formula');
+Route::post('formula/send_formula', [FormulaController::class, 'send_formula'])->name('formula.send_formula');
+Route::get('formula/eliminar_formula/{id}/{estado}', [FormulaController::class, 'eliminar_formula'])->name('formula.eliminar_formula');
+
+Route::get('feriado/create', [TdiasFeriadoController::class, 'create'])->name('feriado.create');
+Route::post('feriado/listar_feriado_ajax', [TdiasFeriadoController::class, 'listar_feriado_ajax'])->name('feriado.listar_feriado_ajax');
+Route::get('feriado/modal_feriado/{id}', [TdiasFeriadoController::class, 'modal_feriado'])->name('feriado.modal_feriado');
+Route::post('feriado/send_feriado', [TdiasFeriadoController::class, 'send_feriado'])->name('feriado.send_feriado');
+Route::get('feriado/eliminar_feriado/{id}/{estado}', [TdiasFeriadoController::class, 'eliminar_feriado'])->name('feriado.eliminar_feriado');
+
+Route::get('menu_persona/create_menu', [MenuPersonaController::class, 'create_menu'])->name('menu_persona.create_menu');
+Route::get('menu_persona/create_persona_menu', [MenuPersonaController::class, 'create_persona_menu'])->name('menu_persona.create_persona_menu');
+Route::post('menu_persona/listar_menu_ajax', [MenuPersonaController::class, 'listar_menu_ajax'])->name('menu_persona.listar_menu_ajax');
+Route::post('menu_persona/listar_menu_persona_ajax', [MenuPersonaController::class, 'listar_menu_persona_ajax'])->name('menu_persona.listar_menu_persona_ajax');
+Route::get('menu_persona/modal_menu/{id}', [MenuPersonaController::class, 'modal_menu'])->name('menu_persona.modal_menu');
+Route::get('menu_persona/modal_persona_menu/{id}', [MenuPersonaController::class, 'modal_persona_menu'])->name('menu_persona.modal_persona_menu');
+Route::post('menu_persona/send_menu', [MenuPersonaController::class, 'send_menu'])->name('menu_persona.send_menu');
+Route::post('menu_persona/send_menu_persona', [MenuPersonaController::class, 'send_menu_persona'])->name('menu_persona.send_menu_persona');
+Route::get('menu_persona/eliminar_menu/{id}/{estado}', [MenuPersonaController::class, 'eliminar_menu'])->name('menu_persona.eliminar_menu');
+Route::get('menu_persona/eliminar_menu_persona/{id}/{estado}', [MenuPersonaController::class, 'eliminar_menu_persona'])->name('menu_persona.eliminar_menu_persona');
+Route::get('menu_persona/obtener_menu/{fecha}', [MenuPersonaController::class, 'obtener_menu'])->name('menu_persona.obtener_menu');
+
+Route::get('cliente_usuario/create', [ClienteUserController::class, 'create'])->name('cliente_usuario.create');
+Route::post('cliente_usuario/listar_cliente_user_ajax', [ClienteUserController::class, 'listar_cliente_user_ajax'])->name('cliente_usuario.listar_cliente_user_ajax');
+Route::get('cliente_usuario/modal_cliente_user/{id}', [ClienteUserController::class, 'modal_cliente_user'])->name('cliente_usuario.modal_cliente_user');
+Route::post('cliente_usuario/send_cliente_user', [ClienteUserController::class, 'send_cliente_user'])->name('cliente_usuario.send_cliente_user');
+
+Route::get('tarjeta/create', [TarjetaController::class, 'create'])->name('tarjeta.create');
+Route::post('tarjeta/listar_tarjeta_ajax', [TarjetaController::class, 'listar_tarjeta_ajax'])->name('tarjeta.listar_tarjeta_ajax');
+Route::get('tarjeta/modal_tarjeta/{id}', [TarjetaController::class, 'modal_tarjeta'])->name('tarjeta.modal_tarjeta');
+Route::get('tarjeta/list_persona/{term}', [TarjetaController::class, 'list_persona'])->name('tarjeta.list_persona');
+Route::post('tarjeta/send_tarjeta', [TarjetaController::class, 'send_tarjeta'])->name('tarjeta.send_tarjeta');
+Route::get('tarjeta/eliminar_tarjeta/{id}/{estado}', [TarjetaController::class, 'eliminar_tarjeta'])->name('tarjeta.eliminar_tarjeta');
+Route::post('tarjeta/eliminar_tarjeta_bloque', [TarjetaController::class, 'eliminar_tarjeta_bloque'])->name('tarjeta.eliminar_tarjeta_bloque');
+Route::post('planilla/listar_periodo_ajax', [PlanillaCalculadaController::class, 'listar_periodo_ajax'])->name('planilla.listar_periodo_ajax');
+Route::get('persona/modal_persona_contacto_emergencia/{id_persona}/{id}', [PersonaController::class, 'modal_persona_contacto_emergencia'])->name('persona.modal_persona_contacto_emergencia');
+Route::post('persona/send_contacto_emergencia', [PersonaController::class, 'send_contacto_emergencia'])->name('persona.send_contacto_emergencia');
+Route::get('persona/create_contacto_emergencia', [PersonaController::class, 'create_contacto_emergencia'])->name('persona.create_contacto_emergencia');
+Route::post('persona/listar_persona_contacto_emergencia_ajax', [PersonaController::class, 'listar_persona_contacto_emergencia_ajax'])->name('persona.listar_persona_contacto_emergencia_ajax');
+Route::get('asistencia/exportar_listar_reporte_asistencia/{id_area_trabajo}/{id_unidad_trabajo}/{id_persona}/{anio}/{mes}/{fecha_ini}/{fecha_fin}/{id_sede}/{estado}', [AsistenciaController::class, 'exportar_listar_reporte_asistencia'])->name('asistencia.exportar_listar_reporte_asistencia');
+Route::post('papeleta/upload_papeleta', [DetaOperacioneController::class, 'upload_papeleta'])->name('papeleta.upload_papeleta');
