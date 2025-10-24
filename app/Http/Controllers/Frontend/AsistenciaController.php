@@ -272,7 +272,7 @@ class AsistenciaController extends Controller
             if($fech_marc_rel!="" && $fech_sali_rel!="" && $tiempo_trabajado_total >= $tiempo_programado)$estado="Ok";
             if($fech_marc_rel!="" && $fech_sali_rel!="" && $tiempo_programado > $tiempo_trabajado_total)$estado="Abandono";
             if($fech_marc_rel=="" || $fech_sali_rel=="" )$estado="Observado";
-            if($fech_marc_rel=="" && $fech_sali_rel=="" && $flag_labo_dtu=='N')$estado=""; 
+            if($fech_marc_rel=="" && $fech_sali_rel=="" && $flag_labo_dtu=='N')$estado="";
 
 			array_push($variable, array($n++,$r->numero_documento,$r->persona, $r->area_trabajo, $r->unidad_trabajo, $hora_entr_dtu.'-'.$hora_sali_dtu, $r->fecha_dias, $r->dia, $r->flag_labo_dtu, $r->fech_marc_rel, $r->hora_entr_rel, $r->fech_sali_rel, $r->hora_sali_rel, $r->tiempo_programado, $r->minu_tard_eas, $r->tiempo_trabajado, $estado, $r->desc_just_jus, $r->tipo_marc_eas, $r->hora_permiso, $r->minu_dife_pap));
 		}
