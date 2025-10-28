@@ -216,7 +216,7 @@ class AsistenciaController extends Controller
 
     }
 
-    public function exportar_listar_reporte_asistencia($id_area_trabajo, $id_unidad_trabajo, $id_persona, $anio, $mes, $fecha_ini, $fecha_fin, $id_sede, $estado) {
+    public function exportar_listar_reporte_asistencia($id_area_trabajo, $id_unidad_trabajo, $id_persona, $anio, $mes, $fecha_ini, $fecha_fin, $id_sede, $id_condicion_laboral, $estado) {
 
 		if($id_area_trabajo=="0")$id_area_trabajo = "";
 		if($id_unidad_trabajo=="0")$id_unidad_trabajo = "";
@@ -226,6 +226,7 @@ class AsistenciaController extends Controller
 		if($fecha_ini=="0")$fecha_ini = "";
 		if($fecha_fin=="0")$fecha_fin = "";
 		if($id_sede=="0")$id_sede = "";
+		if($id_condicion_laboral=="0")$id_condicion_laboral = "";
 		if($estado=="0")$estado = "";
 
 		$asistencia_model = new Asistencia;
@@ -237,6 +238,7 @@ class AsistenciaController extends Controller
         $p[]=$fecha_ini;
         $p[]=$fecha_fin;
         $p[]=$id_sede;
+        $p[]=$id_condicion_laboral;
 		$p[]=$estado;
 		$p[]=1;
 		$p[]=10000;
@@ -245,7 +247,7 @@ class AsistenciaController extends Controller
 		$variable = [];
 		$n = 1;
 
-		array_push($variable, array("N°","Documento Identidad","Persona","Area","Unidad","Hora Programada","Fecha Asistencia","Dia","Labora","Fecha Ingreso","Hora Ingreso","Fecha Salida","Hora Salida","Tiempo Programado","Tardanza","Tiempo Trabajado","Estado","Papeleta","Tipo Papeleta","Hora Papeleta","Tiempo Papeleta"));
+		array_push($variable, array("N°","Documento Identidad","Persona","Condicion Laboral","Area","Unidad","Hora Programada","Fecha Asistencia","Dia","Labora","Fecha Ingreso","Hora Ingreso","Fecha Salida","Hora Salida","Tiempo Programado","Tardanza","Tiempo Trabajado","Estado","Papeleta","Tipo Papeleta","Hora Papeleta","Tiempo Papeleta"));
 		
 		foreach ($data as $r) {
 
@@ -276,7 +278,7 @@ class AsistenciaController extends Controller
             if($fech_marc_rel=="" || $fech_sali_rel=="" )$estado="Observado";
             if($fech_marc_rel=="" && $fech_sali_rel=="" && $flag_labo_dtu=='N')$estado="";
 
-			array_push($variable, array($n++,$r->numero_documento,$r->persona, $r->area_trabajo, $r->unidad_trabajo, $hora_entr_dtu.'-'.$hora_sali_dtu, $r->fecha_dias, $r->dia, $r->flag_labo_dtu, $r->fech_marc_rel, $r->hora_entr_rel, $r->fech_sali_rel, $r->hora_sali_rel, $r->tiempo_programado, $r->minu_tard_eas, $r->tiempo_trabajado, $estado, $r->desc_just_jus, $r->tipo_marc_eas, $r->hora_permiso, $r->minu_dife_pap));
+			array_push($variable, array($n++,$r->numero_documento,$r->persona, $r->condicion_laboral, $r->area_trabajo, $r->unidad_trabajo, $hora_entr_dtu.'-'.$hora_sali_dtu, $r->fecha_dias, $r->dia, $r->flag_labo_dtu, $r->fech_marc_rel, $r->hora_entr_rel, $r->fech_sali_rel, $r->hora_sali_rel, $r->tiempo_programado, $r->minu_tard_eas, $r->tiempo_trabajado, $estado, $r->desc_just_jus, $r->tipo_marc_eas, $r->hora_permiso, $r->minu_dife_pap));
 		}
 		
 		$export = new InvoicesExport([$variable]);
@@ -300,16 +302,16 @@ class InvoicesExport implements FromArray, WithHeadings, WithStyles
 
     public function headings(): array
     {
-        return ["N°","Documento Identidad","Persona","Area","Unidad","Hora Programada","Fecha Asistencia","Dia","Labora","Fecha Ingreso","Hora Ingreso","Fecha Salida","Hora Salida","Tiempo Programado","Tardanza","Tiempo Programado","Estado","Papeleta","Tipo Papeleta","Hora Papeleta","Tiempo Papeleta"];
+        return ["N°","Documento Identidad","Persona","Condicion Laboral","Area","Unidad","Hora Programada","Fecha Asistencia","Dia","Labora","Fecha Ingreso","Hora Ingreso","Fecha Salida","Hora Salida","Tiempo Programado","Tardanza","Tiempo Programado","Estado","Papeleta","Tipo Papeleta","Hora Papeleta","Tiempo Papeleta"];
     }
 
 	public function styles(Worksheet $sheet)
     {
 
-		$sheet->mergeCells('A1:U1');
+		$sheet->mergeCells('A1:V1');
 
         $sheet->setCellValue('A1', "REPORTE DE ASISTENCIA - FORESPLAN");
-        $sheet->getStyle('A1:U1')->applyFromArray([
+        $sheet->getStyle('A1:V1')->applyFromArray([
             'font' => [
                 'bold' => true,
                 'color' => ['rgb' => 'FFFFFF'],
@@ -326,7 +328,7 @@ class InvoicesExport implements FromArray, WithHeadings, WithStyles
 		$sheet->getStyle('A1')->getAlignment()->setWrapText(true);
 		$sheet->getRowDimension(1)->setRowHeight(30);
 
-        $sheet->getStyle('A2:U2')->applyFromArray([
+        $sheet->getStyle('A2:V2')->applyFromArray([
             'font' => [
                 'bold' => true,
                 'color' => ['rgb' => '000000'],
@@ -342,7 +344,7 @@ class InvoicesExport implements FromArray, WithHeadings, WithStyles
 
 		$sheet->fromArray($this->headings(), NULL, 'A2');
 
-        foreach (range('A', 'U') as $col) {
+        foreach (range('A', 'V') as $col) {
             $sheet->getColumnDimension($col)->setAutoSize(true);
         }
 
