@@ -130,7 +130,7 @@ class PersonaDetalleController extends Controller
             $personad->id_unidad_trabajo = $request->id_unidad_trabajo;
             $personad->id_sede = $request->id_sede;
             $personad->eliminado = 'N';
-      		      
+      		
             $personad->save();
 		}else{
 			$personad = PersonaDetalle::find($request->id);
@@ -193,4 +193,11 @@ class PersonaDetalleController extends Controller
         echo json_encode($array);
     }
 
+    public function valida_persona($id){
+		
+        $persona_detalle_model = new PersonaDetalle;
+        $persona = $persona_detalle_model->getPersonaDetalle($id);
+
+        return response()->json(['persona' => $persona]);
+	}
 }

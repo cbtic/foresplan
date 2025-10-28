@@ -24,4 +24,14 @@ class PersonaDetalle extends Model
 		$data = DB::select($cad);
         return $data;
     }
+
+    function getPersonaDetalle($id){
+
+        $cad ="select * from persona_detalles pd
+        where pd.id_persona = '".$id."' 
+        and pd.eliminado = 'N' ";
+    
+		$data = DB::select($cad);
+        return $data;
+    }
 }

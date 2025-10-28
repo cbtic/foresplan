@@ -198,6 +198,28 @@ function guardarCita(id_medico,fecha_cita){
     }
 }
 
+function validar_persona(){
+
+	var id = $('#id').val();
+	var id_per_det = $('#id_per_det').val();
+	if(id_per_det==0){
+		$.ajax({
+			url: "/persona/valida_persona/"+id,
+			type: "GET",
+			success: function (result) {
+				var persona = result.persona;
+				if(persona && persona.length > 0){
+					bootbox.alert("El colaborador ya está registrado!");
+				}else{
+					fn_save();
+				}
+			}
+		});
+	}else{
+		fn_save();
+	}
+}
+
 function fn_save(){  
 	var msg = "";
 	var _token = $('#_token').val();
@@ -259,24 +281,32 @@ function fn_save(){
 	if(estado == "0"){msg+="Debe ingresar el Estado Laboral <br>";}
 
 	if(msg!=""){
-        bootbox.alert(msg); 
+        bootbox.alert(msg);
         return false;
     }
     else{
+
+		var msgLoader = "";
+        msgLoader = "Procesando, espere un momento por favor";
+        var heightBrowser = $(window).width()/2;
+        $('.loader').css("opacity","0.8").css("height",heightBrowser).html("<div id='Grd1_wrapper' class='dataTables_wrapper'><div id='Grd1_processing' class='dataTables_processing panel-default'>"+msgLoader+"</div></div>");
+        $('.loader').show();
+
 		$.ajax({
-				url: "/persona/send_personad",
-				type: "POST",
-				data : {_token:_token,id:id,id_persona:id_persona,direccion:direccion,ubigeo:ubigeo,telefono:telefono,email:email,
-						fecha_ingreso:fecha_ingreso,id_condicion_laboral:id_condicion_laboral,id_tipo_planilla:id_tipo_planilla,id_profesion:id_profesion,
-						id_banco_sueldo:id_banco_sueldo,num_cuenta_sueldo:num_cuenta_sueldo,cci_sueldo:cci_sueldo,id_regimen_pensionario:id_regimen_pensionario,
-						id_afp:id_afp,fecha_afiliacion_afp:fecha_afiliacion_afp,id_tipo_comision_afp:id_tipo_comision_afp,cuspp:cuspp,fecha_cese:fecha_cese,
-						fecha_termino_contrato:fecha_termino_contrato,num_contrato:num_contrato,id_cargo:id_cargo,id_nivel:id_nivel,id_banco_cts:id_banco_cts,
-						num_cuenta_cts:num_cuenta_cts,id_moneda_cts:id_moneda_cts,estado:estado,id_ubicacion:id_ubicacion,fecha_nacimiento:fecha_nacimiento,sexo:sexo,
-						id_area_trabajo:id_area_trabajo,id_unidad_trabajo:id_unidad_trabajo,id_sede:id_sede},
-				success: function (result) {
-					$('#openOverlayOpc').modal('hide');
-					datatablenew();
-				}
+			url: "/persona/send_personad",
+			type: "POST",
+			data : {_token:_token,id:id,id_persona:id_persona,direccion:direccion,ubigeo:ubigeo,telefono:telefono,email:email,
+					fecha_ingreso:fecha_ingreso,id_condicion_laboral:id_condicion_laboral,id_tipo_planilla:id_tipo_planilla,id_profesion:id_profesion,
+					id_banco_sueldo:id_banco_sueldo,num_cuenta_sueldo:num_cuenta_sueldo,cci_sueldo:cci_sueldo,id_regimen_pensionario:id_regimen_pensionario,
+					id_afp:id_afp,fecha_afiliacion_afp:fecha_afiliacion_afp,id_tipo_comision_afp:id_tipo_comision_afp,cuspp:cuspp,fecha_cese:fecha_cese,
+					fecha_termino_contrato:fecha_termino_contrato,num_contrato:num_contrato,id_cargo:id_cargo,id_nivel:id_nivel,id_banco_cts:id_banco_cts,
+					num_cuenta_cts:num_cuenta_cts,id_moneda_cts:id_moneda_cts,estado:estado,id_ubicacion:id_ubicacion,fecha_nacimiento:fecha_nacimiento,sexo:sexo,
+					id_area_trabajo:id_area_trabajo,id_unidad_trabajo:id_unidad_trabajo,id_sede:id_sede},
+			success: function (result) {
+				$('#openOverlayOpc').modal('hide');
+				datatablenew();
+				$('.loader').hide();
+			}
 		});
 	}
 }
@@ -860,7 +890,7 @@ container: '#myModal modal-body'
 						<div style="margin-top:10px;float:right" class="form-group">
 							<div class="col-sm-12 controls">
 								<div class="btn-group btn-group-sm" role="group" aria-label="Log Viewer Actions">
-									<a href="javascript:void(0)" onClick="fn_save()" class="btn btn-sm btn-success">Guardar</a>
+									<a href="javascript:void(0)" onClick="validar_persona()" class="btn btn-sm btn-success">Guardar</a>
 								</div>
 													
 							</div>

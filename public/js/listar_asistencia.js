@@ -526,6 +526,7 @@ function datatablenew(){
 			var fecha_ini = $('#fecha_ini').val();
 			var fecha_fin = $('#fecha_fin').val();
             var id_sede = $('#id_sede_').val();
+			var id_condicion_laboral = $('#id_condicion_laboral_').val(); 
             var estado = $('#estado').val();
 			var _token = $('#_token').val();
             oSettings.jqXHR = $.ajax({
@@ -536,7 +537,7 @@ function datatablenew(){
                 "data":{NumeroPagina:iNroPagina,NumeroRegistros:iCantMostrar,
 						id_area_trabajo:id_area_trabajo,id_unidad_trabajo:id_unidad_trabajo,
 						id_persona:id_persona,anio:anio,
-						mes:mes,estado:estado,fecha_ini:fecha_ini,fecha_fin:fecha_fin,id_sede:id_sede,
+						mes:mes,estado:estado,fecha_ini:fecha_ini,fecha_fin:fecha_fin,id_sede:id_sede,id_condicion_laboral:id_condicion_laboral,
 						_token:_token
                        },
                 "success": function (result) {
@@ -619,12 +620,21 @@ function datatablenew(){
                 },
 				{
 					"mRender": function (data, type, row) {
+						var condicion_laboral = "";
+						if(row.condicion_laboral!= null)condicion_laboral = row.condicion_laboral;
+						return condicion_laboral;
+					},
+					"bSortable": false,
+					"aTargets": [2]
+                },
+				{
+					"mRender": function (data, type, row) {
 						var area_trabajo = "";
 						if(row.area_trabajo!= null)area_trabajo = row.area_trabajo;
 						return area_trabajo;
 					},
 					"bSortable": false,
-					"aTargets": [2]
+					"aTargets": [3]
                 },
 				{
 					"mRender": function (data, type, row) {
@@ -633,7 +643,7 @@ function datatablenew(){
 						return unidad_trabajo;
 					},
 					"bSortable": false,
-					"aTargets": [3]
+					"aTargets": [4]
                 },
                 /*{
 					"mRender": function (data, type, row) {
@@ -653,7 +663,7 @@ function datatablenew(){
 						return hora_entr_dtu+'-'+hora_sali_dtu;
 					},
 					"bSortable": false,
-					"aTargets": [4]
+					"aTargets": [5]
                 },
 				{
 					"mRender": function (data, type, row) {
@@ -662,7 +672,7 @@ function datatablenew(){
 						return fecha_dias;
 					},
 					"bSortable": false,
-					"aTargets": [5],
+					"aTargets": [6],
 					"className": 'verde',
                 },
 				{
@@ -672,7 +682,7 @@ function datatablenew(){
 						return dia;
 					},
 					"bSortable": false,
-					"aTargets": [6]
+					"aTargets": [7]
                 },
 				{
 					"mRender": function (data, type, row) {
@@ -681,7 +691,7 @@ function datatablenew(){
 						return flag_labo_dtu;
 					},
 					"bSortable": false,
-					"aTargets": [7]
+					"aTargets": [8]
                 },
 				
 				{
@@ -691,7 +701,7 @@ function datatablenew(){
 						return fech_marc_rel;
 					},
 					"bSortable": false,
-					"aTargets": [8]
+					"aTargets": [9]
                 },
 				
 				{
@@ -701,7 +711,7 @@ function datatablenew(){
 						return hora_entr_rel;
 					},
 					"bSortable": false,
-					"aTargets": [9]
+					"aTargets": [10]
                 },
 				
                 {
@@ -711,7 +721,7 @@ function datatablenew(){
 						return fech_sali_rel;
 					},
 					"bSortable": false,
-					"aTargets": [10]
+					"aTargets": [11]
                 },
 				
                 {
@@ -721,7 +731,7 @@ function datatablenew(){
 						return hora_sali_rel;
 					},
 					"bSortable": false,
-					"aTargets": [11]
+					"aTargets": [12]
                 },
 				{
 					"mRender": function (data, type, row) {
@@ -730,7 +740,7 @@ function datatablenew(){
 						return tiempo_programado;
 					},
 					"bSortable": false,
-					"aTargets": [12]
+					"aTargets": [13]
                 },
 				{
 					"mRender": function (data, type, row) {
@@ -739,7 +749,7 @@ function datatablenew(){
 						return minu_tard_eas;
 					},
 					"bSortable": false,
-					"aTargets": [13]
+					"aTargets": [14]
                 },
 				{
 					"mRender": function (data, type, row) {
@@ -748,7 +758,7 @@ function datatablenew(){
 						return tiempo_trabajado;
 					},
 					"bSortable": false,
-					"aTargets": [14]
+					"aTargets": [15]
                 },
 				{
 					"mRender": function (data, type, row) {
@@ -774,7 +784,7 @@ function datatablenew(){
 						return estado;
 					},
 					"bSortable": false,
-					"aTargets": [15]
+					"aTargets": [16]
                 },
 				/*
 				{
@@ -794,7 +804,7 @@ function datatablenew(){
 						return tipo_marc_eas;
 					},
 					"bSortable": false,
-					"aTargets": [16]
+					"aTargets": [17]
                 },	
 				{
 					"mRender": function (data, type, row) {
@@ -803,7 +813,7 @@ function datatablenew(){
 						return hora_permiso;
 					},
 					"bSortable": false,
-					"aTargets": [17]
+					"aTargets": [18]
                 },
 				{
 					"mRender": function (data, type, row) {
@@ -812,7 +822,7 @@ function datatablenew(){
 						return minu_dife_pap;
 					},
 					"bSortable": false,
-					"aTargets": [18]
+					"aTargets": [19]
                 },											
 				{
                 "mRender": function (data, type, row) {
@@ -827,7 +837,7 @@ function datatablenew(){
 					return html;
 					},
 					"bSortable": false,
-					"aTargets": [19],
+					"aTargets": [20],
                 },
 				{
                 "mRender": function (data, type, row) {					
@@ -841,7 +851,7 @@ function datatablenew(){
 					return html;
 					},
 					"bSortable": false,
-					"aTargets": [20],
+					"aTargets": [21],
                 },
 				
 				{
@@ -856,15 +866,10 @@ function datatablenew(){
 					return html;
 					},
 					"bSortable": false,
-					"aTargets": [21],
+					"aTargets": [22],
                 },
-				
-				
             ]
-
-
     });
-
 }
 
 function fn_ListarBusqueda() {

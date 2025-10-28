@@ -230,3 +230,5 @@ Route::get('persona/create_contacto_emergencia', [PersonaController::class, 'cre
 Route::post('persona/listar_persona_contacto_emergencia_ajax', [PersonaController::class, 'listar_persona_contacto_emergencia_ajax'])->name('persona.listar_persona_contacto_emergencia_ajax');
 Route::get('asistencia/exportar_listar_reporte_asistencia/{id_area_trabajo}/{id_unidad_trabajo}/{id_persona}/{anio}/{mes}/{fecha_ini}/{fecha_fin}/{id_sede}/{estado}', [AsistenciaController::class, 'exportar_listar_reporte_asistencia'])->name('asistencia.exportar_listar_reporte_asistencia');
 Route::post('papeleta/upload_papeleta', [DetaOperacioneController::class, 'upload_papeleta'])->name('papeleta.upload_papeleta');
+
+Route::get('persona/valida_persona/{id}', [PersonaDetalleController::class, 'valida_persona'])->name('persona.valida_persona');

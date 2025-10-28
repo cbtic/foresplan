@@ -195,9 +195,9 @@
 				
 				<div class="row" style="padding:20px 20px 0px 20px;">
 					
-					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+					<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
 						<select class="form-control form-control-sm" id="id_sede_" name="id_sede_" onChange="">
-							<option value="">- Seleccione Sede -</option>
+							<option value="">Seleccion Sede</option>
 							<?php 
 							if($sedes!=""){
 								foreach ($sedes as $row) {?>
@@ -209,6 +209,20 @@
 						</select>
 					</div>
 
+					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+						<select class="form-control form-control-sm" id="id_condicion_laboral_" name="id_condicion_laboral_" onChange="">
+							<option value="">- Seleccione Condici&oacute;n Laboral -</option>
+							<?php 
+							if($condicion_laboral!=""){
+								foreach ($condicion_laboral as $row) {?>
+								<option value="<?php echo $row->id?>"><?php echo $row->denominacion?></option>
+							<?php 
+								} 
+							}
+							?>
+						</select>
+					</div>
+					
 					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 						<select class="form-control form-control-sm" id="id_area_trabajo_" name="id_area_trabajo_" onChange="obtenerUnidad()">
 							<option value="">- Seleccione Area -</option>
@@ -241,7 +255,7 @@
 							<?php } ?>
 						</select>
 					</div>
-					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+					<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
 						<select class="form-control form-control-sm" id="mes" name="mes">
 							<?php foreach($meses as $key=>$row){?>
 								<option value="<?php echo $key?>" <?php if($key==date("m"))echo "selected='selected'"?>><?php echo $row?></option>
@@ -303,7 +317,8 @@
                         <thead>
                         <tr style="font-size:13px">
 							<th>Doc Identidad</th>
-							<th>Persona</th>							
+							<th>Persona</th>
+							<th>Condici&oacute;n Laboral</th>
 							<th>Area</th>
 							<th>Unidad</th>
 							<!--<th>Turno</th>-->
