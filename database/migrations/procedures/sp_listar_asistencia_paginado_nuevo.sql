@@ -1,6 +1,4 @@
--- DROP FUNCTION public.sp_listar_asistencia_paginado_nuevo(varchar, varchar, varchar, varchar, varchar, varchar, varchar, varchar, varchar, varchar, varchar, refcursor);
-
-CREATE OR REPLACE FUNCTION public.sp_listar_asistencia_paginado_nuevo(p_area character varying, p_unidad character varying, p_persona character varying, p_anio character varying, p_mes character varying, p_fecha_ini character varying, p_fecha_fin character varying, p_sede character varying, p_estado character varying, p_pagina character varying, p_limit character varying, p_ref refcursor)
+CREATE OR REPLACE FUNCTION public.sp_listar_asistencia_paginado_nuevo(p_area character varying, p_unidad character varying, p_persona character varying, p_anio character varying, p_mes character varying, p_fecha_ini character varying, p_fecha_fin character varying, p_sede character varying, p_condicion_laboral character varying, p_estado character varying, p_pagina character varying, p_limit character varying, p_ref refcursor)
  RETURNS refcursor
  LANGUAGE plpgsql
 AS $function$
@@ -12,7 +10,6 @@ v_tabla varchar;
 v_where varchar;
 v_count varchar;
 v_col_count varchar;
-
 
 v_fecha_desde varchar;
 v_fecha_hasta varchar;
@@ -171,6 +168,9 @@ Begin
 	 v_where:=v_where||'And t2.id_sede = '''||p_sede||''' ';
 	End If;
 
+	If p_condicion_laboral<>'' Then
+	 v_where:=v_where||'And t2.id_condicion_laboral = '''||p_condicion_laboral||''' ';
+	End If;
 
 	/*
 	If p_anio<>'' Then
