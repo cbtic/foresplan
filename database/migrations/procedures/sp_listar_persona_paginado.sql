@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION public.sp_listar_persona_paginado(p_numero_documento character varying, p_persona character varying, p_unidad character varying, p_empresa character varying, p_estado character varying, p_pagina character varying, p_limit character varying, p_ref refcursor)
+CREATE OR REPLACE FUNCTION public.sp_listar_persona_paginado(p_numero_documento character varying, p_persona character varying, p_unidad character varying, p_empresa character varying, p_id_user character varying, p_estado character varying, p_pagina character varying, p_limit character varying, p_ref refcursor)
  RETURNS refcursor
  LANGUAGE plpgsql
 AS $function$
@@ -10,9 +10,12 @@ v_tabla varchar;
 v_where varchar;
 v_count varchar;
 v_col_count varchar;
+v_id_rol integer;
 
 Begin
 
+	select role_id into v_id_rol from model_has_roles mhr where mhr.model_id::varchar=p_id_user;
+	
 	p_pagina=(p_pagina::Integer-1)*p_limit::Integer;
 	
 	v_campos=' p.id id_pe, pd.id id_pd, di.abre_docu_did tipo_documento, p.numero_documento, p.apellido_paterno||'' ''||p.apellido_materno||'' ''||p.nombres persona, 
@@ -28,8 +31,7 @@ Begin
 				left join documento_identidades di on di.id = p.tipo_documento 
 				left join ubicacion_trabajos ut  on ut.id = pd.id_ubicacion 
 				left join empresas e  on e.id = ut.id_empresa
-				left join contratos c  on c.id = pd.id_contrato 
-			';
+				left join contratos c  on c.id = pd.id_contrato ';
 	
 			
 	v_where = ' Where pd.eliminado = ''N'' ';
@@ -52,6 +54,14 @@ Begin
 
 	If p_unidad<>'' Then
 	 v_where:=v_where||'And (select sp_crud_obtiene_tabla_deno (pd.id_unidad_trabajo)) ilike ''%'||p_unidad||'%'' ';
+	End If;
+
+	If v_id_rol=4 Then 
+		v_where:=v_where||'And pd.id_sede = ''722'' ';
+	End If;
+
+	If v_id_rol=5 Then 
+		v_where:=v_where||'And pd.id_sede = ''721'' ';
 	End If;
 
 	EXECUTE ('SELECT count(1) '||v_tabla||v_where) INTO v_count;

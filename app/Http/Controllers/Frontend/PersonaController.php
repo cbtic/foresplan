@@ -34,11 +34,14 @@ class PersonaController extends Controller
 
     public function listar_persona_ajax(Request $request){
 		
+		$id_user = Auth::user()->id;
+
 		$persona_model = new Persona;
 		$p[]=$request->numero_documento;
 		$p[]=$request->persona;
 		$p[]=$request->unidad;
 		$p[]=$request->empresa;
+		$p[]=$id_user;
 		$p[]=$request->estado;
 		$p[]=$request->NumeroPagina;
 		$p[]=$request->NumeroRegistros;
