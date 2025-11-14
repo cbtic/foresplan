@@ -232,3 +232,6 @@ Route::get('asistencia/exportar_listar_reporte_asistencia/{id_area_trabajo}/{id_
 Route::post('papeleta/upload_papeleta', [DetaOperacioneController::class, 'upload_papeleta'])->name('papeleta.upload_papeleta');
 
 Route::get('persona/valida_persona/{id}', [PersonaDetalleController::class, 'valida_persona'])->name('persona.valida_persona');
+Route::get('persona/cargar_contrato_pdf/{id}', [personaController::class, 'cargar_contrato_pdf'])->name('persona.cargar_contrato_pdf');
+
+

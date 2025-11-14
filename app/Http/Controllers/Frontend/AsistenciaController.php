@@ -16,6 +16,10 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
 
 class AsistenciaController extends Controller
 {
@@ -278,16 +282,58 @@ class AsistenciaController extends Controller
             if($fech_marc_rel=="" || $fech_sali_rel=="" )$estado="Observado";
             if($fech_marc_rel=="" && $fech_sali_rel=="" && $flag_labo_dtu=='N')$estado="";
 
-			array_push($variable, array($n++,$r->numero_documento,$r->persona, $r->condicion_laboral, $r->area_trabajo, $r->unidad_trabajo, $hora_entr_dtu.'-'.$hora_sali_dtu, $r->fecha_dias, $r->dia, $r->flag_labo_dtu, $r->fech_marc_rel, $r->hora_entr_rel, $r->fech_sali_rel, $r->hora_sali_rel, $r->tiempo_programado, $r->minu_tard_eas, $r->tiempo_trabajado, $estado, $r->desc_just_jus, $r->tipo_marc_eas, $r->hora_permiso, $r->minu_dife_pap));
+			array_push($variable, array($n++,$r->numero_documento,$r->persona, $r->condicion_laboral, $r->area_trabajo, $r->unidad_trabajo, $hora_entr_dtu.'-'.$hora_sali_dtu, $r->fecha_dias, $r->dia, $r->flag_labo_dtu, $r->fech_marc_rel, $r->hora_entr_rel, $r->fech_sali_rel, $r->hora_sali_rel, $this->convertirHoraExcel($r->tiempo_programado), $this->convertirHoraExcel($r->minu_tard_eas), $this->convertirHoraExcel($r->tiempo_trabajado), $estado, $r->desc_just_jus, $r->tipo_marc_eas, $r->hora_permiso, $r->minu_dife_pap));
 		}
-		
+
 		$export = new InvoicesExport([$variable]);
 		return Excel::download($export, 'reporte_asistencia.xlsx');
     }
+
+    private function normalizarHora($hora)
+    {
+        if (!$hora || trim($hora) == "") {
+            return null;
+        }
+
+        // Si viene como HH:MM
+        if (preg_match('/^\d{1,2}:\d{2}$/', $hora)) {
+            return $hora . ':00';
+        }
+
+        // Si ya viene como HH:MM:SS
+        if (preg_match('/^\d{1,2}:\d{2}:\d{2}$/', $hora)) {
+            return $hora;
+        }
+
+        return null;
+    }
+
+    private function convertirHoraExcel($hora)
+    {
+        if ($hora === null) return null;
+
+        $hora = trim($hora);
+
+        if ($hora === "") return null;
+
+        // HH:MM → convertir a HH:MM:SS
+        if (preg_match('/^\d{2}:\d{2}$/', $hora)) {
+            $hora .= ":00";
+        }
+
+        if (preg_match('/^\d{2}:\d{2}:\d{2}$/', $hora)) {
+            list($h, $m, $s) = explode(':', $hora);
+            return ($h * 3600 + $m * 60 + $s) / 86400;
+        }
+
+        return null;
+    }
+
 }
 
-class InvoicesExport implements FromArray, WithHeadings, WithStyles
+class InvoicesExport implements FromArray, WithHeadings, WithStyles, WithEvents
 {
+    
 	protected $invoices;
 
 	public function __construct(array $invoices)
@@ -302,7 +348,7 @@ class InvoicesExport implements FromArray, WithHeadings, WithStyles
 
     public function headings(): array
     {
-        return ["N°","Documento Identidad","Persona","Condicion Laboral","Area","Unidad","Hora Programada","Fecha Asistencia","Dia","Labora","Fecha Ingreso","Hora Ingreso","Fecha Salida","Hora Salida","Tiempo Programado","Tardanza","Tiempo Programado","Estado","Papeleta","Tipo Papeleta","Hora Papeleta","Tiempo Papeleta"];
+        return ["N°","Documento Identidad","Persona","Condicion Laboral","Area","Unidad","Hora Programada","Fecha Asistencia","Dia","Labora","Fecha Ingreso","Hora Ingreso","Fecha Salida","Hora Salida","Tiempo Programado","Tardanza","Tiempo Trabajado","Estado","Papeleta","Tipo Papeleta","Hora Papeleta","Tiempo Papeleta"];
     }
 
 	public function styles(Worksheet $sheet)
@@ -348,6 +394,31 @@ class InvoicesExport implements FromArray, WithHeadings, WithStyles
             $sheet->getColumnDimension($col)->setAutoSize(true);
         }
 
+    }
+
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class => function(AfterSheet $event) {
+
+                $sheet = $event->sheet->getDelegate();
+
+                // Tiempo Programado (columna O)
+                $sheet->getStyle('O3:O10000')
+                    ->getNumberFormat()
+                    ->setFormatCode('hh:mm');
+
+                // Tardanza (columna P)
+                $sheet->getStyle('P3:P10000')
+                    ->getNumberFormat()
+                    ->setFormatCode('hh:mm');
+
+                // Tiempo Trabajado (columna Q)
+                $sheet->getStyle('Q3:Q10000')
+                    ->getNumberFormat()
+                    ->setFormatCode('hh:mm:ss');
+            }
+        ];
     }
 
 }

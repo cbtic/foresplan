@@ -34,4 +34,17 @@ class PersonaDetalle extends Model
 		$data = DB::select($cad);
         return $data;
     }
+
+    function getDatosPersonaContrato($id){
+
+        $cad ="select c.id, p.sexo, p.apellido_paterno ||' '|| p.apellido_materno ||' '|| p.nombres persona, p.numero_documento, pd.direccion, (select sp_crud_obtiene_tabla_deno(c.id_cargo)) cargo,
+        c.func_cont_cnt funciones, c.mont_cont_ctr sueldo, c.nume_cont_con numero_contrato, to_char(c.fech_inic_cnt,'dd-mm-yyyy') fecha_inicio, to_char(c.fech_cese_cnt,'dd-mm-yyyy') fecha_cese
+        from contratos c 
+        inner join personas p on c.id_persona = p.id and p.estado = 'A'
+        inner join persona_detalles pd on pd.id_persona = p.id and pd.estado ='A' and pd.eliminado = 'N'
+        where c.id_persona ='".$id."'";
+    
+		$data = DB::select($cad);
+        return $data;
+    }
 }

@@ -13,6 +13,8 @@ use App\Models\Ubigeo;
 use App\Models\UnidadTrabajo;
 use App\Models\Contrato;
 use App\Models\PersonaContactoEmergencia;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 //use App\Models\CondicionLaborale;
 
@@ -370,7 +372,7 @@ class PersonaController extends Controller
 
 		$personaContrato->save();
 
-		$personad = PersonaDetalle::where('id_persona', '=', $request->id_persona)->where('estado','A')->first();;
+		$personad = PersonaDetalle::where('id_persona', '=', $request->id_persona)->where('estado','A')->first();
 		$personad->id_contrato = $personaContrato->id;
 		$personad->save();
 
@@ -422,5 +424,42 @@ class PersonaController extends Controller
 		$result["aaData"] = $data;
 
 		echo json_encode($result);
+	}
+
+	public function cargar_contrato_pdf($id){
+
+		$persona_detalle_model = new PersonaDetalle();
+
+		$datos=$persona_detalle_model->getDatosPersonaContrato($id);
+		$nombre=$datos[0]->persona;
+		$numero_documento=$datos[0]->numero_documento;
+		$direccion=$datos[0]->direccion;
+		$cargo=$datos[0]->cargo;
+		$funciones=$datos[0]->funciones;
+		$sueldo=$datos[0]->sueldo;
+		$numero_contrato=$datos[0]->numero_contrato;
+		$sexo=$datos[0]->sexo;
+		$fecha_inicio=$datos[0]->fecha_inicio;
+		$fecha_cese=$datos[0]->fecha_cese;
+
+		if($sexo=='M'){
+			$tratodesc="DON";
+		}else{
+			$tratodesc="DOÑA";
+		}
+		
+		$fecha_actual = Carbon::now()->format('d-m-Y');
+		
+		$pdf = Pdf::loadView('frontend.persona.contrato_pdf',compact('nombre','numero_documento','direccion','cargo','funciones','sueldo','numero_contrato','tratodesc','fecha_actual','fecha_inicio','fecha_cese'));
+		//$pdf->getDomPDF()->set_option("enable_php", true);
+		
+		//$pdf->setPaper('A4', 'landscape'); // Tamaño de papel (puedes cambiarlo según tus necesidades)
+    	//$pdf->setOption('margin-top', 20); // Márgen superior en milímetros
+   		//$pdf->setOption('margin-right', 50); // Márgen derecho en milímetros
+    	//$pdf->setOption('margin-bottom', 20); // Márgen inferior en milímetros
+    	//$pdf->setOption('margin-left', 100); // Márgen izquierdo en milímetros
+
+		return $pdf->stream();
+	
 	}
 }

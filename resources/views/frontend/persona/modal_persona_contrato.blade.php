@@ -265,10 +265,9 @@ function fn_save(){
 	if(func_cont_cnt==""){msg+="Debe ingresar las funciones<br>";}
     
 	if(msg!=""){
-        bootbox.alert(msg); 
+        bootbox.alert(msg);
         return false;
     }
-	
 	
 	var msgLoader = "";
 	msgLoader = "Procesando, espere un momento por favor";
@@ -279,16 +278,22 @@ function fn_save(){
 	$("#btnGuardar").prop('disabled', true);
 	
     $.ajax({
-			url: "/persona/send_persona_contrato",
-            type: "POST",
-            data : {_token:_token,id_persona:id_persona,tipo_cont_con:tipo_cont_con,nume_cont_con:nume_cont_con,fech_reso_cnt:fech_reso_cnt,fech_inic_cnt:fech_inic_cnt,fech_fina_cnt:fech_fina_cnt,id_cargo:id_cargo,mont_cont_ctr:mont_cont_ctr,deno_part_cnt:deno_part_cnt,func_cont_cnt:func_cont_cnt,fech_crea:fech_crea},
+		url: "/persona/send_persona_contrato",
+		type: "POST",
+		data : {_token:_token,id_persona:id_persona,tipo_cont_con:tipo_cont_con,nume_cont_con:nume_cont_con,fech_reso_cnt:fech_reso_cnt,fech_inic_cnt:fech_inic_cnt,fech_fina_cnt:fech_fina_cnt,id_cargo:id_cargo,mont_cont_ctr:mont_cont_ctr,deno_part_cnt:deno_part_cnt,func_cont_cnt:func_cont_cnt,fech_crea:fech_crea},
 
-			success: function (result) {
-				$('.loader').hide();
-				$('#openOverlayOpc').modal('hide');
-				datatablenew();
-            }
+		success: function (result) {
+			$('.loader').hide();
+			$('#openOverlayOpc').modal('hide');
+			cargarContratoPdf();
+			datatablenew();
+		}
     });
+}
+
+function cargarContratoPdf(id){
+	var href = '/persona/cargar_contrato_pdf/273';
+	window.open(href, '_blank');
 }
 
 function fn_liberar(id){
@@ -480,6 +485,7 @@ container: '#myModal modal-body'
 							<div class="btn-group btn-group-sm" role="group" aria-label="Log Viewer Actions" style="float:right">
 								<!--<a href="javascript:void(0)" id="btnGuardar" onClick="fn_save()" class="btn btn-sm btn-success">Guardar</a>-->
 								<input class="btn btn-sm btn-success" value="Guardar" type="button" id="btnGuardar" onClick="fn_save()">
+								<input class="btn btn-sm btn-success" value="PDF" type="button" id="btnPdf" onclick="cargarContratoPdf(475)">
 								
 								</div>
 							
