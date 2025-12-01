@@ -1,7 +1,7 @@
 ## Laravel Boilerplate (Current: Laravel 8.*) ([Demo](https://demo.laravel-boilerplate.com))
 
 [![Latest Stable Version](https://poser.pugx.org/rappasoft/laravel-boilerplate/v/stable)](https://packagist.org/packages/rappasoft/laravel-boilerplate)
-[![Latest Unstable Version](https://poser.pugx.org/rappasoft/laravel-boilerplate/v/unstable)](https://packagist.org/packages/rappasoft/laravel-boilerplate) 
+[![Latest Unstable Version](https://poser.pugx.org/rappasoft/laravel-boilerplate/v/unstable)](https://packagist.org/packages/rappasoft/laravel-boilerplate)
 <br/>
 [![StyleCI](https://styleci.io/repos/30171828/shield?style=plastic)](https://github.styleci.io/repos/30171828)
 ![Tests](https://github.com/rappasoft/laravel-boilerplate/workflows/Tests/badge.svg?branch=master)
@@ -11,10 +11,10 @@
 
 ### Demo Credentials
 
-**Admin:** admin@admin.com  
+**Admin:** admin@admin.com
 **Password:** secret
 
-**User:** user@user.com  
+**User:** user@user.com
 **Password:** secret
 
 ### Docker steps
@@ -108,3 +108,34 @@ If you discover a security vulnerability within this boilerplate, please send an
 ### License
 
 MIT: [http://anthony.mit-license.org](http://anthony.mit-license.org)
+
+
+### Troubleshooting & FAQ
+
+## Yarn:
+# Si tienes problemas de incompatibilidad con yarn:
+# PASO 1 — BORRAR POR COMPLETO node_modules Y EL LOCK DEL CONTENEDOR
+
+Desde tu host:
+
+```console
+docker compose exec app rm -rf node_modules
+docker compose exec app rm -f yarn.lock
+
+# PASO 2 — BORRAR TAMBIÉN EL LOCKFILE DE TU HOST
+
+Tu host podría estar montando el mismo archivo:
+
+```console
+rm -f yarn.lock
+
+# PASO 3 — REGENERAR UN NUEVO LOCKFILE YARN 1 DENTRO DEL CONTENEDOR
+
+Ahora sí:
+
+```console
+docker compose exec app yarn install
+
+# PASO 4 - COMPILAR EL FRONTEND DENTRO DEL CONTENEDOR
+```console
+docker compose exec app npm run dev
