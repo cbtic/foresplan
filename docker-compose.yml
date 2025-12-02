@@ -27,18 +27,18 @@ services:
     image: postgres:9.6
     container_name: postgres-db
     volumes:
-        # Mounts a persistable volume inside the postgres data folder, so we
-        # don't lose the created databases when this container is removed.
-        - postgres-data:/var/lib/postgresql/data
-        - ./docker-compose/pgsql:/docker-entrypoint-initdb.d/
+      # Mounts a persistable volume inside the postgres data folder, so we
+      # don't lose the created databases when this container is removed.
+      - postgres-data:/var/lib/postgresql/data
+      - ./docker-compose/pgsql:/docker-entrypoint-initdb.d/
     #command: chmod +x ./init_db.sh
-    # ports:
-    #     - 5434:5432
+    ports:
+      - "5433:5432"
     environment:
-        # The password we'll use to access the databases:
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=secrect
-        - POSTGRES_DB=postgres
+      # The password we'll use to access the databases:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=postgres
     networks:
       - app-network
 
