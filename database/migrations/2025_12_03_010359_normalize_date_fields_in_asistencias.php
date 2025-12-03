@@ -46,7 +46,6 @@ class NormalizeDateFieldsInAsistencias extends Migration
             WHERE fech_sali_rel ~ '^[0-9]{2}-[0-9]{2}-[0-9]{2}$';
         ");
 
-
     }
 
     /**
