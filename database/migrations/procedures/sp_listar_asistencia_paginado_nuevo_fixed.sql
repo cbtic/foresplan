@@ -43,7 +43,8 @@ Begin
         create temp table tmp_fecha_personas as
         select fecha_dias,t1.id id_persona
         from personas t1
-        left join persona_detalles t2 on t2.id_persona = t1.id and t2.estado = 'A'
+        left join persona_detalles t2 on t2.id_persona = t1.id
+        and t2.estado in ('A', 'C') -- and t2.deleted_at is null
         ,tmp_fechas
         order by t1.id asc,fecha_dias asc;
 
@@ -107,7 +108,7 @@ Begin
 
         v_tabla=' from tmp_fecha_personas t0
                         inner join personas t1 on t0.id_persona=t1.id
-                        left join persona_detalles t2 on t2.id_persona = t1.id and t2.estado = ''A''
+                        left join persona_detalles t2 on t2.id_persona = t1.id and t2.estado in (''A'', ''C'')
                         left join documento_identidades t3 on t3.id = t1.tipo_documento
                         left join ubicacion_trabajos t4 on t4.id = t2.id_ubicacion
                         left join empresas t5 on t5.id = t4.id_empresa
