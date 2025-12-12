@@ -17,6 +17,7 @@ use App\Models\UnidadTrabajo;
 use App\Models\RegimenPensionario;
 use App\Models\Asistencia;
 use App\Models\Tperiodo;
+use App\Models\TablaUbicacione;
 
 class BoletaController extends Controller
 {
@@ -157,7 +158,10 @@ class BoletaController extends Controller
             $condicion = 'DOMICILIADO';
         }else{$condicion='NO DOMICILIADO';}
 
-        $sede = $persona_detalle->id_sede;
+        if ($persona_detalle->id_sede){
+          $sede_model = new TablaUbicacione;
+          $sede = $sede_model->getFieldFromTablaTipo($persona_detalle->id_sede, "denominacion");
+        }else{ $sede = ''; }
 
        // print_r($unidad_trabajo);
        // exit();
@@ -388,7 +392,10 @@ class BoletaController extends Controller
             $condicion = 'DOMICILIADO';
         }else{$condicion='NO DOMICILIADO';}
 
-        $sede = $persona_detalle->id_sede;
+        if ($persona_detalle->id_sede){
+          $sede_model = new TablaUbicacione;
+          $sede = $sede_model->getFieldFromTablaTipo($persona_detalle->id_sede, "denominacion");
+        }else{ $sede = ''; }
 
         return PDF::loadView('frontend/boletas/boleta-pdf', compact(
             'persona',

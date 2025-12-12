@@ -16,7 +16,30 @@ class TablaUbicacione extends Model
 		$data = DB::select($cad);
         return $data;
     }
-    
+
+    public function getFieldFromTablaTipo($id, $field){
+      $tabla = self::getTableFromTableTipo($id);
+      if (!$tabla) {
+        return null;
+      }
+      $query = "select t2.".$field."
+                  from tabla_ubicaciones tu
+                  inner join ".$tabla." t2 on t2.id = tu.id_registro
+                  where tu.id = '".$id."'";
+
+        $data = DB::select($query);
+
+        return $data[0]->{$field} ?? null;
+    }
+
+    public static function getTableFromTableTipo($id){
+      $query = "select tu.tabla
+        from tabla_ubicaciones tu
+        where tu.id = '".$id."'";
+      $data = DB::select($query);
+      return $data[0]->tabla ?? null;
+    }
+
     public function getTablaUbicacionAll($Tabla, $Cliente){
         $cad = "select * from tabla_ubicaciones where tabla = '".$Tabla."' limit 1";
         $tablaUbic_model = new TablaUbicacione;
@@ -29,13 +52,13 @@ class TablaUbicacione extends Model
 		$data = DB::select($cad);
         return $data;
     }
-	
+
 	public function listar_ubicacion_maestro_ajax($p){
 		return $this->readFunctionPostgres('sp_listar_tabla_ubicaciones_paginado',$p);
     }
-	
+
 	public function readFunctionPostgres($function, $parameters = null){
-	
+
         $_parameters = '';
         if (count($parameters) > 0) {
             $_parameters = implode("','", $parameters);
@@ -49,5 +72,5 @@ class TablaUbicacione extends Model
         $data = DB::select($cad);
         return $data;
      }
-	 
+
 }
