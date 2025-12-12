@@ -41,13 +41,14 @@ use App\Http\Controllers\Frontend\PersonaController;
  */
 
 Route::get('/info', function () {
-    phpinfo(); 
+    phpinfo();
 })->name('phpmyinfo');
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('index')
     ->breadcrumbs(function (Trail $trail) {
-        $trail->push(__('Home'), route('frontend.index'));
+        // $trail->push(__('Home'), route('frontend.index'));
+        $trail->push(__('Home'), route('frontend.user.account'));
     });
 
 // Route::get('manten/create', [TablaController::class, 'create'])->name('manten.create');

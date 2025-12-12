@@ -32,7 +32,7 @@ class CheckSedeAccess
         // Acceso restringido sin rol 'jefe RRHH'
         if (! $user->hasRole('jefe RRHH')) {
             return redirect()
-                ->route('frontend.index')
+                ->route('frontend.user.account')
                 ->withErrors(['sede' => 'No tienes permiso para acceder a esta sección.']);
         }
 

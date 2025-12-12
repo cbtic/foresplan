@@ -18,7 +18,7 @@ body {
         box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
-    
+
     @page {
         size: A4;
         margin: 0;
@@ -75,6 +75,9 @@ body {
         text-align:center;
         border-bottom:solid black 2px;
         border-top: none;
+    }
+    tr.font_10{
+        font-size: 10px;
     }
     th.data:first-child {
         border-left:none;
@@ -164,6 +167,8 @@ body {
       <tr>
         <th>Periodo:</th>
         <td>{{ $anio_mes_planilla }}</td>
+        <th>Sede:</th>
+        <td>{{ $sede }}</td>
       </tr>
       <tr>
         <th>PDT Planilla Electronica</th>
@@ -269,13 +274,13 @@ body {
     </table>
   &nbsp;
     <table class="data" style="width:100%">
-      <tr class="data">
+      <tr class="data font_10">
         <th colspan="2" class="data">INGRESOS</th>
         <th colspan="2" class="data">EGRESOS</th>
         <th colspan="2" class="data">APORTACIONES</th>
         <th colspan="2" class="data">APORTACIONES<br>DEL EMPLEADOR</th>
       </tr>
-      <tr class="data">
+      <tr class="data font_10">
         <th class="data">CONCEPTO</th>
         <th class="data">MONTO</th>
         <th class="data">CONCEPTO</th>
@@ -375,12 +380,8 @@ body {
   </div>
   &nbsp;
   <table class="data" style="width:100%">
-      <tr><th><p>TOTAL: {{ number_format((float)$total_neto, 2, '.', '') }}</p></th></tr>
-    </table>
-  &nbsp;
-  &nbsp;
-  <table class="data" style="width:100%">
-      <tr><th><p>SON: {{ $total_neto_letras }}</p></th></tr>
+      <tr><th>TOTAL: {{ number_format((float)$total_neto, 2, '.', '') }}</th></tr>
+      <tr><th>SON: {{ $total_neto_letras }}</th></tr>
     </table>
   &nbsp;
   <table class="data" style="width:100%">
@@ -388,10 +389,10 @@ body {
   </table>
   &nbsp;
   <div style="display: flex; justify-content: space-between; width: 100%;">
-    <table class="data" style="width:48%">
+    <table class="data" style="width:48%; float: left">
         <tr>
           <th>
-            <p style="height: 160px;"> &nbsp;</p>
+            <p style="height: 60px;"> &nbsp;</p>
           </th>
           <th>
             <div style="text-align: right; margin-right: 25px">{!! QrCode::size(120)->generate('RemoteStack') !!}</div>
@@ -399,10 +400,10 @@ body {
         </tr>
         <tr><th class="firma" colspan="2"><h3>EMPLEADOR</h3></th></tr>
     </table>
-    <table class="data" style="width:48%">
+    <table class="data" style="width:48%; float: right">
         <tr>
           <th>
-            <p style="height: 160px;"> &nbsp;</p>
+            <p style="height: 60px;"> &nbsp;</p>
           </th>
           <th>
             <div style="text-align: right; margin-right: 25px"></div>
