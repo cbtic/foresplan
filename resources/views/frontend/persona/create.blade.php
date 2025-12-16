@@ -140,7 +140,7 @@
 					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-right:0px">
 						<input class="btn btn-warning pull-rigth" value="Buscar" type="button" id="btnBuscar" />
 						<input class="btn btn-success pull-rigth" value="Nuevo" type="button" id="btnNuevo" style="margin-left:15px" />
-                        @hasanyrole('Control Asistencia|Administrator')
+                        @hasanyrole('Descarga Persona|Administrator')
                         <buttom class="btn btn-sm btn-secondary pull-rigth icono-botones2" type="button" id="btnDescargar" style="margin-left:10px" />
                             <i class="fas fa-download" style="font-size:18px;"></i> Descargar
                         </buttom>
