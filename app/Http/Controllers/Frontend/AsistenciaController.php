@@ -82,6 +82,8 @@ class AsistenciaController extends Controller
 
 	public function listar_asistencia_ajax(Request $request){
 		
+        $id_user = Auth::user()->id;
+
 		$asistencia_model = new Asistencia;
 		$p[]=$request->id_area_trabajo;
 		$p[]=$request->id_unidad_trabajo;
@@ -92,6 +94,7 @@ class AsistenciaController extends Controller
         $p[]=$request->fecha_fin;
         $p[]=$request->id_sede;
         $p[]=$request->id_condicion_laboral;
+        $p[]=$id_user;
 		$p[]=$request->estado;
 		$p[]=$request->NumeroPagina;
 		$p[]=$request->NumeroRegistros;
