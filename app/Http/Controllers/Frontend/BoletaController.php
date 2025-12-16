@@ -17,13 +17,14 @@ use App\Models\UnidadTrabajo;
 use App\Models\RegimenPensionario;
 use App\Models\Asistencia;
 use App\Models\Tperiodo;
+use App\Models\TablaUbicacione;
 
 class BoletaController extends Controller
 {
     // Boleta en version PDF
     public function boletaPDF($id_periodo, $id_persona) {
         $pdf = $this->getBoletaContent($id_periodo, $id_persona);
-        
+
         return $pdf->download('boleta_' . strval($id_periodo) . "_" . strval($id_persona) . '.pdf');
     }
 
@@ -74,16 +75,16 @@ class BoletaController extends Controller
 
         $asistencia_model = new Asistencia;
 
-        $dias_trabajados = $asistencia_model->obtenerDiasTrabajados($id_persona, $fecha_inicio, $fecha_fin); 
+        $dias_trabajados = $asistencia_model->obtenerDiasTrabajados($id_persona, $fecha_inicio, $fecha_fin);
 
-        $dias_no_trabajados = $asistencia_model->obtenerDiasNoTrabajados($id_persona, $fecha_inicio, $fecha_fin); 
-        
-        $horas_diurnas_trabajados = $asistencia_model->obtenerHorasDiurnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin); 
+        $dias_no_trabajados = $asistencia_model->obtenerDiasNoTrabajados($id_persona, $fecha_inicio, $fecha_fin);
 
-        $horas_nocturnas_trabajados = $asistencia_model->obtenerHorasNocturnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin); 
+        $horas_diurnas_trabajados = $asistencia_model->obtenerHorasDiurnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin);
+
+        $horas_nocturnas_trabajados = $asistencia_model->obtenerHorasNocturnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin);
 
         $dias_subsidio = $asistencia_model->obtenerDiasSubsidio($id_persona, $id_periodo);
-        
+
         $horas_extras = $asistencia_model->obtenerHorasExtra($id_persona, $id_periodo);
 
         //Calculando totales
@@ -129,11 +130,11 @@ class BoletaController extends Controller
         //Convirtiendo en letras
         $formatter = new NumeroALetras();
         $total_neto_letras = $formatter->toInvoice( $total_neto, 2, 'Soles');
-        
+
         //Datos de la persona
         $persona = Persona::find($id_persona);
         $persona_detalle = PersonaDetalle::where('id_persona', $persona->id)->firstOrFail();
-        
+
 
         if ($persona_detalle->id_area_trabajo){
             $unidad_model = new UnidadTrabajo;
@@ -157,9 +158,14 @@ class BoletaController extends Controller
             $condicion = 'DOMICILIADO';
         }else{$condicion='NO DOMICILIADO';}
 
+        if ($persona_detalle->id_sede){
+          $sede_model = new TablaUbicacione;
+          $sede = $sede_model->getFieldFromTablaTipo($persona_detalle->id_sede, "denominacion");
+        }else{ $sede = ''; }
+
        // print_r($unidad_trabajo);
        // exit();
-        
+
        $pdf = Pdf::loadView('frontend.boletas.boleta-pdf',compact(
         'persona',
         'persona_detalle',
@@ -185,18 +191,19 @@ class BoletaController extends Controller
         'situacion',
         'dias_subsidio',
         'horas_extras',
-        'condicion'
+        'condicion',
+        'sede'
         ));
        $pdf->getDomPDF()->set_option("enable_php", true);
-        
+
        $pdf->setPaper('A4', 'landscape'); // Tamaño de papel (puedes cambiarlo según tus necesidades)
-       $pdf->setOption('margin-top', 20); // Márgen superior en milímetros
-       $pdf->setOption('margin-right', 50); // Márgen derecho en milímetros
-       $pdf->setOption('margin-bottom', 20); // Márgen inferior en milímetros
-       $pdf->setOption('margin-left', 100); // Márgen izquierdo en milímetros
-               
+       // $pdf->setOption('margin-top', 20); // Márgen superior en milímetros
+       // $pdf->setOption('margin-right', 50); // Márgen derecho en milímetros
+       // $pdf->setOption('margin-bottom', 20); // Márgen inferior en milímetros
+       // $pdf->setOption('margin-left', 100); // Márgen izquierdo en milímetros
+
        return $pdf->stream('reporte.pdf');
-        
+
 
 		/*return view('frontend.boletas.boleta-pdf',compact(
             'persona',
@@ -216,7 +223,7 @@ class BoletaController extends Controller
             'anio_mes_planilla',
             'id_planilla'
         ));*/
-        
+
     }
 
     // Guardar boletas en version PDF
@@ -249,16 +256,16 @@ class BoletaController extends Controller
         }
 
         $msg = "Se procesaron " . strval(count($data)) . ' boletas.';
-        
+
 		$array["sw"] = $sw;
         $array["msg"] = $msg;
-        
+
         echo json_encode($array);
     }
 
 
     private function getBoletaContent($id_periodo, $id_persona){
-        
+
         $total_ingresos=0;
         $total_egresos=0;
         $total_aportes=0;
@@ -301,16 +308,16 @@ class BoletaController extends Controller
 
         $asistencia_model = new Asistencia;
 
-        $dias_trabajados = $asistencia_model->obtenerDiasTrabajados($id_persona, $fecha_inicio, $fecha_fin); 
+        $dias_trabajados = $asistencia_model->obtenerDiasTrabajados($id_persona, $fecha_inicio, $fecha_fin);
 
-        $dias_no_trabajados = $asistencia_model->obtenerDiasNoTrabajados($id_persona, $fecha_inicio, $fecha_fin); 
-        
-        $horas_diurnas_trabajados = $asistencia_model->obtenerHorasDiurnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin); 
+        $dias_no_trabajados = $asistencia_model->obtenerDiasNoTrabajados($id_persona, $fecha_inicio, $fecha_fin);
 
-        $horas_nocturnas_trabajados = $asistencia_model->obtenerHorasNocturnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin); 
+        $horas_diurnas_trabajados = $asistencia_model->obtenerHorasDiurnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin);
+
+        $horas_nocturnas_trabajados = $asistencia_model->obtenerHorasNocturnasTrabajadas($id_persona, $fecha_inicio, $fecha_fin);
 
         $dias_subsidio = $asistencia_model->obtenerDiasSubsidio($id_persona, $id_periodo);
-        
+
         $horas_extras = $asistencia_model->obtenerHorasExtra($id_persona, $id_periodo);
 
         //Calculando totales
@@ -357,11 +364,11 @@ class BoletaController extends Controller
         //Convirtiendo en letras
         $formatter = new NumeroALetras();
         $total_neto_letras = $formatter->toInvoice( $total_neto, 2, 'Soles');
-        
+
         //Datos de la persona
         $persona = Persona::find($id_persona);
         $persona_detalle = PersonaDetalle::where('id_persona', $persona->id)->firstOrFail();
-        
+
 
         if ($persona_detalle->id_area_trabajo){
             $unidad_model = new UnidadTrabajo;
@@ -384,7 +391,12 @@ class BoletaController extends Controller
         if ($persona_detalle->ubigeo){
             $condicion = 'DOMICILIADO';
         }else{$condicion='NO DOMICILIADO';}
-        
+
+        if ($persona_detalle->id_sede){
+          $sede_model = new TablaUbicacione;
+          $sede = $sede_model->getFieldFromTablaTipo($persona_detalle->id_sede, "denominacion");
+        }else{ $sede = ''; }
+
         return PDF::loadView('frontend/boletas/boleta-pdf', compact(
             'persona',
             'persona_detalle',
@@ -410,7 +422,8 @@ class BoletaController extends Controller
             'situacion',
             'dias_subsidio',
             'horas_extras',
-            'condicion'
+            'condicion',
+            'sede'
         ));
     }
 }

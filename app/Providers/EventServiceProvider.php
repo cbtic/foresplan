@@ -7,6 +7,7 @@ use App\Domains\Auth\Listeners\UserEventListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class EventServiceProvider.
@@ -43,6 +44,10 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        //
+        if (config('app.debug') && config('request-logging.log_views', true)) {
+            View::composer('*', function ($view) {
+                \App\Http\Middleware\LogRequest::addRenderedView($view->getName());
+            });
+        }
     }
 }
