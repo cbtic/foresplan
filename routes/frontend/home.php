@@ -234,5 +234,6 @@ Route::post('papeleta/upload_papeleta', [DetaOperacioneController::class, 'uploa
 
 Route::get('persona/valida_persona/{id}', [PersonaDetalleController::class, 'valida_persona'])->name('persona.valida_persona');
 Route::get('persona/cargar_contrato_pdf/{id}', [personaController::class, 'cargar_contrato_pdf'])->name('persona.cargar_contrato_pdf');
+Route::get('persona/exportar_persona/{numero_documento}/{persona}/{unidad_trabajo}/{empresa}/{estado}', [personaController::class, 'exportar_persona'])->name('persona.exportar_persona');
 
 

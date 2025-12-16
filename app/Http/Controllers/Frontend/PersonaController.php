@@ -15,10 +15,14 @@ use App\Models\Contrato;
 use App\Models\PersonaContactoEmergencia;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
-
-//use App\Models\CondicionLaborale;
-
 use Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class PersonaController extends Controller
 {
@@ -462,4 +466,108 @@ class PersonaController extends Controller
 		return $pdf->stream();
 	
 	}
+
+	public function exportar_persona($numero_documento, $persona, $unidad_trabajo, $empresa, $estado) {
+
+		$id_user = Auth::user()->id;
+
+		if($numero_documento==0)$numero_documento = "";
+		if($persona=="0")$persona = "";
+		if($unidad_trabajo=="0")$unidad_trabajo = "";
+		if($empresa=="0")$empresa = "";
+		if($estado==0)$estado = "";
+
+		$persona_model = new Persona;
+		$p[]=$numero_documento;
+		$p[]=$persona;
+		$p[]=$unidad_trabajo;
+		$p[]=$empresa;
+		$p[]=$id_user;
+		$p[]=$estado;
+		$p[]=1;
+		$p[]=10000;
+		$data = $persona_model->listar_persona_ajax($p);
+		
+		$variable = [];
+		$n = 1;
+		array_push($variable, array("N","Tipo Documento","Numero Documento","Nombres","Fecha Nacimiento","Genero", "Condicion Laboral", "Regimen Pensionario", "Unidad de Trabajo", "Empresa", "Estado", "Sueldo"));
+		
+		foreach ($data as $r) {
+
+			if($r->estado=='A'){$estado='ACTIVO';}
+			if($r->estado=='C'){$estado='CESADO';}
+
+			if($r->sexo=='F'){$sexo='FEMENINO';}
+			if($r->sexo=='M'){$sexo='MASCULINO';}
+
+			array_push($variable, array($n++, $r->tipo_documento, $r->numero_documento, $r->persona, $r->fecha_nacimiento, $sexo, $r->condicion_laboral, $r->regimen, $r->unidad_trabajo, $r->razon_social, $estado, $r->mont_cont_ctr));
+		}
+		
+		$export = new InvoicesExport([$variable]);
+		return Excel::download($export, 'reporte_persona.xlsx');
+    }
+}
+
+class InvoicesExport implements FromArray, WithHeadings, WithStyles
+{
+	protected $invoices;
+
+	public function __construct(array $invoices)
+	{
+		$this->invoices = $invoices;
+	}
+
+	public function array(): array
+	{
+		return $this->invoices;
+	}
+
+    public function headings(): array
+    {
+        return ["N","Tipo Documento","Numero Documento","Nombres","Fecha Nacimiento","Genero", "Condicion Laboral", "Regimen Pensionario", "Unidad de Trabajo", "Empresa", "Estado", "Sueldo"];
+    }
+
+	public function styles(Worksheet $sheet)
+    {
+
+		$sheet->mergeCells('A1:L1');
+
+        $sheet->setCellValue('A1', "REPORTE DE PERSONAS - FORESPLAN");
+        $sheet->getStyle('A1:L1')->applyFromArray([
+            'font' => [
+                'bold' => true,
+                'color' => ['rgb' => 'FFFFFF'],
+            ],
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => ['rgb' => '246257'],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+            ],
+        ]);
+
+		$sheet->getStyle('A1')->getAlignment()->setWrapText(true);
+		$sheet->getRowDimension(1)->setRowHeight(30);
+
+        $sheet->getStyle('A2:L2')->applyFromArray([
+            'font' => [
+                'bold' => true,
+                'color' => ['rgb' => '000000'],
+            ],
+            'fill' => [
+                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                'startColor' => ['rgb' => '2EB85C'],
+            ],
+			'alignment' => [
+			'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+    		],
+        ]);
+
+		$sheet->fromArray($this->headings(), NULL, 'A2');
+
+        foreach (range('A', 'L') as $col) {
+            $sheet->getColumnDimension($col)->setAutoSize(true);
+        }
+    }
 }
