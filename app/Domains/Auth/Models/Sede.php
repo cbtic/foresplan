@@ -4,6 +4,7 @@ namespace App\Domains\Auth\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Domains\Auth\Models\Role;
 
 class Sede extends Model
 {
@@ -23,4 +24,10 @@ class Sede extends Model
         'es_principal' => 'boolean',
         'estado'       => 'integer',
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_sede')
+            ->withTimestamps();
+    }
 }

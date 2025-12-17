@@ -36,6 +36,24 @@
                         </div>
                     </div><!--form-group-->
 
+                    <style>
+                        #sedes[multiple] option:checked {
+                            background-color: #0d6efd;
+                            color: #fff;
+                        }
+                    </style>
+                    <div class="form-group">
+                        <label for="sedes">@lang('Sedes')</label>
+                        <select name="sedes[]" id="sedes" class="form-control" multiple>
+                            @foreach($sedes as $sede)
+                                <option value="{{ $sede->id }}"
+                                    @if(in_array($sede->id, $usedSedes ?? [])) selected @endif>
+                                    {{ $sede->denominacion }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     @include('backend.auth.includes.permissions')
                 </div>
             </x-slot>

@@ -9,6 +9,7 @@ use App\Domains\Auth\Http\Requests\Backend\Role\UpdateRoleRequest;
 use App\Domains\Auth\Models\Role;
 use App\Domains\Auth\Services\PermissionService;
 use App\Domains\Auth\Services\RoleService;
+use App\Domains\Auth\Models\Sede;
 
 /**
  * Class RoleController.
@@ -50,9 +51,12 @@ class RoleController
      */
     public function create()
     {
+        $sedes = Sede::orderBy('denominacion')->get();
+
         return view('backend.auth.role.create')
             ->withCategories($this->permissionService->getCategorizedPermissions())
-            ->withGeneral($this->permissionService->getUncategorizedPermissions());
+            ->withGeneral($this->permissionService->getUncategorizedPermissions())
+            ->withSedes($sedes);
     }
 
     /**
@@ -77,11 +81,15 @@ class RoleController
      */
     public function edit(EditRoleRequest $request, Role $role)
     {
+        $sedes = Sede::orderBy('denominacion')->get();
+
         return view('backend.auth.role.edit')
             ->withCategories($this->permissionService->getCategorizedPermissions())
             ->withGeneral($this->permissionService->getUncategorizedPermissions())
             ->withRole($role)
-            ->withUsedPermissions($role->permissions->modelKeys());
+            ->withUsedPermissions($role->permissions->modelKeys())
+            ->withSedes($sedes)
+            ->withUsedSedes($role->sedes->modelKeys());
     }
 
     /**

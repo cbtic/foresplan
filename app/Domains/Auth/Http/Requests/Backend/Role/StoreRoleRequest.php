@@ -33,6 +33,8 @@ class StoreRoleRequest extends FormRequest
             'name' => ['required', 'max:100', Rule::unique('roles')],
             'permissions' => ['sometimes', 'array'],
             'permissions.*' => [Rule::exists('permissions', 'id')->where('type', $this->type)],
+            'sedes'   => ['sometimes', 'array'],
+            'sedes.*' => ['integer', 'exists:sedes,id']
         ];
     }
 

@@ -38,8 +38,16 @@ class RoleService extends BaseService
         DB::beginTransaction();
 
         try {
-            $role = $this->model::create(['type' => $data['type'], 'name' => $data['name']]);
-            $role->syncPermissions($data['permissions'] ?? []);
+          $role = $this->model::create([
+            'type' => $data['type'],
+            'name' => $data['name']
+          ]);
+
+          $role->syncPermissions($data['permissions'] ?? []);
+
+          if (isset($data['sedes']) && is_array($data['sedes'])) {
+            $role->sedes()->sync($data['sedes']);
+          }
         } catch (Exception $e) {
             DB::rollBack();
 
@@ -66,8 +74,19 @@ class RoleService extends BaseService
         DB::beginTransaction();
 
         try {
-            $role->update(['type' => $data['type'], 'name' => $data['name']]);
-            $role->syncPermissions($data['permissions'] ?? []);
+          $role->update([
+            'type' => $data['type'],
+            'name' => $data['name']
+          ]);
+
+          $role->syncPermissions($data['permissions'] ?? []);
+
+          if (isset($data['sedes']) && is_array($data['sedes'])) {
+            $role->sedes()->sync($data['sedes']);
+          } else {
+            // si no se relaciona con nada, dejamos sin sedes asociadas
+            $role->sedes()->sync([]);
+          }
         } catch (Exception $e) {
             DB::rollBack();
 
@@ -92,6 +111,9 @@ class RoleService extends BaseService
         if ($role->users()->count()) {
             throw new GeneralException(__('You can not delete a role with associated users.'));
         }
+
+        // soltar sedes sin borrar ninguna sede
+        $role->sedes()->detach();
 
         if ($this->deleteById($role->id)) {
             event(new RoleDeleted($role));
