@@ -11,189 +11,197 @@ CREATE OR REPLACE FUNCTION public.sp_listar_asistencia_paginado_nuevo(
   p_estado character varying,
   p_pagina character varying,
   p_limit character varying,
-  p_ref refcursor )
-
-  RETURNS refcursor
-  LANGUAGE plpgsql
+  p_ref refcursor
+)
+RETURNS refcursor
+LANGUAGE plpgsql
 AS $function$
+DECLARE
+    v_fecha_desde date;
+    v_fecha_hasta date;
+    v_offset integer;
+BEGIN
+    v_fecha_desde := (p_anio||'-'||p_mes||'-01')::date;
+    SELECT last_day_month(p_anio::int,p_mes::int)::date INTO v_fecha_hasta;
 
-Declare
-v_scad varchar;
-v_campos varchar;
-v_tabla varchar;
-v_where varchar;
-v_count varchar;
-v_col_count varchar;
+    v_offset := (p_pagina::integer - 1) * p_limit::integer;
 
-v_fecha_desde varchar;
-v_fecha_hasta varchar;
+    OPEN p_ref FOR
+    WITH tmp_fechas AS (
+        SELECT
+            d::date AS fecha_dias,
+            CASE WHEN tf.fech_feri_tdf::date IS NOT NULL THEN 1 ELSE 0 END AS es_feriado
+        FROM generate_series(v_fecha_desde, v_fecha_hasta, interval '1 day') AS d
+        LEFT JOIN tdias_feriados tf
+          ON tf.fech_feri_tdf::date = d::date
+    ),
+    tmp_fecha_personas AS (
+        SELECT
+            tf.fecha_dias,
+            tf.es_feriado,
+            p.id AS id_persona
+        FROM personas p
+        LEFT JOIN persona_detalles pd
+          ON pd.id_persona = p.id
+         AND pd.estado IN ('A','C')
+         AND pd.eliminado = 'N'
+        CROSS JOIN tmp_fechas tf
+    ),
+    turno_unico AS (
+        SELECT DISTINCT ON (pt.id_persona, dt.nume_ndia_dtu)
+            pt.id_persona,
+            dt.nume_ndia_dtu,
+            dt.flag_labo_dtu,
+            dt.hora_entr_dtu,
+            dt.hora_sali_dtu
+        FROM personal_turnos pt
+        JOIN tturnos t
+          ON pt.id_turno = t.id
+         AND t.deleted_at IS NULL
+        JOIN detalle_turnos dt
+          ON dt.id_turno = t.id
+        WHERE pt.deleted_at IS NULL
+          AND pt.id_persona IS NOT NULL
+        ORDER BY pt.id_persona, dt.nume_ndia_dtu, pt.id DESC
+    ),
+    asistencia_unica AS (
+        SELECT DISTINCT ON (a.id_persona, a.fech_regi_mar::date)
+            a.*
+        FROM asistencias a
+        ORDER BY a.id_persona, a.fech_regi_mar::date, a.id DESC
+    ),
+    base AS (
+        SELECT
+            t1.id AS id_pe,
+            t0.fecha_dias AS fecha_raw,
+            to_char(t0.fecha_dias,'dd-mm-yyyy') AS fecha_dias,
+            CASE
+                WHEN extract(dow FROM t0.fecha_dias)::int = 0 THEN 'Dom'
+                WHEN extract(dow FROM t0.fecha_dias)::int = 1 THEN 'Lun'
+                WHEN extract(dow FROM t0.fecha_dias)::int = 2 THEN 'Mar'
+                WHEN extract(dow FROM t0.fecha_dias)::int = 3 THEN 'Mie'
+                WHEN extract(dow FROM t0.fecha_dias)::int = 4 THEN 'Jue'
+                WHEN extract(dow FROM t0.fecha_dias)::int = 5 THEN 'Vie'
+                WHEN extract(dow FROM t0.fecha_dias)::int = 6 THEN 'Sab'
+            END AS dia,
+            t0.es_feriado,
+            coalesce(a.flag_labo_dtu, tu.flag_labo_dtu) AS flag_labo_dtu,
 
-Begin
+            -- Horas protegidas con NULLIF
+            CASE
+                WHEN NULLIF(a.hora_entrada,'') IS NOT NULL
+                THEN to_char(NULLIF(a.hora_entrada,'')::time,'HH24:MI')
+                ELSE ''
+            END AS hora_entrada,
+            CASE
+                WHEN NULLIF(a.hora_salida,'') IS NOT NULL
+                THEN to_char(NULLIF(a.hora_salida,'')::time,'HH24:MI')
+                ELSE ''
+            END AS hora_salida,
+            CASE
+                WHEN tu.hora_entr_dtu IS NOT NULL
+                THEN to_char(tu.hora_entr_dtu::time,'HH24:MI')
+                ELSE ''
+            END AS hora_entr_dtu,
+            CASE
+                WHEN tu.hora_sali_dtu IS NOT NULL
+                THEN to_char(tu.hora_sali_dtu::time,'HH24:MI')
+                ELSE ''
+            END AS hora_sali_dtu,
+            CASE
+                WHEN NULLIF(a.hora_entr_rel,'') IS NOT NULL
+                THEN to_char(NULLIF(a.hora_entr_rel,'')::time,'HH24:MI')
+                ELSE ''
+            END AS hora_entr_rel,
+            CASE
+                WHEN NULLIF(a.hora_sali_rel,'') IS NOT NULL
+                THEN to_char(NULLIF(a.hora_sali_rel,'')::time,'HH24:MI')
+                ELSE ''
+            END AS hora_sali_rel,
 
-        v_fecha_desde=p_anio||'-'||p_mes||'-01';
+            CASE
+                WHEN NULLIF(a.minu_tard_eas,'') IS NOT NULL
+                     AND a.minu_tard_eas <> '0'
+                THEN to_char(NULLIF(a.minu_tard_eas,'')::time,'HH24:MI')
+                ELSE '00:00'
+            END AS minu_tard_eas,
 
-        select last_day_month(p_anio::int,p_mes::int) into v_fecha_hasta;
+            pd.id AS id_pd,
+            di.abre_docu_did AS tipo_documento,
+            t1.numero_documento,
+            t1.apellido_paterno||' '||t1.apellido_materno||' '||t1.nombres AS persona,
+            t1.fecha_nacimiento,
+            t1.sexo,
+            (select sp_crud_obtiene_tabla_deno (pd.id_cargo)) AS cargo,
+            (select sp_crud_obtiene_tabla_deno (pd.id_condicion_laboral)) AS condicion_laboral,
+            (select sp_crud_obtiene_tabla_deno (pd.id_regimen_pensionario)) AS regimen,
+            (select sp_crud_obtiene_tabla_deno (pd.id_area_trabajo)) AS area_trabajo,
+            (select sp_crud_obtiene_tabla_deno (pd.id_unidad_trabajo)) AS unidad_trabajo,
+            e.razon_social,
+            pd.estado,
+            a.fech_marc_rel,
+            a.fech_sali_rel,
+            a.minu_dife_eas AS tiempo_trabajado,
+            a.id_deta_operacion,
+            tj.desc_just_jus,
+            a.id AS id_asistencia,
+            a.tipo_marc_eas,
+            a.hora_marc_eas,
+            a.hora_marc_sal,
+            a.minu_dife_pap
+        FROM tmp_fecha_personas t0
+        JOIN personas t1 ON t0.id_persona = t1.id
+        LEFT JOIN persona_detalles pd
+          ON pd.id_persona = t1.id
+         AND pd.estado IN ('A','C')
+         AND pd.eliminado = 'N'
+        LEFT JOIN documento_identidades di ON di.id = t1.tipo_documento
+        LEFT JOIN ubicacion_trabajos ut ON ut.id = pd.id_ubicacion
+        LEFT JOIN empresas e ON e.id = ut.id_empresa
+        LEFT JOIN turno_unico tu
+          ON pd.id_persona = tu.id_persona
+         AND tu.nume_ndia_dtu::int = CASE
+               WHEN extract(dow FROM t0.fecha_dias)::int = 0 THEN 7
+               ELSE extract(dow FROM t0.fecha_dias)::int
+             END
+        LEFT JOIN asistencia_unica a
+          ON a.id_persona = t1.id
+         AND a.fech_regi_mar::date = t0.fecha_dias
+        LEFT JOIN deta_operaciones deo ON a.id_deta_operacion = deo.id
+        LEFT JOIN tabla_ubicaciones tab_ubi ON deo.id_tipo_operacion = tab_ubi.id
+        LEFT JOIN tipo_justificaciones tj ON tab_ubi.id_registro = tj.id
+        WHERE 1=1
+          AND (p_persona = '' OR t1.id::text = p_persona)
+          AND (p_area = '' OR pd.id_area_trabajo::text = p_area)
+          AND (p_unidad = '' OR pd.id_unidad_trabajo::text = p_unidad)
+          AND (p_sede = '' OR pd.id_sede::text = p_sede)
+          AND (p_condicion_laboral = '' OR pd.id_condicion_laboral::text = p_condicion_laboral)
+          AND (
+                p_fecha_ini = ''
+                OR (
+                    a.fech_regi_mar IS NOT NULL
+                    AND a.fech_regi_mar::timestamp >= to_timestamp(p_fecha_ini||' 00:00:00','DD/MM/YYYY HH24:MI:SS')
+                )
+          )
+          AND (
+                p_fecha_fin = ''
+                OR (
+                    a.fech_regi_mar IS NOT NULL
+                    AND a.fech_regi_mar::timestamp <= to_timestamp(p_fecha_fin||' 23:59:59','DD/MM/YYYY HH24:MI:SS')
+                )
+          )
+          AND (
+                p_estado = '' OR
+                (p_estado = '3' AND t0.es_feriado = 0 AND coalesce(a.flag_labo_dtu, tu.flag_labo_dtu) = 'S'
+                 AND (a.fech_marc_rel IS NULL OR a.fech_sali_rel IS NULL))
+          )
+    )
+    SELECT *,
+           count(*) OVER() AS TotalRows
+    FROM base
+    ORDER BY fecha_raw ASC, id_pe DESC
+    LIMIT p_limit::integer OFFSET v_offset;
 
-        DROP TABLE IF EXISTS tmp_fechas;
-
-				CREATE TEMP TABLE tmp_fechas AS
-					SELECT fecha_dias::date FROM generate_series(v_fecha_desde::date, v_fecha_hasta::date, interval '1 day') AS fecha_dias;
-
-        DROP TABLE IF EXISTS tmp_fecha_personas;
-        create temp table tmp_fecha_personas as
-        select fecha_dias,t1.id id_persona
-        from personas t1
-        left join persona_detalles t2 on t2.id_persona = t1.id
-        and t2.estado in ('A', 'C') -- and t2.deleted_at is null
-        ,tmp_fechas
-        order by t1.id asc,fecha_dias asc;
-
-        DROP TABLE IF EXISTS tmp_turno_fecha_personas;
-        create temp table tmp_turno_fecha_personas as
-        select t6.id_persona,t8.nume_ndia_dtu,flag_labo_dtu,hora_entr_dtu,hora_sali_dtu
-        from personal_turnos t6
-        inner join tturnos t7 on t6.id_turno=t7.id and t7.deleted_at is null
-        inner join detalle_turnos t8 on t8.id_turno=t7.id
-        where t6.deleted_at is null
-        and t6.id_persona is not null
-        and t6.id_persona in (select distinct id_persona from tmp_fecha_personas)
-        order by t6.id_persona asc, t8.nume_ndia_dtu asc;
-
-        p_pagina=(p_pagina::Integer-1)*p_limit::Integer;
-
-        v_campos=' t1.id id_pe, to_char(fecha_dias,''dd-mm-yyyy'')fecha_dias,
-        case
-                when extract(dow from fecha_dias::date)::int=0 then ''Dom''
-                when extract(dow from fecha_dias::date)::int=1 then ''Lun''
-                when extract(dow from fecha_dias::date)::int=2 then ''Mar''
-                when extract(dow from fecha_dias::date)::int=3 then ''Mie''
-                when extract(dow from fecha_dias::date)::int=4 then ''Jue''
-                when extract(dow from fecha_dias::date)::int=5 then ''Vie''
-                when extract(dow from fecha_dias::date)::int=6 then ''Sab''
-        end dia
-        ,coalesce(t9.flag_labo_dtu,t8.flag_labo_dtu)flag_labo_dtu
-        ,case   when t9.hora_entrada!='''' and t9.hora_entrada is not null then to_char(t9.hora_entrada::time,''HH24:MI'')
-                when t8.hora_entr_dtu!='''' and t8.hora_entr_dtu is not null then to_char(t8.hora_entr_dtu::timestamp,''HH24:MI'')
-                else ''''
-        end hora_entr_dtu
-        ,case   when t9.hora_salida!='''' and t9.hora_salida is not null then to_char(t9.hora_salida::time,''HH24:MI'')
-                when t8.hora_sali_dtu!='''' and t8.hora_sali_dtu is not null then to_char(t8.hora_sali_dtu::timestamp,''HH24:MI'')
-                else ''''
-        end hora_sali_dtu
-        ,t2.id id_pd, t3.abre_docu_did tipo_documento, t1.numero_documento, t1.apellido_paterno||'' ''||t1.apellido_materno||'' ''||t1.nombres persona,
-        t1.fecha_nacimiento, t1.sexo, (select sp_crud_obtiene_tabla_deno (t2.id_cargo)) cargo, /*t7.nomb_desc_tur turno,*/
-        (select sp_crud_obtiene_tabla_deno (t2.id_condicion_laboral)) condicion_laboral,
-        (select sp_crud_obtiene_tabla_deno (t2.id_regimen_pensionario)) regimen,
-        (select sp_crud_obtiene_tabla_deno (t2.id_area_trabajo)) area_trabajo,
-        (select sp_crud_obtiene_tabla_deno (t2.id_unidad_trabajo)) unidad_trabajo,
-        t5.razon_social, t2.estado,
-        fech_marc_rel,to_char(hora_entr_rel::time,''HH24:MI'')hora_entr_rel,
-        fech_sali_rel,to_char(hora_sali_rel::time,''HH24:MI'')hora_sali_rel,
-        --to_char((fech_sali_rel||'' ''||hora_sali_rel)::timestamp-(fech_marc_rel||'' ''||hora_entr_rel)::timestamp,''HH24:MI'')tiempo_trabajado,
-    minu_dife_eas tiempo_trabajado,
-        t9.id_deta_operacion, tj.desc_just_jus, t9.id id_asistencia,
-        case when fech_sali_rel!='''' and hora_salida!='''' and fech_marc_rel!='''' and hora_entrada!='''' then to_char((fech_sali_rel||'' ''||hora_salida)::timestamp-(fech_marc_rel||'' ''||hora_entrada)::timestamp,''HH24:MI'') end tiempo_programado,
-        case when minu_tard_eas!=''0'' then to_char(minu_tard_eas::time,''HH24:MI'') else ''00:00'' end minu_tard_eas,
-
-        case when (coalesce(fech_sali_rel,'''')!='''' and coalesce(hora_sali_rel,'''')!=''''
-        and coalesce(fech_marc_rel,'''')!='''' and coalesce(hora_entr_rel,'''')!=''''
-        and (fech_sali_rel||'' ''||hora_sali_rel)::timestamp>(fech_marc_rel||'' ''||hora_entr_rel)::timestamp
-        )
-                then ((to_char((fech_sali_rel||'' ''||hora_sali_rel)::timestamp-(fech_marc_rel||'' ''||hora_entr_rel)::timestamp,''HH24:MI''))::TIME
-                + (case when minu_tard_eas!=''0'' then to_char(minu_tard_eas::time,''HH24:MI'') else ''00:00'' end)::TIME::INTERVAL
-                + ''00:01''::TIME::INTERVAL) else ''00:00'' end as tiempo_trabajado_total,
-
-        t9.tipo_marc_eas, t9.hora_marc_eas||'' ''||t9.hora_marc_sal hora_permiso, t9.minu_dife_pap
-        ';
-
-        v_tabla=' from tmp_fecha_personas t0
-                        inner join personas t1 on t0.id_persona=t1.id
-                        left join persona_detalles t2 on t2.id_persona = t1.id and t2.estado in (''A'', ''C'')
-                        left join documento_identidades t3 on t3.id = t1.tipo_documento
-                        left join ubicacion_trabajos t4 on t4.id = t2.id_ubicacion
-                        left join empresas t5 on t5.id = t4.id_empresa
-
-                        --left join personal_turnos t6 on t6.id_persona=t2.id_persona and t6.deleted_at is null
-                        --left join tturnos t7 on t6.id_turno=t7.id and t7.deleted_at is null
-                        --left join detalle_turnos t8 on t8.id_turno=t7.id And t8.nume_ndia_dtu::int=case when extract(dow from fecha_dias::date)::int=0 then 7 else extract(dow from fecha_dias::date)::int end
-
-                        left join tmp_turno_fecha_personas t8 on t2.id_persona=t8.id_persona and t8.nume_ndia_dtu::int=case when extract(dow from fecha_dias::date)::int=0 then 7 else extract(dow from fecha_dias::date)::int end
-
-                        left join asistencias t9 on t9.id_persona=t1.id --And t9.fech_regi_mar::date = fecha_dias::date
-                        left join deta_operaciones deo on t9.id_deta_operacion = deo.id
-                        left join tabla_ubicaciones tu on deo.id_tipo_operacion = tu.id
-                        left join tipo_justificaciones tj on tu.id_registro = tj.id
-                        ';
-
-        v_where = ' Where 1=1 ';
-
-        If p_persona<>'' Then
-         v_where:=v_where||'And t1.id = '||p_persona||' ';
-        End If;
-
-
-        If p_fecha_ini<>'' Then
-					v_where:=v_where||'And t9.fech_regi_mar::timestamp >= to_timestamp('''||p_fecha_ini||' 00:00:00'',''DD/MM/YYYY HH24:MI:SS'') ';
-        End If;
-
-        If p_fecha_fin<>'' Then
-					v_where:=v_where||'And t9.fech_regi_mar::timestamp <= to_timestamp('''||p_fecha_fin||' 23:59:59'',''DD/MM/YYYY HH24:MI:SS'') ';
-        End If;
-
-
-        If p_estado<>'' Then
-
-                If p_estado='1' Then
-                        v_where:=v_where||'And coalesce(fech_marc_rel,'''')!='''' And coalesce(fech_sali_rel,'''')!=''''
-                        And (case when (to_char((fech_sali_rel||'' ''||hora_sali_rel)::timestamp-(fech_marc_rel||'' ''||hora_entr_rel)::timestamp,''HH24:MI''))!=''''
-                        then (((fech_sali_rel||'' ''||hora_sali_rel)::timestamp-(fech_marc_rel||'' ''||hora_entr_rel)::timestamp)::TIME
-                        + (case when minu_tard_eas!=''0'' then to_char(minu_tard_eas::time,''HH24:MI'') else ''00:00'' end)::TIME::INTERVAL
-                        + ''00:01''::TIME::INTERVAL) else ''00:00'' end)::time >=
-                        (case when fech_marc_rel!='''' and hora_salida!='''' then to_char((fech_sali_rel||'' ''||hora_salida)::timestamp-(fech_marc_rel||'' ''||hora_entrada)::timestamp,''HH24:MI'') end)::time ';
-
-                End If;
-
-                If p_estado='2' Then
-                        v_where:=v_where||'And coalesce(fech_marc_rel,'''')!='''' And coalesce(fech_sali_rel,'''')!=''''
-                        And (case when (to_char((fech_sali_rel||'' ''||hora_sali_rel)::timestamp-(fech_marc_rel||'' ''||hora_entr_rel)::timestamp,''HH24:MI''))!=''''
-                        then (((fech_sali_rel||'' ''||hora_sali_rel)::timestamp-(fech_marc_rel||'' ''||hora_entr_rel)::timestamp)::TIME
-                        + (case when minu_tard_eas!=''0'' then to_char(minu_tard_eas::time,''HH24:MI'') else ''00:00'' end)::TIME::INTERVAL
-                        + ''00:01''::TIME::INTERVAL) else ''00:00'' end)::time <
-                        (case when fech_marc_rel!='''' and hora_salida!='''' then to_char((fech_sali_rel||'' ''||hora_salida)::timestamp-(fech_marc_rel||'' ''||hora_entrada)::timestamp,''HH24:MI'') end)::time ';
-                End If;
-
-                If p_estado='3' Then
-                        v_where:=v_where||'And coalesce(t9.flag_labo_dtu,t8.flag_labo_dtu)=''S'' And (coalesce(fech_marc_rel,'''')='''' Or coalesce(fech_sali_rel,'''')='''')  ';
-                End If;
-
-        End If;
-
-        If p_area<>'' Then
-         v_where:=v_where||'And t2.id_area_trabajo = '''||p_area||''' ';
-        End If;
-
-        If p_unidad<>'' Then
-         v_where:=v_where||'And t2.id_unidad_trabajo = '''||p_unidad||''' ';
-        End If;
-
-        If p_sede<>'' Then
-         v_where:=v_where||'And t2.id_sede = '''||p_sede||''' ';
-        End If;
-
-        If p_condicion_laboral<>'' Then
-         v_where:=v_where||'And t2.id_condicion_laboral = '''||p_condicion_laboral||''' ';
-        End If;
-
-        EXECUTE ('SELECT count(1) '||v_tabla||v_where) INTO v_count;
-        v_col_count:=' ,'||v_count||' as TotalRows ';
-
-        If v_count::Integer > p_limit::Integer then
-                v_scad:='SELECT '||v_campos||v_col_count||v_tabla||v_where||' Order By fecha_dias asc, t1.id desc LIMIT '||p_limit||' OFFSET '||p_pagina||';';
-        else
-                v_scad:='SELECT '||v_campos||v_col_count||v_tabla||v_where||' Order By fecha_dias asc, t1.id desc;';
-        End If;
-
-        Open p_ref For Execute(v_scad);
-        Return p_ref;
-End
+    RETURN p_ref;
+END
 $function$;

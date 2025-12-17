@@ -2,17 +2,17 @@
 //jQuery.noConflict(true);
 
 $(document).ready(function () {
-	
+
 	$('#btnPapeleta').click(function () {
 		modalPapeleta(0);
 	});
-	
+
 	$('#persona').keyup(function() {
 		this.value = this.value.toLocaleUpperCase();
 	});
-	
+
 	$('#persona').focusin(function() { $('#persona').select(); });
-	
+
 	$('#persona').autocomplete({
 		appendTo: "#persona_busqueda",
 		open: function() { $('#persona').autocomplete("widget").width(300)  },
@@ -24,7 +24,7 @@ $(document).ready(function () {
 			var resp = $.map(data,function(obj){
 					var hash = {key: obj.id_persona, key1: obj.id_ubicacion, value: obj.persona, value1:obj.razon_social};
 					return hash;
-			}); 
+			});
 			response(resp);
 			},
 			error: function() {
@@ -39,30 +39,30 @@ $(document).ready(function () {
 		},
 			minLength: 2,
 			delay: 100
-	});		
-	
-	
-	
+	});
+
+
+
 	$('#btnBuscar').click(function () {
 		fn_ListarBusqueda();
 	});
-	
+
 	$('#btnNuevo').click(function () {
 		modalPersona(0);
 	});
-		
+
 	datatablenew();
-	
+
 	$("#plan_id").select2();
 	$("#ubicacion_id").select2();
-	
+
 	$('#fecha_inicio').datepicker({
         autoclose: true,
 		dateFormat: 'dd/mm/yy',
 		changeMonth: true,
 		changeYear: true,
     });
-	
+
 	//$("#fecha_vencimiento").datepicker($.datepicker.regional["es"]);
 	$('#fecha_vencimiento').datepicker({
         autoclose: true,
@@ -70,7 +70,7 @@ $(document).ready(function () {
 		changeMonth: true,
 		changeYear: true,
     });
-	
+
 	$('#fecha_ini').datepicker({
 		autoclose: true,
 		format: 'dd/mm/yyyy',
@@ -180,14 +180,14 @@ function habiliarTitular(){
 }
 
 function guardarAfiliacion(){
-    
+
     var msg = "";
     var persona_id = $('#persona_id').val();
     var titular_id = $('#titular_id').val();
 	var plan_id = $('#plan_id').val();
 	var fecha_inicio = $('#fecha_inicio').val();
 	var fecha_vencimiento = $('#fecha_vencimiento').val();
-	
+
 	if(persona_id == "")msg += "Debe ingresar el Numero de Documento <br>";
 	if(!$("#chkTitular").is(':checked')) {
     	if(titular_id == "")msg += "Debe ingresar el Numero de Documento del Titular<br>";
@@ -204,20 +204,20 @@ function guardarAfiliacion(){
 	}
 	*/
 
-	
+
     if(msg!=""){
-        bootbox.alert(msg); 
+        bootbox.alert(msg);
         return false;
     }
     else{
         fn_save();
 	}
-	
+
 	//fn_save();
 }
 
 function fn_save_(){
-    
+
     //var fecha_atencion_original = $('#fecha_atencion').val();
 	//var id_user = $('#id_user').val();
     $.ajax({
@@ -225,7 +225,7 @@ function fn_save_(){
             type: "POST",
             //data : $("#frmCita").serialize()+"&id_medico="+id_medico+"&fecha_cita="+fecha_cita,
             data : $("#frmAfiliacion").serialize(),
-            success: function (result) {  
+            success: function (result) {
                     /*$('#openOverlayOpc').modal('hide');
 					$('#calendar').fullCalendar("refetchEvents");
 					modalDelegar(fecha_atencion_original);*/
@@ -243,9 +243,9 @@ function validaTipoDocumento(){
 	$('#empresa_afiliado').val("");
 	$('#empresa_direccion').val("");
 	$('#empresa_representante').val("");
-	$('#codigo_afiliado').val("");	
+	$('#codigo_afiliado').val("");
 	$('#fecha_afiliado').val("");
-				
+
 	if(tipo_documento == "RUC"){
 		$('#divNombreApellido').hide();
 		$('#divCodigoAfliado').hide();
@@ -264,19 +264,19 @@ function validaTipoDocumento(){
 
 
 function obtenerPersona(){
-		
+
 	var tipo_documento = $("#tipo_documento").val();
 	var numero_documento = $("#numero_documento").val();
 	var msg = "";
-	
+
 	if (msg != "") {
 		bootbox.alert(msg);
 		return false;
 	}
-	
+
 	//$('#empresa_id').val("");
 	$('#persona_id').val("");
-	
+
 	$.ajax({
 		url: '/persona/obtener_persona/' + tipo_documento + '/' + numero_documento,
 		dataType: "json",
@@ -299,25 +299,25 @@ function obtenerPersona(){
 			alert("Persona no encontrada en la Base de Datos.");
 			$('#personaModal').modal('show');
 		}
-		
+
 	});
-	
+
 }
 
 function obtenerTitularActual(tipo_documento,numero_documento){
-		
+
 	//var tipo_documento = $("#tipo_documento_tit").val();
 	//var numero_documento = $("#numero_documento_tit").val();
 	var msg = "";
-	
+
 	if (msg != "") {
 		bootbox.alert(msg);
 		return false;
 	}
-	
+
 	//$('#empresa_id').val("");
 	$('#titular_id').val("");
-	
+
 	$.ajax({
 		url: '/persona/obtener_persona/' + tipo_documento + '/' + numero_documento,
 		dataType: "json",
@@ -330,25 +330,25 @@ function obtenerTitularActual(tipo_documento,numero_documento){
 			alert("Persona no encontrada en la Base de Datos.");
 			$('#personaTitularModal').modal('show');
 		}
-		
+
 	});
-	
+
 }
 
 function obtenerTitular(){
-		
+
 	var tipo_documento = $("#tipo_documento_tit").val();
 	var numero_documento = $("#numero_documento_tit").val();
 	var msg = "";
-	
+
 	if (msg != "") {
 		bootbox.alert(msg);
 		return false;
 	}
-	
+
 	//$('#empresa_id').val("");
 	$('#titular_id').val("");
-	
+
 	$.ajax({
 		url: '/persona/obtener_persona/' + tipo_documento + '/' + numero_documento,
 		dataType: "json",
@@ -361,18 +361,18 @@ function obtenerTitular(){
 			alert("Persona no encontrada en la Base de Datos.");
 			$('#personaTitularModal').modal('show');
 		}
-		
+
 	});
-	
+
 }
 
 function obtenerPlanDetalle(){
-	
+
 	var plan_costo = $('#plan_id option:selected').attr("plan_costo");
 	var periodo = $('#plan_id option:selected').attr("periodo");
 	$('#plan_costo').val(plan_costo);
 	$('#periodo').val(periodo);
-	
+
 	var id = $('#plan_id').val();
 	$.ajax({
 		url: '/supervision/obtener_plan_detalle/'+id,
@@ -386,22 +386,22 @@ function obtenerPlanDetalle(){
 			});
 			$('#tblPlan tbody').html(option);
 		}
-		
+
 	});
-	
+
 }
 
 /*
 function cargarAlquiler(){
-    
+
     var empresa_id = $('#empresa_id').val();
 	if(empresa_id == "")empresa_id=0;
-	
+
     $("#tblAlquiler tbody").html("");
 	$.ajax({
 			url: "/alquiler/obtener_alquiler/"+empresa_id,
 			type: "GET",
-			success: function (result) {  
+			success: function (result) {
 					$("#tblAlquiler tbody").html(result);
 					//$('#tblAlquiler').dataTable();
 			}
@@ -411,14 +411,14 @@ function cargarAlquiler(){
 
 
 function cargarDevolucion(){
-    
-    
+
+
     var numero_documento = $("#numero_documento").val();
     $("#tblPago tbody").html("");
 	$.ajax({
 			url: "/alquiler/obtener_devolucion/"+numero_documento,
 			type: "GET",
-			success: function (result) {  
+			success: function (result) {
 					$("#tblDevolucion tbody").html(result);
 			}
 	});
@@ -517,16 +517,16 @@ function datatablenew(){
             var sEcho           = aoData[0].value;
             var iNroPagina 	= parseFloat(fn_util_obtieneNroPagina(aoData[3].value, aoData[4].value)).toFixed();
             var iCantMostrar 	= aoData[4].value;
-			
-			var id_area_trabajo = $('#id_area_trabajo_').val(); 
-			var id_unidad_trabajo = $('#id_unidad_trabajo_').val(); 
-			var id_persona = $('#id_persona_bus').val(); 
+
+			var id_area_trabajo = $('#id_area_trabajo_').val();
+			var id_unidad_trabajo = $('#id_unidad_trabajo_').val();
+			var id_persona = $('#id_persona_bus').val();
 			var anio = $('#anio').val();
 			var mes = $('#mes').val();
 			var fecha_ini = $('#fecha_ini').val();
 			var fecha_fin = $('#fecha_fin').val();
             var id_sede = $('#id_sede_').val();
-			var id_condicion_laboral = $('#id_condicion_laboral_').val(); 
+			var id_condicion_laboral = $('#id_condicion_laboral_').val();
             var estado = $('#estado').val();
 			var _token = $('#_token').val();
             oSettings.jqXHR = $.ajax({
@@ -549,7 +549,7 @@ function datatablenew(){
             });
         },
 		"fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-			
+
 			var fech_marc_rel = "";
 			var fech_sali_rel = "";
 			var tiempo_programado = "";
@@ -557,39 +557,34 @@ function datatablenew(){
 			var tiempo_trabajado_total = "";
 			var estado="";
 			var flag_labo_dtu = "";
-			
+			var es_feriado= "";
+
 			if(aData.fech_marc_rel!= null)fech_marc_rel = aData.fech_marc_rel;
 			if(aData.fech_sali_rel!= null)fech_sali_rel = aData.fech_sali_rel;
 			if(aData.tiempo_programado!= null)tiempo_programado = aData.tiempo_programado;
 			if(aData.tiempo_trabajado!= null)tiempo_trabajado = aData.tiempo_trabajado;
 			if(aData.tiempo_trabajado_total!= null)tiempo_trabajado_total = aData.tiempo_trabajado_total;
 			if(aData.flag_labo_dtu!= null)flag_labo_dtu = aData.flag_labo_dtu;
-			
+
 			if(fech_marc_rel!="" && fech_sali_rel!="" && tiempo_trabajado_total >= tiempo_programado)estado="Ok";
 			if(fech_marc_rel!="" && fech_sali_rel!="" && tiempo_programado > tiempo_trabajado_total)estado="Abandono";
 			if(fech_marc_rel=="" || fech_sali_rel=="" )estado="Observado";
-			
-			if(fech_marc_rel=="" && fech_sali_rel=="" && flag_labo_dtu=='N')estado=""; 
-			
+
+			if(fech_marc_rel=="" && fech_sali_rel=="" && flag_labo_dtu=='N')estado="";
+
 			if (estado == "Ok") {
 				$('td', nRow).addClass('verde_claro');
-			}
-			
-			if (estado == "Abandono") {
+			}else if (estado == "Abandono" || aData.es_feriado==1) {
 				$('td', nRow).addClass('amarillo');
-			}
-			if (estado == "Observado") {
+			}else if (estado == "Observado") {
+				$('td', nRow).addClass('rojo');
+			}else{
 				$('td', nRow).addClass('rojo');
 			}
-			
-			if (estado == "") {
-				$('td', nRow).addClass('rojo');
-			}
-			
-			
+
 		},
         "aoColumnDefs":
-            [	
+            [
 			 	/*
 				{
 					"mRender": function (data, type, row) {
@@ -693,7 +688,7 @@ function datatablenew(){
 					"bSortable": false,
 					"aTargets": [8]
                 },
-				
+
 				{
 					"mRender": function (data, type, row) {
 						var fech_marc_rel = "";
@@ -703,7 +698,7 @@ function datatablenew(){
 					"bSortable": false,
 					"aTargets": [9]
                 },
-				
+
 				{
 					"mRender": function (data, type, row) {
 						var hora_entr_rel = "";
@@ -713,7 +708,7 @@ function datatablenew(){
 					"bSortable": false,
 					"aTargets": [10]
                 },
-				
+
                 {
 					"mRender": function (data, type, row) {
 						var fech_sali_rel = "";
@@ -723,7 +718,7 @@ function datatablenew(){
 					"bSortable": false,
 					"aTargets": [11]
                 },
-				
+
                 {
 					"mRender": function (data, type, row) {
 						var hora_sali_rel = "";
@@ -769,18 +764,18 @@ function datatablenew(){
 						var tiempo_trabajado_total = "";
 						var estado="";
 						var flag_labo_dtu = "";
-						
+
 						if(row.fech_marc_rel!= null)fech_marc_rel = row.fech_marc_rel;
 						if(row.fech_sali_rel!= null)fech_sali_rel = row.fech_sali_rel;
 						if(row.tiempo_programado!= null)tiempo_programado = row.tiempo_programado;
 						if(row.tiempo_trabajado!= null)tiempo_trabajado = row.tiempo_trabajado;
 						if(row.tiempo_trabajado_total!= null)tiempo_trabajado_total = row.tiempo_trabajado_total;
 						if(row.flag_labo_dtu!= null)flag_labo_dtu = row.flag_labo_dtu;
-						
+
 						if(fech_marc_rel!="" && fech_sali_rel!="" && tiempo_trabajado_total >= tiempo_programado)estado="Ok";
 						if(fech_marc_rel!="" && fech_sali_rel!="" && tiempo_programado > tiempo_trabajado_total)estado="Abandono";
 						if(fech_marc_rel=="" || fech_sali_rel=="" )estado="Observado";
-						if(fech_marc_rel=="" && fech_sali_rel=="" && flag_labo_dtu=='N')estado=""; 
+						if(fech_marc_rel=="" && fech_sali_rel=="" && flag_labo_dtu=='N')estado="";
 						return estado;
 					},
 					"bSortable": false,
@@ -805,7 +800,7 @@ function datatablenew(){
 					},
 					"bSortable": false,
 					"aTargets": [17]
-                },	
+                },
 				{
 					"mRender": function (data, type, row) {
 						var hora_permiso = "";
@@ -823,46 +818,46 @@ function datatablenew(){
 					},
 					"bSortable": false,
 					"aTargets": [19]
-                },											
+                },
 				{
                 "mRender": function (data, type, row) {
-					
+
 					var html = '';
 					if(row.id_deta_operacion!=null){
 						var html = '<div class="btn-group btn-group-sm" role="group" aria-label="Log Viewer Actions">';
 						html += '<button style="font-size:12px" type="button" class="btn btn-sm btn-info" data-toggle="modal" onclick="modalPapeleta('+row.id_deta_operacion+')" ><i class="fa fa-eye"></i> Ver </button>';
 						html += '</div>';
 					}
-	
+
 					return html;
 					},
 					"bSortable": false,
 					"aTargets": [20],
                 },
 				{
-                "mRender": function (data, type, row) {					
+                "mRender": function (data, type, row) {
 					var html = '';
 					if(row.fech_marc_rel!= null){
 						var html = '<div class="btn-group btn-group-sm" role="group" aria-label="Log Viewer Actions">';
 						html += '<button style="font-size:12px" type="button" class="btn btn-sm btn-success" data-toggle="modal" onclick="modalAsistencia('+row.id_asistencia+')" ><i class="fa fa-edit"></i> Editar</button>';
 						html += '</div>';
 					}
-	
+
 					return html;
 					},
 					"bSortable": false,
 					"aTargets": [21],
                 },
-				
+
 				{
-                "mRender": function (data, type, row) {					
+                "mRender": function (data, type, row) {
 					var html = '';
 					if(row.fecha_dias!= null){
 						var html = '<div class="btn-group btn-group-sm" role="group" aria-label="Log Viewer Actions">';
 						html += '<button style="font-size:12px" type="button" class="btn btn-sm btn-warning" data-toggle="modal" onclick=modalZktecoLog("'+row.fecha_dias+'","'+row.numero_documento+'") ><i class="fa fa-edit"></i> Detalle Zkteco</button>';
 						html += '</div>';
 					}
-	
+
 					return html;
 					},
 					"bSortable": false,
@@ -877,14 +872,14 @@ function fn_ListarBusqueda() {
 };
 
 function modalPersona(id){
-	
+
 	$(".modal-dialog").css("width","85%");
 	$('#openOverlayOpc .modal-body').css('height', 'auto');
 
 	$.ajax({
 			url: "/persona/modal_persona/"+id,
 			type: "GET",
-			success: function (result) {  
+			success: function (result) {
 					$("#diveditpregOpc").html(result);
 					$('#openOverlayOpc').modal('show');
 			}
@@ -894,7 +889,7 @@ function modalPersona(id){
 
 
 function eliminarPersona(id,estado){
-	
+
 	var act_estado = "";
 	//var eliminado = "";
 	if(estado==1){
@@ -907,9 +902,9 @@ function eliminarPersona(id,estado){
 		estado_=1;
 		//eliminado = "N";
 	}
-    bootbox.confirm({ 
+    bootbox.confirm({
         size: "small",
-        message: "&iquest;Deseas "+act_estado+" la Persona?", 
+        message: "&iquest;Deseas "+act_estado+" la Persona?",
         callback: function(result){
             if (result==true) {
                 fn_eliminar_persona(id,act_estado);
@@ -920,7 +915,7 @@ function eliminarPersona(id,estado){
 }
 
 function fn_eliminar_persona(id,estado){
-	
+
     $.ajax({
             url: "/persona/eliminar_personad/"+id+"/"+estado,
             type: "GET",
@@ -932,17 +927,17 @@ function fn_eliminar_persona(id,estado){
 }
 
 function obtenerUnidad(){
-	
+
 	var id = $('#id_area_trabajo_').val();
 	if(id=="")return false;
 	//$('#ubigeodireccionprincipal').attr("disabled",true);
-	
+
 	var msgLoader = "";
 	msgLoader = "Procesando, espere un momento por favor";
 	var heightBrowser = $(window).width()/2;
 	$('.loader').css("opacity","0.8").css("height",heightBrowser).html("<div id='Grd1_wrapper' class='dataTables_wrapper'><div id='Grd1_processing' class='dataTables_processing panel-default'>"+msgLoader+"</div></div>");
     $('.loader').show();
-	
+
 	$.ajax({
 		url: '/unidad/obtener_unidad/'+id,
 		dataType: "json",
@@ -954,23 +949,23 @@ function obtenerUnidad(){
 			});
 			$('#id_unidad_trabajo_').html(option);
 			$('#id_unidad_trabajo_').select2();
-			
+
 			$('#id_unidad_trabajo_').attr("disabled",false);
 			$('.loader').hide();
-			
+
 		}
-	});	
+	});
 }
 
 function modalPapeleta(id){
-	
+
 	$(".modal-dialog").css("width","85%");
 	$('#openOverlayOpc .modal-body').css('height', 'auto');
 
 	$.ajax({
 			url: "/papeleta/modal_papeleta/"+id,
 			type: "GET",
-			success: function (result) {  
+			success: function (result) {
 					$("#diveditpregOpc").html(result);
 					$('#openOverlayOpc').modal('show');
 			}
@@ -979,14 +974,14 @@ function modalPapeleta(id){
 }
 
 function modalAsistencia(id){
-	
+
 	$(".modal-dialog").css("width","85%");
 	$('#openOverlayOpc .modal-body').css('height', 'auto');
 
 	$.ajax({
 			url: "/asistencia/modal_asistencia/"+id,
 			type: "GET",
-			success: function (result) {  
+			success: function (result) {
 					$("#diveditpregOpc").html(result);
 					$('#openOverlayOpc').modal('show');
 			}
@@ -995,14 +990,14 @@ function modalAsistencia(id){
 }
 
 function modalZktecoLog(fecha,numero_documento){
-	
+
 	$(".modal-dialog").css("width","85%");
 	$('#openOverlayOpc .modal-body').css('height', 'auto');
 
 	$.ajax({
 			url: "/asistencia/modal_zkteco_log/"+fecha+'/'+numero_documento,
 			type: "GET",
-			success: function (result) {  
+			success: function (result) {
 					$("#diveditpregOpc").html(result);
 					$('#openOverlayOpc').modal('show');
 			}
@@ -1011,7 +1006,7 @@ function modalZktecoLog(fecha,numero_documento){
 }
 
 function asistenciaAutomatico(){
-    
+
 	var msgLoader = "";
 	msgLoader = "Procesando, espere un momento por favor";
 	var heightBrowser = $(window).width()/2;
@@ -1023,7 +1018,7 @@ function asistenciaAutomatico(){
 	$.ajax({
 			url: "/asistencia/asistencia_automatico/"+fecha,
 			type: "GET",
-			success: function (result) {  
+			success: function (result) {
 					$('.loader').hide();
 					datatablenew();
 			}
@@ -1033,9 +1028,9 @@ function asistenciaAutomatico(){
 
 function descargarReporteExcel(){
 
-	var id_area_trabajo = $('#id_area_trabajo_').val(); 
-	var id_unidad_trabajo = $('#id_unidad_trabajo_').val(); 
-	var id_persona = $('#id_persona_bus').val(); 
+	var id_area_trabajo = $('#id_area_trabajo_').val();
+	var id_unidad_trabajo = $('#id_unidad_trabajo_').val();
+	var id_persona = $('#id_persona_bus').val();
 	var anio = $('#anio').val();
 	var mes = $('#mes').val();
 	var fecha_ini = $('#fecha_ini').val();
@@ -1054,6 +1049,6 @@ function descargarReporteExcel(){
 	if (id_sede == "")id_sede = "0";
 	if (id_condicion_laboral == "")id_condicion_laboral = "0";
 	if (estado == "")estado = "0";
-	
+
 	location.href = '/asistencia/exportar_listar_reporte_asistencia/'+id_area_trabajo+'/'+id_unidad_trabajo+'/'+id_persona+'/'+anio+'/'+mes+'/'+fecha_ini+'/'+fecha_fin+'/'+id_sede+'/'+id_condicion_laboral+'/'+estado;
 }
