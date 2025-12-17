@@ -81,6 +81,12 @@
                                 :text="__('Enterprise Management')"
                                 :active="activeClass(Route::is('admin.auth.role.*'), 'c-active')" />
                         </li>
+                        <li class="c-sidebar-nav-item">
+                            <x-utils.link
+                                :href="route('admin.auth.sede.index')"
+                                class="c-sidebar-nav-link"
+                                :text="__('Headquarters Management')"
+                                :active="activeClass(Route::is('admin.auth.role.*'), 'c-active')" />
                     @endif
                 </ul>
             </li>

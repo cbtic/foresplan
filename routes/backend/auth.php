@@ -11,6 +11,7 @@ use App\Domains\Auth\Http\Controllers\Backend\User\UserSessionController;
 use App\Domains\Auth\Models\Role;
 use App\Domains\Auth\Models\User;
 use Tabuna\Breadcrumbs\Trail;
+use App\Domains\Auth\Http\Controllers\Backend\Sede\SedeController;
 
 // All route names are prefixed with 'admin.auth'.
 Route::group([
@@ -211,5 +212,18 @@ Route::group([
             Route::patch('/', [EmpresaController::class, 'update'])->name('update');
             Route::delete('/', [EmpresaController::class, 'destroy'])->name('destroy');
         });
+    });
+
+    Route::group([
+      'prefix' => 'sede',
+      'as' => 'sede.',
+      'middleware' => 'role:'.config('boilerplate.access.role.admin'),
+    ], function () {
+      Route::get('/', [SedeController::class, 'index'])->name('index');
+      Route::get('create', [SedeController::class, 'create'])->name('create');
+      Route::post('/', [SedeController::class, 'store'])->name('store');
+      Route::get('{sede}/edit', [SedeController::class, 'edit'])->name('edit');
+      Route::patch('{sede}', [SedeController::class, 'update'])->name('update');
+      Route::delete('{sede}', [SedeController::class, 'destroy'])->name('destroy');
     });
 });
