@@ -30,4 +30,9 @@ class Sede extends Model
         return $this->belongsToMany(Role::class, 'role_sede')
             ->withTimestamps();
     }
+
+    public static function allOrdered()
+    {
+        return static::orderBy('denominacion')->get();
+    }
 }

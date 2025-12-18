@@ -61,10 +61,10 @@
         cursor: move;
     }
 	/*
-    #global {        
-        width: 95%;        
-        margin: 15px 15px 15px 15px;     
-        height: 380px !important;        
+    #global {
+        width: 95%;
+        margin: 15px 15px 15px 15px;
+        height: 380px !important;
         border: 1px solid #ddd;
         overflow-y: scroll !important;
     }
@@ -77,7 +77,7 @@
        /* background: #f1f1f1;*/
         /*overflow-y: scroll !important;*/
     }
-	
+
     .margin{
 
         margin-bottom: 20px;
@@ -92,12 +92,12 @@
         padding: 0 10px;
     }*/
     .clickable{
-        cursor: pointer;   
+        cursor: pointer;
     }
 
     /*.panel-heading div {
         margin-top: -18px;
-        font-size: 15px;        
+        font-size: 15px;
     }
     .panel-heading div span{
         margin-left:5px;
@@ -105,7 +105,7 @@
     .panel-body{
         display: block;
     }
-	
+
 	.dataTables_filter {
 	   display: none;
 	}
@@ -114,18 +114,18 @@
 		width: 100%;
 		height: 100%;
 		/*height: 1500px;*/
-		overflow: hidden; 
+		overflow: hidden;
 		top: 0px;
 		left: 0px;
 		z-index: 10000;
 		text-align: center;
-		position:absolute; 
+		position:absolute;
 		background-color: #000;
 		opacity:0.6;
 		filter:alpha(opacity=40);
 		display:none;
 	}
-	
+
 	.dataTables_processing {
 		position: absolute;
 		top: 400px!important;
@@ -164,7 +164,7 @@
     </ol>
     -->
     <div class="justify-content-center">
-        
+
         <div class="card">
 
         <div class="card-body">
@@ -178,7 +178,7 @@
             </div>
 
         <div class="row justify-content-center">
-        
+
         <div class="col col-sm-12 align-self-center">
 
             <div class="card">
@@ -187,51 +187,60 @@
                         Listar Asistencia
                     </strong>
                 </div><!--card-header-->
-				
+
 				<form class="form-horizontal" method="post" action="{{ route('frontend.persona')}}" id="frmMantenimiento" autocomplete="off">
-				
+
 				<input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
 				<input type="hidden" name="id_persona_bus" id="id_persona_bus" value="">
-				
+
 				<div class="row" style="padding:20px 20px 0px 20px;">
-					
+
 					<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
 						<select class="form-control form-control-sm" id="id_sede_" name="id_sede_" onChange="">
 							<option value="">Seleccion Sede</option>
-							<?php 
+							<?php
 							if($sedes!=""){
+                $user = auth()->user();
+                $sedes = $user->sedesFromRoles();
+                $selectedSedeId = null;
+                if ($sedes->count() === 1) {
+                  $selectedSedeId = $sedes->first()->id;
+                }
 								foreach ($sedes as $row) {?>
-								<option value="<?php echo $row->id?>"><?php echo $row->denominacion?></option>
-							<?php 
-								} 
-							}
-							?>
+                  <option value="<?php echo $row->id?>"
+                    <?php echo ($selectedSedeId === $row->id) ? 'selected' : '' ?>>
+                    <?php echo $row->denominacion?>
+                  </option>
+							  <?php
+								}
+					  	}
+						  ?>
 						</select>
 					</div>
 
 					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 						<select class="form-control form-control-sm" id="id_condicion_laboral_" name="id_condicion_laboral_" onChange="">
 							<option value="">- Seleccione Condici&oacute;n Laboral -</option>
-							<?php 
+							<?php
 							if($condicion_laboral!=""){
 								foreach ($condicion_laboral as $row) {?>
 								<option value="<?php echo $row->id?>"><?php echo $row->denominacion?></option>
-							<?php 
-								} 
+							<?php
+								}
 							}
 							?>
 						</select>
 					</div>
-					
+
 					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 						<select class="form-control form-control-sm" id="id_area_trabajo_" name="id_area_trabajo_" onChange="obtenerUnidad()">
 							<option value="">- Seleccione Area -</option>
-							<?php 
+							<?php
 							if($area_trabajo!=""){
 								foreach ($area_trabajo as $row) {?>
 								<option value="<?php echo $row->id?>"><?php echo $row->denominacion?></option>
-							<?php 
-								} 
+							<?php
+								}
 							}
 							?>
 						</select>
@@ -241,13 +250,13 @@
 							<option value="">Selec. Unidad</option>
 						</select>
 					</div>
-					
-						
+
+
 					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 						<input class="form-control form-control-sm" id="persona" name="persona" placeholder="Apellidos y Nombres">
 						<div id="persona_busqueda" style="position: absolute;z-index: 100;background-color:#ffffff;width: 400px;"></div>
 					</div>
-					
+
 					<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
 						<select class="form-control form-control-sm" id="anio" name="anio" >
 							<?php for($i=2020;$i<=date("Y");$i++){?>
@@ -262,7 +271,7 @@
 							<?php }?>
 						</select>
 					</div>
-					
+
 					<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
 						<select name="estado" id="estado" class="form-control form-control-sm">
 							<option value="">Todos</option>
@@ -305,11 +314,11 @@
 					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-right:0px;padding-top:30px">
 						<input class="btn btn-danger pull-rigth" value="Procesar" type="button" id="btnProcesar" onclick="asistenciaAutomatico()" />
 					</div>
-					
+
 					@endhasanyrole
 
 				</div>
-				
+
                 <div class="card-body">
 
                     <div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
@@ -349,7 +358,7 @@
                         </tbody>
                     </table>
                 </div><!--table-responsive-->
-				
+
 				</form>
 
 
@@ -365,17 +374,17 @@
   <div class="modal-dialog" >
 
 	<div id="id_content_OverlayoneOpc" class="modal-content" style="padding: 0px;margin: 0px">
-	
+
 	  <div class="modal-body" style="padding: 0px;margin: 0px">
 
 			<div id="diveditpregOpc"></div>
 
 	  </div>
-	
+
 	</div>
 
   </div>
-	
+
 </div>
 
 @push('after-scripts')

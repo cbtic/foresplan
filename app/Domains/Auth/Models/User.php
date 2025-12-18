@@ -170,4 +170,21 @@ class User extends Authenticatable implements MustVerifyEmail, TwoFactorAuthenti
         return $this->belongsToMany(\App\Models\UbicacionTrabajo::class);
     }
 
+    public function sedesFromRoles()
+    {
+        // Si es admin, todas las sedes
+        if ($this->hasRole('Administrator')) {
+            return Sede::orderBy('denominacion')->get();
+        }
+
+        // Caso normal: sedes asociadas a sus roles
+        return $this->roles()          // relación many-to-many con Role
+            ->with('sedes')            // carga sedes de cada rol
+            ->get()
+            ->pluck('sedes')           // colección de colecciones
+            ->flatten()                // plano
+            ->unique('id')             // sin duplicados
+            ->values();                // reindexar
+    }
+
 }

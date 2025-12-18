@@ -7,6 +7,7 @@ use App\Models\Asistencia;
 use Illuminate\Http\Request;
 use App\Models\TablaUbicacione;
 use App\Models\Persona;
+use App\Domains\Auth\Models\Sede;
 use Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Concerns\FromArray;
@@ -39,7 +40,8 @@ class AsistenciaController extends Controller
 		$tabla_model = new TablaUbicacione;
 		$area_trabajo = $tabla_model->getTablaUbicacionAll("area_trabajos","1");
 		$condicion_laboral = $tabla_model->getTablaUbicacionAll("condicion_laborales","1");
-		$sedes = $tabla_model->getTablaUbicacionAll("sedes","1");
+		// $sedes = $tabla_model->getTablaUbicacionAll("sedes","1");
+    $sedes = Sede::allOrdered();
 
 		$meses[1]="ENERO";
 		$meses[2]="FEBRERO";

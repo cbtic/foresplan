@@ -13,6 +13,7 @@ use App\Models\Ubigeo;
 use App\Models\UnidadTrabajo;
 use App\Models\Contrato;
 use App\Models\PersonaContactoEmergencia;
+use App\Domains\Auth\Models\Sede;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Auth;
@@ -88,7 +89,8 @@ class PersonaController extends Controller
 		$nivel = $tabla_model->getTablaUbicacionAll("tniveles","1");
 		$moneda = $tabla_model->getTablaUbicacionAll("tipo_monedas","1");
 		$area_trabajo = $tabla_model->getTablaUbicacionAll("area_trabajos","1");
-		$sedes = $tabla_model->getTablaUbicacionAll("sedes","1");
+    // $sedes = $tabla_model->getTablaUbicacionAll("sedes","1");
+    $sedes = Sede::allOrdered();
 
 		$empresa_model = new Empresa();
 		$empresas = $empresa_model->getEmpresaAll("1");
