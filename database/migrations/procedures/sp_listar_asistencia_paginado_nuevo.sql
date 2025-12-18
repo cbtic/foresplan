@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION public.sp_listar_asistencia_paginado_nuevo(p_area character varying, p_unidad character varying, p_persona character varying, p_anio character varying, p_mes character varying, p_fecha_ini character varying, p_fecha_fin character varying, p_sede character varying, p_condicion_laboral character varying, p_estado character varying, p_pagina character varying, p_limit character varying, p_ref refcursor)
+CREATE OR REPLACE FUNCTION public.sp_listar_asistencia_paginado_nuevo(p_area character varying, p_unidad character varying, p_persona character varying, p_anio character varying, p_mes character varying, p_fecha_ini character varying, p_fecha_fin character varying, p_sede character varying, p_condicion_laboral character varying, p_id_user character varying, p_estado character varying, p_pagina character varying, p_limit character varying, p_ref refcursor)
  RETURNS refcursor
  LANGUAGE plpgsql
 AS $function$
@@ -10,6 +10,7 @@ v_tabla varchar;
 v_where varchar;
 v_count varchar;
 v_col_count varchar;
+v_id_rol_admin integer;
 
 v_fecha_desde varchar;
 v_fecha_hasta varchar;
@@ -17,6 +18,8 @@ v_fecha_hasta varchar;
 
 Begin
 
+	select role_id into v_id_rol_admin from model_has_roles mhr where mhr.model_id::varchar=p_id_user and mhr.role_id in ('1','4','5');
+	
 	v_fecha_desde=p_anio||'-'||p_mes||'-01';
 	--v_fecha_hasta='2021-10-31';
 	--v_fecha_hasta='2021-10-31';
@@ -166,6 +169,14 @@ Begin
 
 	If p_sede<>'' Then
 	 v_where:=v_where||'And t2.id_sede = '''||p_sede||''' ';
+	End If;
+
+	If v_id_rol_admin=4 Then 
+		v_where:=v_where||'And t2.id_sede = ''722'' ';
+	End If;
+
+	If v_id_rol_admin=5 Then 
+		v_where:=v_where||'And t2.id_sede = ''721'' ';
 	End If;
 
 	If p_condicion_laboral<>'' Then

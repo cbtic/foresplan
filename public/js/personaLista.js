@@ -67,6 +67,10 @@ $(document).ready(function () {
         } );
 	*/
 
+	$('#btnDescargar').on('click', function () {
+		descargarPersona();
+
+	});
 
 	$(function() {
 		$('#modalPersonaForm #apellido_paterno').keyup(function() {
@@ -728,5 +732,22 @@ function fn_eliminar_persona(id,estado){
 				datatablenew();
             }
     });
+}
+
+function descargarPersona(){
+	
+	var numero_documento = $('#numero_documento').val();
+	var persona = $('#persona').val();
+	var unidad_trabajo = $('#unidad_trabajo').val();
+	var empresa = $('#empresa').val();
+	var estado = $('#estado').val();
+
+	if (numero_documento == "")numero_documento = 0;
+	if (persona == "")persona = "0";
+	if (unidad_trabajo == "")unidad_trabajo = "0";
+	if (empresa == "")empresa = "0";
+	if (estado == "")estado = 0;
+	
+	location.href = '/persona/exportar_persona/'+numero_documento+'/'+persona+'/'+unidad_trabajo+'/'+empresa+'/'+estado;
 }
 
