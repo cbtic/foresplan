@@ -39,7 +39,7 @@ class PersonaController extends Controller
     }
 
     public function listar_persona_ajax(Request $request){
-		
+
 		$id_user = Auth::user()->id;
 
 		$persona_model = new Persona;
@@ -53,7 +53,7 @@ class PersonaController extends Controller
 		$p[]=$request->NumeroRegistros;
 		$data = $persona_model->listar_persona_ajax($p);
 		$iTotalDisplayRecords = isset($data[0]->totalrows)?$data[0]->totalrows:0;
-		
+
 		$result["PageStart"] = $request->NumeroPagina;
 		$result["pageSize"] = $request->NumeroRegistros;
 		$result["SearchText"] = "";
@@ -76,7 +76,7 @@ class PersonaController extends Controller
 		if($id>0) $persona_detalle = PersonaDetalle::where('id_persona', '=', $id)->first();else $persona_detalle = new PersonaDetalle;
 		//$persona_detalle = PersonaDetalle::where('id_persona', '=', $id)->where('estado', '=', 'A')->first();
 
-		$tabla_model = new TablaUbicacione;		
+		$tabla_model = new TablaUbicacione;
 		$profesiones = $tabla_model->getTablaUbicacionAll("tprofesiones","1");
 		$condLaboral = $tabla_model->getTablaUbicacionAll("condicion_laborales","1");
 		$tipPlanilla = $tabla_model->getTablaUbicacionAll("tplanillas","1");
@@ -90,7 +90,7 @@ class PersonaController extends Controller
 		$area_trabajo = $tabla_model->getTablaUbicacionAll("area_trabajos","1");
 		$sedes = $tabla_model->getTablaUbicacionAll("sedes","1");
 
-		$empresa_model = new Empresa();		
+		$empresa_model = new Empresa();
 		$empresas = $empresa_model->getEmpresaAll("1");
 
 		$ubigeo_model = new Ubigeo;
@@ -137,20 +137,20 @@ class PersonaController extends Controller
     }
 
     public function send_persona(Request $request){
-		
+
 		if($request->id == 0){
-			
+
 			$codigo=$request->codigo;
 			$telefono = $request->telefono;
 			$email = $request->email;
-			
+
 			if($codigo==""){
 				$array_tipo_documento = array('DNI' => 'DNI','CARNET_EXTRANJERIA' => 'CE','PASAPORTE' => 'PAS','RUC' => 'RUC','CEDULA' => 'CED','PTP/PTEP' => 'PTP/PTEP');
 				$codigo = $array_tipo_documento[$request->tipo_documento]."-".$request->numero_documento;
 			}
 			if($telefono=="")$telefono="999999999";
 			if($email=="")$email="mail@mail.com";
-			
+
 			$persona = new Persona;
 			$persona->tipo_documento = $request->tipo_documento;
 			$persona->numero_documento = $request->numero_documento;
@@ -185,7 +185,7 @@ class PersonaController extends Controller
 			$persona->save();
 		}
     }
-	
+
 	public function eliminar_persona($id,$estado)
     {
 		$persona = Persona::find($id);
@@ -203,13 +203,13 @@ class PersonaController extends Controller
 
 		if($persona) $persona_detalle = PersonaDetalle::where('id_persona', '=', $persona->id)->where('estado', '=', 'A')->first();
 		else $persona_detalle = new PersonaDetalle;
-		
+
 		$persona_model = new Persona;
 
 		if(!$persona){
-			
+
 			$sw = 3;//no existe
-				
+
 			$arrContextOptions=array(
 				"ssl"=>array(
 					"verify_peer"=>false,
@@ -233,12 +233,12 @@ class PersonaController extends Controller
 				$persona->save();
 
 				$persona = Persona::where('tipo_documento',$tipo_documento)->where('numero_documento',$numero_documento)->where('estado','A')->first();
-				
+
 
 				$sw = 2;//encontrado en Reniec
-			}		
+			}
 		}
-		
+
         $array["sw"] = $sw;
         $array["persona"] = $persona;
 		$array["persona_detalle"] = $persona_detalle;
@@ -248,7 +248,7 @@ class PersonaController extends Controller
 
 	public function getTipoDocumento($tipo){
         $codigo = "";
-		
+
         switch ($tipo) {
             case "DNI":
                 $codigo = "1";
@@ -264,7 +264,7 @@ class PersonaController extends Controller
             break;
             case "PTP/PTEP":
                 $codigo = "5";
-            break;                        
+            break;
             default:
             $codigo = "";
         }
@@ -272,10 +272,10 @@ class PersonaController extends Controller
         return $codigo;
 
     }
-	
+
 	public function getTipoDocumentoR($id){
         $tipo = "";
-		
+
         switch ($id) {
             case "1":
                 $tipo = "DNI";
@@ -291,7 +291,7 @@ class PersonaController extends Controller
             break;
             case "5":
                 $tipo = "PTP/PTEP";
-            break;                        
+            break;
             default:
             $tipo = "";
         }
@@ -307,13 +307,13 @@ class PersonaController extends Controller
     }
 
 	public function modal_persona_contrato($id_persona){
-		$tabla_model = new TablaUbicacione;		
+		$tabla_model = new TablaUbicacione;
 		$cargo = $tabla_model->getTablaUbicacionAll("tcargos","1");
-/*		
+/*
 		$maestra_model = new TablaMaestra;
 		$vacuna = $maestra_model->getMaestroByTipo('VACUNA');
 		$fabricante = $maestra_model->getMaestroByTipo('FABRICANTE');
-*/		
+*/
 		$persona_contrato_model = new Contrato;
 		$fecha_actual = $persona_contrato_model->fecha_actual();
 		$contrato = $persona_contrato_model->getContratoByPersona($id_persona);
@@ -336,7 +336,7 @@ class PersonaController extends Controller
 		*/
 		$id = 0;
 		return view('frontend.persona.modal_persona_contrato',compact('id','id_persona','fecha_actual','contrato','cargo'));
-	
+
 	}
 
 	public function modal_persona_contacto_emergencia($id_persona, $id){
@@ -349,20 +349,20 @@ class PersonaController extends Controller
 		if($buscar_persona_contacto_emergencia){
 			$id = $buscar_persona_contacto_emergencia->id;
 			$persona_contacto_emergencia = PersonaContactoEmergencia::find($id);
-			
+
 		}else{
 			$persona_contacto_emergencia = new PersonaContactoEmergencia;
 		}
-		
+
 		return view('frontend.persona.modal_persona_contacto_emergencia',compact('id','id_persona','persona_contacto_emergencia','vinculo'));
-	
+
 	}
-	
+
 	public function send_persona_contrato(Request $request){
-				
+
 		$personaContrato = new Contrato;
 		$personaContrato->id_persona = $request->id_persona;
-		
+
 		$personaContrato->fech_crea = $request->fech_crea;
 		$personaContrato->tipo_cont_con = $request->tipo_cont_con;
 		$personaContrato->nume_cont_con = $request->nume_cont_con;
@@ -388,11 +388,11 @@ class PersonaController extends Controller
 
 		if($request->id > 0){
 			$PersonaContactoEmergencia = PersonaContactoEmergencia::find($request->id);
-			
+
 		}else{
 			$PersonaContactoEmergencia = new PersonaContactoEmergencia;
 		}
-		
+
 		$PersonaContactoEmergencia->id_persona = $request->id_persona;
 		$PersonaContactoEmergencia->nombre_contacto = $request->nombre_contacto;
 		$PersonaContactoEmergencia->celular_contacto = $request->telefono_contacto;
@@ -400,7 +400,7 @@ class PersonaController extends Controller
 		$PersonaContactoEmergencia->estado = 1;
 		$PersonaContactoEmergencia->id_usuario_inserta = $id_user;
 		$PersonaContactoEmergencia->save();
-		
+
     }
 
 	public function create_contacto_emergencia()
@@ -409,7 +409,7 @@ class PersonaController extends Controller
     }
 
 	public function listar_persona_contacto_emergencia_ajax(Request $request){
-		
+
 		$persona_model = new Persona;
 		$p[]=$request->numero_documento;
 		$p[]=$request->persona;
@@ -418,7 +418,7 @@ class PersonaController extends Controller
 		$p[]=$request->NumeroRegistros;
 		$data = $persona_model->listar_persona_contacto_emergencia_ajax($p);
 		$iTotalDisplayRecords = isset($data[0]->totalrows)?$data[0]->totalrows:0;
-		
+
 		$result["PageStart"] = $request->NumeroPagina;
 		$result["pageSize"] = $request->NumeroRegistros;
 		$result["SearchText"] = "";
@@ -451,12 +451,12 @@ class PersonaController extends Controller
 		}else{
 			$tratodesc="DOÑA";
 		}
-		
+
 		$fecha_actual = Carbon::now()->format('d-m-Y');
-		
+
 		$pdf = Pdf::loadView('frontend.persona.contrato_pdf',compact('nombre','numero_documento','direccion','cargo','funciones','sueldo','numero_contrato','tratodesc','fecha_actual','fecha_inicio','fecha_cese'));
 		//$pdf->getDomPDF()->set_option("enable_php", true);
-		
+
 		//$pdf->setPaper('A4', 'landscape'); // Tamaño de papel (puedes cambiarlo según tus necesidades)
     	//$pdf->setOption('margin-top', 20); // Márgen superior en milímetros
    		//$pdf->setOption('margin-right', 50); // Márgen derecho en milímetros
@@ -464,7 +464,7 @@ class PersonaController extends Controller
     	//$pdf->setOption('margin-left', 100); // Márgen izquierdo en milímetros
 
 		return $pdf->stream();
-	
+
 	}
 
 	public function exportar_persona($numero_documento, $persona, $unidad_trabajo, $empresa, $estado) {
@@ -487,11 +487,11 @@ class PersonaController extends Controller
 		$p[]=1;
 		$p[]=10000;
 		$data = $persona_model->listar_persona_ajax($p);
-		
+
 		$variable = [];
 		$n = 1;
 		array_push($variable, array("N","Tipo Documento","Numero Documento","Nombres","Fecha Nacimiento","Genero", "Condicion Laboral", "Regimen Pensionario", "Unidad de Trabajo", "Empresa", "Estado", "Sueldo"));
-		
+
 		foreach ($data as $r) {
 
 			if($r->estado=='A'){$estado='ACTIVO';}
@@ -502,13 +502,13 @@ class PersonaController extends Controller
 
 			array_push($variable, array($n++, $r->tipo_documento, $r->numero_documento, $r->persona, $r->fecha_nacimiento, $sexo, $r->condicion_laboral, $r->regimen, $r->unidad_trabajo, $r->razon_social, $estado, $r->mont_cont_ctr));
 		}
-		
-		$export = new InvoicesExport([$variable]);
+
+		$export = new InvoicesExport2([$variable]);
 		return Excel::download($export, 'reporte_persona.xlsx');
     }
 }
 
-class InvoicesExport implements FromArray, WithHeadings, WithStyles
+class InvoicesExport2 implements FromArray, WithHeadings, WithStyles
 {
 	protected $invoices;
 
