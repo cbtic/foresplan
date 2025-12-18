@@ -16,10 +16,10 @@
         cursor: move;
     }
 	/*
-    #global {        
-        width: 95%;        
-        margin: 15px 15px 15px 15px;     
-        height: 380px !important;        
+    #global {
+        width: 95%;
+        margin: 15px 15px 15px 15px;
+        height: 380px !important;
         border: 1px solid #ddd;
         overflow-y: scroll !important;
     }
@@ -32,7 +32,7 @@
        /* background: #f1f1f1;*/
         /*overflow-y: scroll !important;*/
     }
-	
+
     .margin{
 
         margin-bottom: 20px;
@@ -47,12 +47,12 @@
         padding: 0 10px;
     }*/
     .clickable{
-        cursor: pointer;   
+        cursor: pointer;
     }
 
     /*.panel-heading div {
         margin-top: -18px;
-        font-size: 15px;        
+        font-size: 15px;
     }
     .panel-heading div span{
         margin-left:5px;
@@ -60,7 +60,7 @@
     .panel-body{
         display: block;
     }
-	
+
 	.dataTables_filter {
 	   display: none;
 	}
@@ -88,7 +88,7 @@
     </ol>
     -->
     <div class="justify-content-center">
-        
+
         <div class="card">
 
         <div class="card-body">
@@ -102,7 +102,7 @@
             </div>
 
         <div class="row justify-content-center">
-        
+
         <div class="col col-sm-12 align-self-center">
 
             <div class="card">
@@ -111,13 +111,13 @@
                         Lista de Personas
                     </strong>
                 </div><!--card-header-->
-				
+
 				<form class="form-horizontal" method="post" action="{{ route('frontend.persona')}}" id="frmMantenimiento" autocomplete="off">
-				
+
 				<input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
-				
+
 				<div class="row" style="padding:20px 20px 0px 20px;">
-				
+
 					<div class="col-lg-1 col-md-2 col-sm-12 col-xs-12">
 						<input class="form-control form-control-sm" id="numero_documento" name="numero_documento" placeholder="Numero de documento">
 					</div>
@@ -126,10 +126,10 @@
 					</div>
 					<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
 						<input class="form-control form-control-sm" id="unidad_trabajo" name="unidad_trabajo" placeholder="Unidad Trabajo">
-					</div>                    
+					</div>
 					<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
 						<input class="form-control form-control-sm" id="empresa" name="empresa" placeholder="Empresa">
-					</div>                    
+					</div>
 					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 						<select name="estado" id="estado" class="form-control form-control-sm">
 							<option value="">Todos</option>
@@ -147,11 +147,17 @@
                         @endhasanyrole
 					</div>
 				</div>
-				
+
                 <div class="card-body">
 
                     <div class="table-responsive">
-                    <table id="tblAfiliado" class="table table-hover table-sm">
+                        @php
+                            $user = auth()->user();
+                            $canSeeSalary=
+                                $user->hasRole('Administrator')
+                                ;
+                        @endphp
+                    <table id="tblAfiliado" class="table table-hover table-sm" data-salary="{{ $canSeeSalary ? 1 : 0 }}">
                         <thead>
                         <tr style="font-size:13px">
                             <th>Id</th>
@@ -165,17 +171,17 @@
                             <th>Unidad Trab.</th>
                             <th>Empresa</th>
                             <th>Estado</th>
-                            <th>Sueldo</th>
+                            <th>{{$canSeeSalary ? "Sueldo" : ""}}</th>
 							<th>Acciones</th>
                             <th width="5%">Contrato</th>
-							
+
 				        </tr>
                         </thead>
                         <tbody>
                         </tbody>
                     </table>
                 </div><!--table-responsive-->
-				
+
 				</form>
 
 
@@ -191,17 +197,17 @@
   <div class="modal-dialog" >
 
 	<div id="id_content_OverlayoneOpc" class="modal-content" style="padding: 0px;margin: 0px">
-	
+
 	  <div class="modal-body" style="padding: 0px;margin: 0px">
 
 			<div id="diveditpregOpc"></div>
 
 	  </div>
-	
+
 	</div>
 
   </div>
-	
+
 </div>
 
 @push('after-scripts')

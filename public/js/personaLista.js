@@ -2,27 +2,27 @@
 //jQuery.noConflict(true);
 
 $(document).ready(function () {
-	
+
 	$('#btnBuscar').click(function () {
 		fn_ListarBusqueda();
 	});
-	
+
 	$('#btnNuevo').click(function () {
 		modalPersona(0);
 	});
-		
+
 	datatablenew();
-	
+
 	$("#plan_id").select2();
 	$("#ubicacion_id").select2();
-	
+
 	$('#fecha_inicio').datepicker({
         autoclose: true,
 		dateFormat: 'dd/mm/yy',
 		changeMonth: true,
 		changeYear: true,
     });
-	
+
 	//$("#fecha_vencimiento").datepicker($.datepicker.regional["es"]);
 	$('#fecha_vencimiento').datepicker({
         autoclose: true,
@@ -30,7 +30,7 @@ $(document).ready(function () {
 		changeMonth: true,
 		changeYear: true,
     });
-	
+
 	/*
     $('#tblAlquiler').dataTable({
     	"language": {
@@ -116,14 +116,14 @@ function habiliarTitular(){
 }
 
 function guardarAfiliacion(){
-    
+
     var msg = "";
     var persona_id = $('#persona_id').val();
     var titular_id = $('#titular_id').val();
 	var plan_id = $('#plan_id').val();
 	var fecha_inicio = $('#fecha_inicio').val();
 	var fecha_vencimiento = $('#fecha_vencimiento').val();
-	
+
 	if(persona_id == "")msg += "Debe ingresar el Numero de Documento <br>";
 	if(!$("#chkTitular").is(':checked')) {
     	if(titular_id == "")msg += "Debe ingresar el Numero de Documento del Titular<br>";
@@ -140,20 +140,20 @@ function guardarAfiliacion(){
 	}
 	*/
 
-	
+
     if(msg!=""){
-        bootbox.alert(msg); 
+        bootbox.alert(msg);
         return false;
     }
     else{
         fn_save();
 	}
-	
+
 	//fn_save();
 }
 
 function fn_save_(){
-    
+
     //var fecha_atencion_original = $('#fecha_atencion').val();
 	//var id_user = $('#id_user').val();
     $.ajax({
@@ -161,7 +161,7 @@ function fn_save_(){
             type: "POST",
             //data : $("#frmCita").serialize()+"&id_medico="+id_medico+"&fecha_cita="+fecha_cita,
             data : $("#frmAfiliacion").serialize(),
-            success: function (result) {  
+            success: function (result) {
                     /*$('#openOverlayOpc').modal('hide');
 					$('#calendar').fullCalendar("refetchEvents");
 					modalDelegar(fecha_atencion_original);*/
@@ -179,9 +179,9 @@ function validaTipoDocumento(){
 	$('#empresa_afiliado').val("");
 	$('#empresa_direccion').val("");
 	$('#empresa_representante').val("");
-	$('#codigo_afiliado').val("");	
+	$('#codigo_afiliado').val("");
 	$('#fecha_afiliado').val("");
-				
+
 	if(tipo_documento == "RUC"){
 		$('#divNombreApellido').hide();
 		$('#divCodigoAfliado').hide();
@@ -200,19 +200,19 @@ function validaTipoDocumento(){
 
 
 function obtenerPersona(){
-		
+
 	var tipo_documento = $("#tipo_documento").val();
 	var numero_documento = $("#numero_documento").val();
 	var msg = "";
-	
+
 	if (msg != "") {
 		bootbox.alert(msg);
 		return false;
 	}
-	
+
 	//$('#empresa_id').val("");
 	$('#persona_id').val("");
-	
+
 	$.ajax({
 		url: '/persona/obtener_persona/' + tipo_documento + '/' + numero_documento,
 		dataType: "json",
@@ -235,25 +235,25 @@ function obtenerPersona(){
 			alert("Persona no encontrada en la Base de Datos.");
 			$('#personaModal').modal('show');
 		}
-		
+
 	});
-	
+
 }
 
 function obtenerTitularActual(tipo_documento,numero_documento){
-		
+
 	//var tipo_documento = $("#tipo_documento_tit").val();
 	//var numero_documento = $("#numero_documento_tit").val();
 	var msg = "";
-	
+
 	if (msg != "") {
 		bootbox.alert(msg);
 		return false;
 	}
-	
+
 	//$('#empresa_id').val("");
 	$('#titular_id').val("");
-	
+
 	$.ajax({
 		url: '/persona/obtener_persona/' + tipo_documento + '/' + numero_documento,
 		dataType: "json",
@@ -266,25 +266,25 @@ function obtenerTitularActual(tipo_documento,numero_documento){
 			alert("Persona no encontrada en la Base de Datos.");
 			$('#personaTitularModal').modal('show');
 		}
-		
+
 	});
-	
+
 }
 
 function obtenerTitular(){
-		
+
 	var tipo_documento = $("#tipo_documento_tit").val();
 	var numero_documento = $("#numero_documento_tit").val();
 	var msg = "";
-	
+
 	if (msg != "") {
 		bootbox.alert(msg);
 		return false;
 	}
-	
+
 	//$('#empresa_id').val("");
 	$('#titular_id').val("");
-	
+
 	$.ajax({
 		url: '/persona/obtener_persona/' + tipo_documento + '/' + numero_documento,
 		dataType: "json",
@@ -297,18 +297,18 @@ function obtenerTitular(){
 			alert("Persona no encontrada en la Base de Datos.");
 			$('#personaTitularModal').modal('show');
 		}
-		
+
 	});
-	
+
 }
 
 function obtenerPlanDetalle(){
-	
+
 	var plan_costo = $('#plan_id option:selected').attr("plan_costo");
 	var periodo = $('#plan_id option:selected').attr("periodo");
 	$('#plan_costo').val(plan_costo);
 	$('#periodo').val(periodo);
-	
+
 	var id = $('#plan_id').val();
 	$.ajax({
 		url: '/supervision/obtener_plan_detalle/'+id,
@@ -322,22 +322,22 @@ function obtenerPlanDetalle(){
 			});
 			$('#tblPlan tbody').html(option);
 		}
-		
+
 	});
-	
+
 }
 
 /*
 function cargarAlquiler(){
-    
+
     var empresa_id = $('#empresa_id').val();
 	if(empresa_id == "")empresa_id=0;
-	
+
     $("#tblAlquiler tbody").html("");
 	$.ajax({
 			url: "/alquiler/obtener_alquiler/"+empresa_id,
 			type: "GET",
-			success: function (result) {  
+			success: function (result) {
 					$("#tblAlquiler tbody").html(result);
 					//$('#tblAlquiler').dataTable();
 			}
@@ -347,14 +347,14 @@ function cargarAlquiler(){
 
 
 function cargarDevolucion(){
-    
-    
+
+
     var numero_documento = $("#numero_documento").val();
     $("#tblPago tbody").html("");
 	$.ajax({
 			url: "/alquiler/obtener_devolucion/"+numero_documento,
 			type: "GET",
-			success: function (result) {  
+			success: function (result) {
 					$("#tblDevolucion tbody").html(result);
 			}
 	});
@@ -453,7 +453,7 @@ function datatablenew(){
             var sEcho           = aoData[0].value;
             var iNroPagina 	= parseFloat(fn_util_obtieneNroPagina(aoData[3].value, aoData[4].value)).toFixed();
             var iCantMostrar 	= aoData[4].value;
-			
+
 			var numero_documento = $('#numero_documento').val();
             var persona = $('#persona').val();
 			var empresa = $('#empresa').val();
@@ -479,7 +479,7 @@ function datatablenew(){
         },
 
         "aoColumnDefs":
-            [	
+            [
 				{
 					"mRender": function (data, type, row) {
 						var id_pe = "";
@@ -491,7 +491,7 @@ function datatablenew(){
 					"className": "dt-center",
 					//"className": 'control'
                 },
-				
+
 				{
 					"mRender": function (data, type, row) {
 						var tipo_documento = "";
@@ -502,7 +502,7 @@ function datatablenew(){
 					"aTargets": [1],
 					"className": "dt-center",
 					//"className": 'control'
-					},				
+					},
 				{
 					"mRender": function (data, type, row) {
 						var numero_documento = "";
@@ -529,7 +529,7 @@ function datatablenew(){
 					},
 					"bSortable": false,
 					"aTargets": [4]
-                },				
+                },
 				{
 					"mRender": function (data, type, row) {
 						var sexo = "";
@@ -558,7 +558,7 @@ function datatablenew(){
 					"bSortable": false,
 					"aTargets": [7]
                 },
-														
+
                 {
 					"mRender": function (data, type, row) {
 						var unidad_trabajo = "";
@@ -567,7 +567,7 @@ function datatablenew(){
 					},
 					"bSortable": false,
 					"aTargets": [8]
-                },														
+                },
 
 				{
 					"mRender": function (data, type, row) {
@@ -591,12 +591,15 @@ function datatablenew(){
 				{
 					"mRender": function (data, type, row) {
 						var mont_cont_ctr = "";
-						if(row.mont_cont_ctr!= null)mont_cont_ctr = row.mont_cont_ctr;
-						return mont_cont_ctr;
+						var canSeeSalary = $('#tblAfiliado').data('salary');
+            if(canSeeSalary){
+              if(row.mont_cont_ctr!= null)mont_cont_ctr = row.mont_cont_ctr;
+              return mont_cont_ctr;
+            }else{ return '' }
 					},
 					"bSortable": false,
 					"aTargets": [11]
-                },				
+                },
 
 				{
                 "mRender": function (data, type, row) {
@@ -610,18 +613,18 @@ function datatablenew(){
 						estado = "Eliminar";
 						clase = "btn-danger";
 					}
-					
+
 					if(row.estado == 'C'){
 						estado = "Activar";
 						clase = "btn-success";
 					}
-					*/					
+					*/
 					var html = '<div class="btn-group btn-group-sm" role="group" aria-label="Log Viewer Actions">';
 					html += '<button style="font-size:12px" type="button" class="btn btn-sm btn-success" data-toggle="modal" onclick="modalPersona('+row.id_pe+')" ><i class="fa fa-edit"></i> Editar</button>';
 					html += '<button style="font-size:12px; margin-left:10px" type="button" class="btn btn-sm btn-warning" data-toggle="modal" onclick="modalContactoEmergencia('+row.id_pe+')" > Contacto Emergencia</button>';
 					html += '<a href="javascript:void(0)" onclick=eliminarPersona('+row.id_pd+','+accion+') class="btn btn-sm '+clase+'" style="font-size:12px;margin-left:10px">'+estado+'</a>';
-					
-	
+
+
 					html += '</div>';
 					return html;
                 },
@@ -637,7 +640,7 @@ function datatablenew(){
 					},
 					"bSortable": false,
 					"aTargets": [13]
-					},				
+					},
             ]
 
 
@@ -646,14 +649,14 @@ function datatablenew(){
 }
 
 function modalPersonaContrato(id){
-	
+
 	$(".modal-dialog").css("width","85%");
 	$('#openOverlayOpc .modal-body').css('height', 'auto');
 
 	$.ajax({
 		url: "/persona/modal_persona_contrato/"+id,
 		type: "GET",
-		success: function (result) {  
+		success: function (result) {
 			$("#diveditpregOpc").html(result);
 			$('#openOverlayOpc').modal('show');
 		}
@@ -661,7 +664,7 @@ function modalPersonaContrato(id){
 }
 
 function modalContactoEmergencia(id_persona){
-	
+
 	$(".modal-dialog").css("width","85%");
 	$('#openOverlayOpc .modal-body').css('height', 'auto');
 
@@ -680,14 +683,14 @@ function fn_ListarBusqueda() {
 };
 
 function modalPersona(id){
-	
+
 	$(".modal-dialog").css("width","85%");
 	$('#openOverlayOpc .modal-body').css('height', 'auto');
 
 	$.ajax({
 			url: "/persona/modal_persona/"+id,
 			type: "GET",
-			success: function (result) {  
+			success: function (result) {
 					$("#diveditpregOpc").html(result);
 					$('#openOverlayOpc').modal('show');
 			}
@@ -710,9 +713,9 @@ function eliminarPersona(id,estado){
 		estado_="N";
 		//eliminado = "N";
 	}
-    bootbox.confirm({ 
+    bootbox.confirm({
         size: "small",
-        message: "&iquest;Deseas "+act_estado+" la Persona?", 
+        message: "&iquest;Deseas "+act_estado+" la Persona?",
         callback: function(result){
             if (result==true) {
                 fn_eliminar_persona(id,estado_);
@@ -723,7 +726,7 @@ function eliminarPersona(id,estado){
 }
 
 function fn_eliminar_persona(id,estado){
-	
+
     $.ajax({
             url: "/persona/eliminar_personad/"+id+"/"+estado,
             type: "GET",
@@ -735,7 +738,7 @@ function fn_eliminar_persona(id,estado){
 }
 
 function descargarPersona(){
-	
+
 	var numero_documento = $('#numero_documento').val();
 	var persona = $('#persona').val();
 	var unidad_trabajo = $('#unidad_trabajo').val();
@@ -747,7 +750,7 @@ function descargarPersona(){
 	if (unidad_trabajo == "")unidad_trabajo = "0";
 	if (empresa == "")empresa = "0";
 	if (estado == "")estado = 0;
-	
+
 	location.href = '/persona/exportar_persona/'+numero_documento+'/'+persona+'/'+unidad_trabajo+'/'+empresa+'/'+estado;
 }
 
