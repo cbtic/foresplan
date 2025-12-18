@@ -33,14 +33,14 @@ class AsistenciaController extends Controller
         return view('frontend.manten.asistencia');
         //
     }
-	
+
 	public function listar_asistencia()
     {
 		$tabla_model = new TablaUbicacione;
 		$area_trabajo = $tabla_model->getTablaUbicacionAll("area_trabajos","1");
 		$condicion_laboral = $tabla_model->getTablaUbicacionAll("condicion_laborales","1");
 		$sedes = $tabla_model->getTablaUbicacionAll("sedes","1");
-		
+
 		$meses[1]="ENERO";
 		$meses[2]="FEBRERO";
 		$meses[3]="MARZO";
@@ -53,16 +53,16 @@ class AsistenciaController extends Controller
 		$meses[10]="OCTUBRE";
 		$meses[11]="NOVIEMBRE";
 		$meses[12]="DICIEMBRE";
-	
+
         return view('frontend.asistencia.listar_asistencia',compact('meses','area_trabajo','sedes','condicion_laboral'));
         //
     }
-	
+
     public function listar_resumen()
     {
 		//$tabla_model = new TablaUbicacione;
 		//$area_trabajo = $tabla_model->getTablaUbicacionAll("area_trabajos","1");
-		
+
 		$meses[1]="ENERO";
 		$meses[2]="FEBRERO";
 		$meses[3]="MARZO";
@@ -75,14 +75,14 @@ class AsistenciaController extends Controller
 		$meses[10]="OCTUBRE";
 		$meses[11]="NOVIEMBRE";
 		$meses[12]="DICIEMBRE";
-	
+
         //return view('frontend.asistencia.listar_asistencia',compact('meses','area_trabajo'));
         return view('frontend.asistencia.listar_asistencia',compact('meses'));
     }
 
 	public function listar_asistencia_ajax(Request $request){
-		
-        $id_user = Auth::user()->id;
+
+        // $id_user = Auth::user()->id;
 
 		$asistencia_model = new Asistencia;
 		$p[]=$request->id_area_trabajo;
@@ -94,13 +94,13 @@ class AsistenciaController extends Controller
         $p[]=$request->fecha_fin;
         $p[]=$request->id_sede;
         $p[]=$request->id_condicion_laboral;
-        $p[]=$id_user;
+        // $p[]=$id_user;
 		$p[]=$request->estado;
 		$p[]=$request->NumeroPagina;
 		$p[]=$request->NumeroRegistros;
 		$data = $asistencia_model->listar_asistencia_ajax($p);
 		$iTotalDisplayRecords = isset($data[0]->totalrows)?$data[0]->totalrows:0;
-		
+
 		$result["PageStart"] = $request->NumeroPagina;
 		$result["pageSize"] = $request->NumeroRegistros;
 		$result["SearchText"] = "";
@@ -108,9 +108,9 @@ class AsistenciaController extends Controller
 		$result["iTotalRecords"] = $iTotalDisplayRecords;
 		$result["iTotalDisplayRecords"] = $iTotalDisplayRecords;
 		$result["aaData"] = $data;
-		
+
 		echo json_encode($result);
-		
+
 	}
 
     /**
@@ -178,25 +178,25 @@ class AsistenciaController extends Controller
     {
         //
     }
-	
+
 	public function modal_asistencia($id){
 		$id_user = Auth::user()->id;
         $asistencia = Asistencia::find($id);
-		
+
 		$persona = new Persona;
 		$persona = Persona::find($asistencia->id_persona);
-		
+
 		return view('frontend.asistencia.modal_asistencia',compact('id','asistencia','persona'));
 	}
-	
+
 	public function modal_zkteco_log($fecha,$numero_documento){
-		
+
 		$asistencia_model = new Asistencia;
 		$asistencia = $asistencia_model->get_zkteco_log($fecha,$numero_documento);
-		
+
 		return view('frontend.asistencia.modal_zkteco_log',compact('asistencia'));
 	}
-	
+
 	public function send_asistencia(Request $request){
 		$asistencia = Asistencia::find($request->id);
 		$asistencia->fech_marc_rel= $request->fech_marc_rel;
@@ -210,9 +210,9 @@ class AsistenciaController extends Controller
         $asistencia->save();
 		$asistencia_model = new Asistencia;
 		$asistencia_model->recalcular_asistencia($asistencia->id);
-	
+
 	}
-    
+
     public function asistencia_automatico($fecha){
 
         $asistencia_model = new Asistencia;
@@ -250,12 +250,12 @@ class AsistenciaController extends Controller
 		$p[]=1;
 		$p[]=10000;
 		$data = $asistencia_model->listar_asistencia_ajax($p);
-		
+
 		$variable = [];
 		$n = 1;
 
 		array_push($variable, array("N°","Documento Identidad","Persona","Condicion Laboral","Area","Unidad","Hora Programada","Fecha Asistencia","Dia","Labora","Fecha Ingreso","Hora Ingreso","Fecha Salida","Hora Salida","Tiempo Programado","Tardanza","Tiempo Trabajado","Estado","Papeleta","Tipo Papeleta","Hora Papeleta","Tiempo Papeleta"));
-		
+
 		foreach ($data as $r) {
 
             $hora_entr_dtu = "";
@@ -272,14 +272,14 @@ class AsistenciaController extends Controller
             if($r->hora_entr_dtu!= null)$hora_entr_dtu = $r->hora_entr_dtu;
             if($r->hora_sali_dtu!= null)$hora_sali_dtu = $r->hora_sali_dtu;
 
-            
+
             if($r->fech_marc_rel!= null)$fech_marc_rel = $r->fech_marc_rel;
             if($r->fech_sali_rel!= null)$fech_sali_rel = $r->fech_sali_rel;
             if($r->tiempo_programado!= null)$tiempo_programado = $r->tiempo_programado;
             if($r->tiempo_trabajado!= null)$tiempo_trabajado = $r->tiempo_trabajado;
             if($r->tiempo_trabajado_total!= null)$tiempo_trabajado_total = $r->tiempo_trabajado_total;
             if($r->flag_labo_dtu!= null)$flag_labo_dtu = $r->flag_labo_dtu;
-            
+
             if($fech_marc_rel!="" && $fech_sali_rel!="" && $tiempo_trabajado_total >= $tiempo_programado)$estado="Ok";
             if($fech_marc_rel!="" && $fech_sali_rel!="" && $tiempo_programado > $tiempo_trabajado_total)$estado="Abandono";
             if($fech_marc_rel=="" || $fech_sali_rel=="" )$estado="Observado";
@@ -336,7 +336,7 @@ class AsistenciaController extends Controller
 
 class InvoicesExport implements FromArray, WithHeadings, WithStyles, WithEvents
 {
-    
+
 	protected $invoices;
 
 	public function __construct(array $invoices)

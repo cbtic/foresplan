@@ -65,10 +65,10 @@ BEGIN
         ORDER BY pt.id_persona, dt.nume_ndia_dtu, pt.id DESC
     ),
     asistencia_unica AS (
-        SELECT DISTINCT ON (a.id_persona, a.fech_regi_mar::date)
+        SELECT DISTINCT ON (a.id_persona, to_date(a.fech_regi_mar,'DD-MM-YYYY'))
             a.*
         FROM asistencias a
-        ORDER BY a.id_persona, a.fech_regi_mar::date, a.id DESC
+        ORDER BY a.id_persona, to_date(a.fech_regi_mar,'DD-MM-YYYY'), a.id DESC
     ),
     base AS (
         SELECT
@@ -166,7 +166,7 @@ BEGIN
              END
         LEFT JOIN asistencia_unica a
           ON a.id_persona = t1.id
-         AND a.fech_regi_mar::date = t0.fecha_dias
+         AND to_date(a.fech_regi_mar,'DD-MM-YYYY') = t0.fecha_dias
         LEFT JOIN deta_operaciones deo ON a.id_deta_operacion = deo.id
         LEFT JOIN tabla_ubicaciones tab_ubi ON deo.id_tipo_operacion = tab_ubi.id
         LEFT JOIN tipo_justificaciones tj ON tab_ubi.id_registro = tj.id
@@ -180,14 +180,16 @@ BEGIN
                 p_fecha_ini = ''
                 OR (
                     a.fech_regi_mar IS NOT NULL
-                    AND a.fech_regi_mar::timestamp >= to_timestamp(p_fecha_ini||' 00:00:00','DD/MM/YYYY HH24:MI:SS')
+                    AND to_timestamp(a.fech_regi_mar || ' 00:00:00','DD-MM-YYYY HH24:MI:SS')
+                        >= to_timestamp(p_fecha_ini || ' 00:00:00','DD/MM/YYYY HH24:MI:SS')
                 )
           )
           AND (
                 p_fecha_fin = ''
                 OR (
                     a.fech_regi_mar IS NOT NULL
-                    AND a.fech_regi_mar::timestamp <= to_timestamp(p_fecha_fin||' 23:59:59','DD/MM/YYYY HH24:MI:SS')
+                    AND to_timestamp(a.fech_regi_mar || ' 23:59:59','DD-MM-YYYY HH24:MI:SS')
+                        <= to_timestamp(p_fecha_fin || ' 23:59:59','DD/MM/YYYY HH24:MI:SS')
                 )
           )
           AND (
