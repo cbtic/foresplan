@@ -95,8 +95,6 @@ Route::middleware('auth')->group(function () {
         Route::get('manten/persona-detalles', [PersonaDetalleController::class, 'index'])->name('manten.persona-detalles');
         Route::get('manten/asistencias', [AsistenciaController::class, 'index'])->name('manten.asistencias');
         Route::get('manten/tturnos', [TturnoController::class, 'index'])->name('manten.tturnos');
-        Route::get('manten/detalle_turnos', [DetalleTurnoController::class, 'index'])->name('manten.detalle-turnos');
-        Route::get('manten/personal_turnos', [PersonalTurnoController::class, 'index'])->name('manten.personal-turnos');
         Route::get('manten/tdias_feriados', [TdiasFeriadoController::class, 'index'])->name('manten.tdias-feriados');
         Route::get('manten/tipo_operaciones', [TipoOperacioneController::class, 'index'])->name('manten.tipo-operaciones');
         Route::get('manten/deta-operaciones', [DetaOperacioneController::class, 'index'])->name('manten.deta-operaciones');
@@ -139,6 +137,9 @@ Route::middleware('auth')->group(function () {
         Route::get('persona/create', [PersonaController::class, 'create'])->name('persona.create');
         Route::get('persona/list_persona/{term}', [PersonaController::class, 'list_persona'])->name('persona.list_persona');
 
+        Route::get('manten/detalle_turnos', [DetalleTurnoController::class, 'index'])->name('manten.detalle-turnos');
+        Route::get('manten/personal_turnos', [PersonalTurnoController::class, 'index'])->name('manten.personal-turnos');
+        
         Route::post('persona/send_personad', [PersonaDetalleController::class, 'send_personad'])->name('persona.send_personad');
         Route::get('persona/eliminar_personad/{id}/{estado}', [PersonaDetalleController::class, 'eliminar_personad'])->name('persona.eliminar_personad');
         Route::get('personalTurno/list_persona/{term}', [PersonalTurnoController::class, 'list_persona'])->name('personalTurno.list_persona');
