@@ -29,6 +29,7 @@ use App\Http\Controllers\Frontend\MenuPersonaController;
 use App\Http\Controllers\Frontend\ClienteUserController;
 use App\Http\Controllers\Frontend\TarjetaController;
 use App\Http\Controllers\Frontend\PersonaController;
+use App\Http\Controllers\Frontend\SedeController;
 use Tabuna\Breadcrumbs\Trail;
 
 Route::get('/info', function () {
@@ -139,7 +140,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('manten/detalle_turnos', [DetalleTurnoController::class, 'index'])->name('manten.detalle-turnos');
         Route::get('manten/personal_turnos', [PersonalTurnoController::class, 'index'])->name('manten.personal-turnos');
-        
+
         Route::post('persona/send_personad', [PersonaDetalleController::class, 'send_personad'])->name('persona.send_personad');
         Route::get('persona/eliminar_personad/{id}/{estado}', [PersonaDetalleController::class, 'eliminar_personad'])->name('persona.eliminar_personad');
         Route::get('personalTurno/list_persona/{term}', [PersonalTurnoController::class, 'list_persona'])->name('personalTurno.list_persona');
@@ -246,6 +247,7 @@ Route::middleware('auth')->group(function () {
         Route::get('asistencia/exportar_listar_reporte_asistencia/{id_area_trabajo}/{id_unidad_trabajo}/{id_persona}/{anio}/{mes}/{fecha_ini}/{fecha_fin}/{id_sede}/{id_condicion_laboral}/{estado}', [AsistenciaController::class, 'exportar_listar_reporte_asistencia'])->name('asistencia.exportar_listar_reporte_asistencia');
     });
 
+    Route::post('/cambiar-sede-actual', [SedeController::class, 'cambiarSedeActual'])->name('sede.cambiar');
 
 });
 

@@ -6,6 +6,8 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class AppServiceProvider.
@@ -41,5 +43,23 @@ class AppServiceProvider extends ServiceProvider
                 ));
             });
         }
+
+        View::composer('*', function ($view) {
+            $user = Auth::user();
+
+            // Si no hay usuario logueado, no compartimos nada
+            if (! $user) {
+                $view->with('dropdownSedes', collect());
+                $view->with('dropdownSelectedSedeId', null);
+                return;
+            }
+
+            $sedes = $user->sedesFromRoles();
+
+            $selectedSedeId = $user->defaultSedeIdForDropdown();
+
+            $view->with('dropdownSedes', $sedes);
+            $view->with('dropdownSelectedSedeId', $selectedSedeId);
+        });
     }
 }

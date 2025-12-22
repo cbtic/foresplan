@@ -187,4 +187,27 @@ class User extends Authenticatable implements MustVerifyEmail, TwoFactorAuthenti
             ->values();                // reindexar
     }
 
+    public function defaultSedeIdForDropdown(): ?int
+    {
+        $sedes = $this->sedesFromRoles();
+
+        if ($sedes->isEmpty()) {
+            return null;
+        }
+
+        if ($sedes->count() === 1) {
+            return $sedes->first()->id;
+        }
+
+        $principal = $sedes->firstWhere('es_principal', true);
+
+        if ($principal) {
+            return $principal->id;
+        }
+
+        $first = $sedes->first();
+
+        return $first ? $first->id : null;
+    }
+
 }

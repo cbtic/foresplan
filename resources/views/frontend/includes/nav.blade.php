@@ -65,7 +65,7 @@
                         aria-haspopup="true" aria-expanded="false">Planillas</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownPrueba">
                                 <!--<a href="" class="dropdown-item">Consulta de Asistencias</a>-->
-								
+
 								<a href="/planilla/listar_planilla_persona" class="dropdown-item">Planilla Periodo</a>
 								<!--<a href="/planilla/create_planilla_persona" class="dropdown-item">Registrar Planilla Persona</a>-->
 								<!--<a href="/planilla/create" class="dropdown-item">Registrar Planilla Persona</a>-->
@@ -93,14 +93,14 @@
                                 <a href="/concepto_plan/create" class="dropdown-item">Concepto Plan</a>
 
                                 <!--
-                                <a href="{{route('frontend.persona')}}" class="dropdown-item">Personas</a>                                
+                                <a href="{{route('frontend.persona')}}" class="dropdown-item">Personas</a>
                                 <a href="/manten/persona-detalles" class="dropdown-item">Persona Detalles</a>
 -->
-                
-                                <a href="{{route('frontend.persona.create')}}" class="dropdown-item">Personal</a>  
+
+                                <a href="{{route('frontend.persona.create')}}" class="dropdown-item">Personal</a>
 								<a href="/manten/clientes" class="dropdown-item">Clientes</a>
 								<a href="/manten/vacaciones" class="dropdown-item">Vacaciones</a>
-								
+
 								<a href="/manten/tturnos" class="dropdown-item">Turnos</a>
 								<!--<a href="/manten/detalle_turnos" class="dropdown-item">Detalle Turnos</a>-->
 								<a href="/manten/personal_turnos" class="dropdown-item">Asignar Persona Turno</a>
@@ -112,7 +112,7 @@
                                 <a href="/manten/subtplanillas" class="dropdown-item">Sub Planillas</a>
 
                                 <a href="/papeleta/create" class="dropdown-item">Papeletas</a>
-								
+
 								<a href="/maestro/create_ubicacion_maestro" class="dropdown-item">Maestros por Cliente</a>
 
                                 <a href="/cliente_usuario/create" class="dropdown-item">Cliente Usuario</a>
@@ -132,7 +132,28 @@
                             <a href="/menu_persona/create_persona_menu" class="dropdown-item">Registro Menu Persona</a>
                         </div>
                     </li>
-                   
+
+                    {{-- Selector de sede --}}
+                    @if($dropdownSedes->isNotEmpty())
+                        <li class="nav-item dropdown nuevo">
+                            <form action="{{ route('frontend.sede.cambiar') }}" method="POST" class="form-inline my-2 my-lg-0">
+                                @csrf
+                                <select name="sede_id"
+                                        id="navbarSedeSelect"
+                                        class="form-control"
+                                        onchange="this.form.submit()">
+                                    @foreach($dropdownSedes as $sede)
+                                        <option value="{{ $sede->id }}"
+                                            {{ ($dropdownSelectedSedeId == $sede->id || session('current_sede_id') == $sede->id) ? 'selected' : '' }}>
+                                            {{ $sede->denominacion }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </form>
+                        </li>
+                    @endif
+
+
                     <li class="nav-item dropdown">
                         <x-utils.link
                             href="#"

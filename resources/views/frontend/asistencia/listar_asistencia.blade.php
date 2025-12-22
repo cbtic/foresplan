@@ -195,28 +195,25 @@
 
 				<div class="row" style="padding:20px 20px 0px 20px;">
 
-					<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
-						<select class="form-control form-control-sm" id="id_sede_" name="id_sede_" onChange="">
-							<option value="">Seleccion Sede</option>
-							<?php
-							if($sedes!=""){
-                $user = auth()->user();
-                $sedes = $user->sedesFromRoles();
-                $selectedSedeId = null;
-                if ($sedes->count() === 1) {
-                  $selectedSedeId = $sedes->first()->id;
-                }
-								foreach ($sedes as $row) {?>
-                  <option value="<?php echo $row->id?>"
-                    <?php echo ($selectedSedeId === $row->id) ? 'selected' : '' ?>>
-                    <?php echo $row->denominacion?>
-                  </option>
-							  <?php
-								}
-					  	}
-						  ?>
-						</select>
-					</div>
+          <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+              <select class="form-control form-control-sm"
+                      id="id_sede_"
+                      name="id_sede_">
+                  <option value="">Seleccion Sede</option>
+
+                  @foreach($dropdownSedes as $sede)
+                      @php
+                          $isSelected =
+                              (session('current_sede_id') == $sede->id) ||
+                              ($dropdownSelectedSedeId == $sede->id && ! session()->has('current_sede_id'));
+                      @endphp
+
+                      <option value="{{ $sede->id }}" {{ $isSelected ? 'selected' : '' }}>
+                          {{ $sede->denominacion }}
+                      </option>
+                  @endforeach
+              </select>
+          </div>
 
 					<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 						<select class="form-control form-control-sm" id="id_condicion_laboral_" name="id_condicion_laboral_" onChange="">
