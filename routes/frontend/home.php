@@ -233,7 +233,7 @@ Route::middleware('auth')->group(function () {
     /*
      * CONTROL ASISTENCIA: solo asistencia
      */
-    Route::middleware('role:Administrator|Jefe RRHH|Asistente RRHH VES|Asistente RRHH OXA|Control Asistencia')->group(function () {
+    Route::middleware(['role:Administrator|Jefe RRHH|Asistente RRHH VES|Asistente RRHH OXA|Control Asistencia', 'sede.access'])->group(function () {
       Log::info("===================== role:Administrator|Jefe RRHH|Asistente RRHH VES|Asistente RRHH OXA|Control Asistencia");
         // Asistencia (todas las acciones)
         Route::get('asistencia/listar_asistencia', [AsistenciaController::class, 'listar_asistencia'])->name('asistencia.listar_asistencia');

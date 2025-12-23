@@ -1,3 +1,7 @@
+@php
+    $user = auth()->user();
+@endphp
+
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #173E39;">
     <div class="container">
         <x-utils.link
@@ -51,87 +55,81 @@
                 @else
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownPrueba" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Asistencia</a>
+                            aria-haspopup="true" aria-expanded="false">Asistencia</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownPrueba">
-                                <!--<a href="" class="dropdown-item">Consulta de Asistencias</a>-->
-								<a href="/asistencia/listar_asistencia" class="dropdown-item">Consulta de Asistencias</a>
-                                <!--<a href="/asistencia/resumen" class="dropdown-item">Resumen de Asistencias</a>-->
+                            <a href="/asistencia/listar_asistencia" class="dropdown-item">Consulta de Asistencias</a>
+                            <!--<a href="/asistencia/resumen" class="dropdown-item">Resumen de Asistencias</a>-->
                         </div>
-
                     </li>
 
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownPrueba" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Planillas</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownPrueba">
-                                <!--<a href="" class="dropdown-item">Consulta de Asistencias</a>-->
-
-								<a href="/planilla/listar_planilla_persona" class="dropdown-item">Planilla Periodo</a>
-								<!--<a href="/planilla/create_planilla_persona" class="dropdown-item">Registrar Planilla Persona</a>-->
-								<!--<a href="/planilla/create" class="dropdown-item">Registrar Planilla Persona</a>-->
-								<a href="/planilla/listar_planilla_resumen" class="dropdown-item">Planilla Resumen</a>
+                    @hasanyrole('Administrator|Jefe RRHH')
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownPrueba" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Planillas</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownPrueba">
+                                  <!--<a href="" class="dropdown-item">Consulta de Asistencias</a>-->
+                                <a href="/planilla/listar_planilla_persona" class="dropdown-item">Planilla Periodo</a>
+                                <!--<a href="/planilla/create_planilla_persona" class="dropdown-item">Registrar Planilla Persona</a>-->
+                                <!--<a href="/planilla/create" class="dropdown-item">Registrar Planilla Persona</a>-->
+                                <a href="/planilla/listar_planilla_resumen" class="dropdown-item">Planilla Resumen</a>
                                 <a href="/planilla/create" class="dropdown-item">Planilla Calculada</a>
-								<!--<a href="/planilla/create_resumen_asistencia" class="dropdown-item">Registrar Resumen Asistencia</a>-->
+                                <!--<a href="/planilla/create_resumen_asistencia" class="dropdown-item">Registrar Resumen Asistencia</a>-->
+                            </div>
+                        </li>
+                    @endhasanyrole
+
+					          <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownPrueba" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Reporte</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownPrueba">
+								            <a href="/reporte/reporte_area" class="dropdown-item">Reporte por Area</a>
                         </div>
                     </li>
 
-					<li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownPrueba" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Reporte</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownPrueba">
-								<a href="/reporte/reporte_area" class="dropdown-item">Reporte por Area</a>
-                        </div>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownPrueba" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Mantenimiento</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownPrueba">
-                                <a href="{{route('frontend.manten.index')}}" class="dropdown-item">Tipos</a>
-                                <a href="/manten/conceptos" class="dropdown-item">Conceptos</a>
-
-                                <a href="/concepto_plan/create" class="dropdown-item">Concepto Plan</a>
-
-                                <!--
-                                <a href="{{route('frontend.persona')}}" class="dropdown-item">Personas</a>
-                                <a href="/manten/persona-detalles" class="dropdown-item">Persona Detalles</a>
--->
-
+                    @hasanyrole('Administrator|Jefe RRHH|Asistente RRHH VES|Asistente RRHH OXA')
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownPrueba" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Mantenimiento</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownPrueba">
                                 <a href="{{route('frontend.persona.create')}}" class="dropdown-item">Personal</a>
-								<a href="/manten/clientes" class="dropdown-item">Clientes</a>
-								<a href="/manten/vacaciones" class="dropdown-item">Vacaciones</a>
-
-								<a href="/manten/tturnos" class="dropdown-item">Turnos</a>
-								<!--<a href="/manten/detalle_turnos" class="dropdown-item">Detalle Turnos</a>-->
-								<a href="/manten/personal_turnos" class="dropdown-item">Asignar Persona Turno</a>
-
-                                <a href="/feriado/create" class="dropdown-item">Feriados</a>
-
-                                <a href="/formula/create" class="dropdown-item">Formulas</a>
-
-                                <a href="/manten/subtplanillas" class="dropdown-item">Sub Planillas</a>
-
+                                <a href="/manten/vacaciones" class="dropdown-item">Vacaciones</a>
+                                <a href="/manten/tturnos" class="dropdown-item">Turnos</a>
+                                <!--<a href="/manten/detalle_turnos" class="dropdown-item">Detalle Turnos</a>-->
+                                <a href="/manten/personal_turnos" class="dropdown-item">Asignar Persona Turno</a>
                                 <a href="/papeleta/create" class="dropdown-item">Papeletas</a>
-
-								<a href="/maestro/create_ubicacion_maestro" class="dropdown-item">Maestros por Cliente</a>
-
-                                <a href="/cliente_usuario/create" class="dropdown-item">Cliente Usuario</a>
-
                                 <a href="/tarjeta/create" class="dropdown-item">Asignar Persona Tarjeta</a>
-
                                 <a href="{{route('frontend.persona.create_contacto_emergencia')}}" class="dropdown-item">Contacto Emergencia Personal</a>
+                                @hasanyrole('Administrator|Jefe RRHH')
+                                  <a href="{{route('frontend.manten.index')}}" class="dropdown-item">Tipos</a>
+                                  <a href="/manten/conceptos" class="dropdown-item">Conceptos</a>
+                                  <a href="/concepto_plan/create" class="dropdown-item">Concepto Plan</a>
+                                  <!--
+                                  <a href="{{route('frontend.persona')}}" class="dropdown-item">Personas</a>
+                                  <a href="/manten/persona-detalles" class="dropdown-item">Persona Detalles</a>
+                                  -->
+                                  <a href="/feriado/create" class="dropdown-item">Feriados</a>
+                                  <a href="/formula/create" class="dropdown-item">Formulas</a>
+                                  <a href="/manten/subtplanillas" class="dropdown-item">Sub Planillas</a>
+                                @endhasanyrole
+                                @hasanyrole('Administrator')
+                                  <a href="/manten/clientes" class="dropdown-item">Clientes</a>
+                                  <a href="/maestro/create_ubicacion_maestro" class="dropdown-item">Maestros por Cliente</a>
+                                  <a href="/cliente_usuario/create" class="dropdown-item">Cliente Usuario</a>
+                                @endhasanyrole
+                            </div>
+                        </li>
+                    @endhasanyrole
 
-                        </div>
-                    </li>
-
+                    @hasanyrole('Administrator')
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownPrueba" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Control de Alimentaci&oacute;n</a>
+                            aria-haspopup="true" aria-expanded="false">Control de Alimentaci&oacute;n</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownPrueba">
                             <a href="/menu_persona/create_menu" class="dropdown-item">Registro Menu</a>
                             <a href="/menu_persona/create_persona_menu" class="dropdown-item">Registro Menu Persona</a>
                         </div>
                     </li>
+                    @endhasanyrole
 
                     @php
                         $currentSedeId = session('current_sede_id') ?? $dropdownSelectedSedeId ?? null;
@@ -171,8 +169,7 @@
                             data-toggle="dropdown"
                             aria-haspopup="true"
                             aria-expanded="false"
-                            v-pre
-                        >
+                            v-pre>
                             <x-slot name="text">
                                 <img class="rounded-circle" style="max-height: 20px" src="{{ $logged_in_user->avatar }}" />
                                 {{ $logged_in_user->name }} <span class="caret"></span>
