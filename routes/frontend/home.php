@@ -123,6 +123,7 @@ Route::middleware('auth')->group(function () {
      * ASISTENTE RRHH VES / OXA:
      * - Mismas pantallas que Jefe RRHH (sin planilla, turnos, feriados, fórmulas)
      * - Limitado a su sede vía middleware 'sede.access'
+     * 
      */
     Route::middleware(['role:Administrator|Jefe RRHH|Asistente RRHH VES|Asistente RRHH OXA', 'sede.access'])->group(function () {
       Log::info("===================== role:Administrator|Jefe RRHH|Asistente RRHH VES|Asistente RRHH OXA");
