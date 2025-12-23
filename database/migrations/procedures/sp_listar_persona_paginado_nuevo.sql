@@ -7,28 +7,36 @@ CREATE OR REPLACE FUNCTION public.sp_listar_persona_paginado_nuevo(
     p_estado                character varying,
     p_pagina                character varying,
     p_limit                 character varying,
-    p_ref                   refcursor,
-    -- nuevos parámetros para sedes, con valores por defecto
-    p_sede_rol_4            integer DEFAULT 1,
-    p_sede_rol_5            integer DEFAULT 2
+    p_sede_actual           integer,
+    p_ref                   refcursor
 )
 RETURNS refcursor
 LANGUAGE plpgsql
 AS $function$
-
 DECLARE
-    v_scad      varchar;
-    v_campos    varchar;
-    v_tabla     varchar;
-    v_where     varchar;
-    v_count     varchar;
-    v_col_count varchar;
-    v_id_rol    integer;
+    v_scad          text;
+    v_campos        text;
+    v_tabla         text;
+    v_where         text;
+    v_count         integer;
+    v_col_count     text;
+    v_id_rol        integer;
+    v_user_id_int   integer;
+    v_user_type     text;
 BEGIN
+    v_user_id_int := p_id_user::integer;
+
+    -- Tipo de usuario (admin/user) desde tabla users
+    SELECT type
+      INTO v_user_type
+      FROM users
+     WHERE id = v_user_id_int;
+
+    -- (opcional) rol principal, si aún lo usas
     SELECT role_id
       INTO v_id_rol
       FROM model_has_roles mhr
-     WHERE mhr.model_id::varchar = p_id_user
+     WHERE mhr.model_id = v_user_id_int
      LIMIT 1;
 
     -- paginación
@@ -44,12 +52,12 @@ BEGIN
                   (select sp_crud_obtiene_tabla_deno (pd.id_unidad_trabajo)) unidad_trabajo,
                   e.razon_social, pd.estado, c.mont_cont_ctr ';
 
-    v_tabla := ' from personas p
-                 left join persona_detalles pd on pd.id_persona = p.id
-                 left join documento_identidades di on di.id = p.tipo_documento
-                 left join ubicacion_trabajos ut  on ut.id = pd.id_ubicacion
-                 left join empresas e  on e.id = ut.id_empresa
-                 left join contratos c  on c.id = pd.id_contrato ';
+    v_tabla := ' FROM personas p
+                 LEFT JOIN persona_detalles pd ON pd.id_persona = p.id
+                 LEFT JOIN documento_identidades di ON di.id = p.tipo_documento
+                 LEFT JOIN ubicacion_trabajos ut  ON ut.id = pd.id_ubicacion
+                 LEFT JOIN empresas e  ON e.id = ut.id_empresa
+                 LEFT JOIN contratos c  ON c.id = pd.id_contrato ';
 
     v_where := ' WHERE pd.eliminado = ''N'' ';
 
@@ -77,19 +85,27 @@ BEGIN
             || p_unidad || '%'' ';
     END IF;
 
-    -- filtros por rol usando parámetros en lugar de IDs duros
-    IF v_id_rol = 4 THEN
-        v_where := v_where || 'AND pd.id_sede = ''' || p_sede_rol_4::varchar || ''' ';
+    -- Si NO es admin, restringir por sedes de sus roles
+    IF v_user_type <> 'admin' THEN
+        v_where := v_where ||
+            'AND pd.id_sede IN (' ||
+                'SELECT DISTINCT rs.sede_id ' ||
+                'FROM model_has_roles mhr ' ||
+                'JOIN role_sede rs ON mhr.role_id = rs.role_id ' ||
+                'WHERE mhr.model_id = ' || v_user_id_int::varchar ||
+            ') ';
     END IF;
 
-    IF v_id_rol = 5 THEN
-        v_where := v_where || 'AND pd.id_sede = ''' || p_sede_rol_5::varchar || ''' ';
+    -- Filtro por sede actual (si viene)
+    IF p_sede_actual IS NOT NULL THEN
+        v_where := v_where || 'AND pd.id_sede = ' || p_sede_actual::varchar || ' ';
     END IF;
 
-    EXECUTE ('SELECT count(1) ' || v_tabla || v_where) INTO v_count;
-    v_col_count := ' ,' || v_count || ' as TotalRows ';
+    -- total filas
+    EXECUTE 'SELECT count(1) ' || v_tabla || v_where INTO v_count;
+    v_col_count := ' ,' || v_count::text || ' AS totalrows ';
 
-    IF v_count::integer > p_limit::integer THEN
+    IF v_count > p_limit::integer THEN
         v_scad := 'SELECT ' || v_campos || v_col_count || v_tabla || v_where
                   || ' ORDER BY e.razon_social, persona LIMIT ' || p_limit
                   || ' OFFSET ' || p_pagina || ';';
@@ -99,6 +115,7 @@ BEGIN
     END IF;
 
     OPEN p_ref FOR EXECUTE v_scad;
+
     RETURN p_ref;
 END;
 $function$;

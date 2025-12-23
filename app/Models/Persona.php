@@ -11,7 +11,7 @@ class Persona extends Model
     //protected $fillable = ['nro_brevete', 'codigo', 'tipo_documento', 'numero_documento', 'nombres', 'apellido_paterno', 'apellido_materno', 'fecha_nacimiento', 'sexo', 'telefono', 'email', 'foto', 'ocupacion', 'titular_id', 'tipo_relacion'];
 
     protected $fillable = ['numero_documento','nombres','apellido_paterno','apellido_materno','fecha_nacimiento','sexo','estado','tipo_documento'];
-    
+
      // contantes SEXO
     const SEXO_FEMENINO = 'F';
     const SEXO_MASCULINO = 'M';
@@ -32,41 +32,54 @@ class Persona extends Model
         return $data;
     }
     //use HasFactory;
-	
+
 	function getPersonaBuscar($term){
 
-        $cad = "select id,apellido_paterno||' '||apellido_materno||' '||nombres persona 
-		from personas 
-		where estado='A' 
+        $cad = "select id,apellido_paterno||' '||apellido_materno||' '||nombres persona
+		from personas
+		where estado='A'
 		and nombres||' '||apellido_paterno||' '||apellido_materno ilike '%".$term."%' ";
-    
+
 		$data = DB::select($cad);
         return $data;
     }
-	
+
     public function listar_persona_ajax($p){
-		return $this->readFunctionPostgres('sp_listar_persona_paginado',$p);
+		return $this->readFunctionPostgres('sp_listar_persona_paginado_nuevo',$p);
     }
 
     public function listar_persona_contacto_emergencia_ajax($p){
 		return $this->readFunctionPostgres('sp_listar_persona_contacto_emergencia_paginado',$p);
     }
 
-    public function readFunctionPostgres($function, $parameters = null){
-	
-        $_parameters = '';
-        if (count($parameters) > 0) {
-            $_parameters = implode("','", $parameters);
-            $_parameters = "'" . $_parameters . "',";
+    public function readFunctionPostgres($function, $parameters = [])
+    {
+        $parts = [];
+
+        foreach ($parameters as $param) {
+            if (is_null($param)) {
+                $parts[] = 'NULL';
+            } else {
+                // OJO: aquí conviene escapar comillas simples si hay riesgo
+                $parts[] = "'" . str_replace("'", "''", $param) . "'";
+            }
         }
-        $data = DB::select("BEGIN;");
-        $cad = "select " . $function . "(" . $_parameters . "'ref_cursor');";
-        $data = DB::select($cad);
+
+        $_parameters = '';
+        if (count($parts) > 0) {
+            $_parameters = implode(',', $parts) . ',';
+        }
+
+        DB::select("BEGIN;");
+        $cad = "SELECT " . $function . "(" . $_parameters . "'ref_cursor');";
+        DB::select($cad);
         $cad = "FETCH ALL IN ref_cursor;";
         $data = DB::select($cad);
+        DB::select("COMMIT;");
+
         return $data;
-     }
-  
+    }
+
      /*
      function getPersonas($empresa_id){
         $ubicacion = UbicacionTrabajo::where("ubicacion_empresa_id", $empresa_id)->first();
@@ -80,14 +93,14 @@ class Persona extends Model
     function getPersona($tipo_documento,$numero_documento){
 
         $cad = "select id, tipo_documento, numero_documento, apellido_paterno, apellido_materno, nombres, fecha_nacimiento, sexo
-		from personas 
+		from personas
 		Where tipo_documento='".$tipo_documento."' And numero_documento='".$numero_documento."'";
 		//echo $cad;
 		$data = DB::select($cad);
         return $data[0];
     }
     function getPersonaExt($tipo_documento,$numero_documento){
-		
+
         if($tipo_documento=="RUC"){
             /*$cad = "select t1.id,razon_social,t1.direccion,t1.representante,t2.id id_ubicacion
                     from empresas t1
@@ -123,7 +136,7 @@ class Persona extends Model
 	function apiperu_dev($dni){
 
 		$curl = curl_init();
-		
+
 		curl_setopt_array($curl, array(
 		    CURLOPT_URL => 'https://apiperu.dev/api/dni/'.$dni,
             CURLOPT_SSL_VERIFYPEER=> false,
@@ -157,7 +170,7 @@ class Persona extends Model
 		curl_close($curl);
 		return $response;
 
-	
+
 	}
- 
+
 }

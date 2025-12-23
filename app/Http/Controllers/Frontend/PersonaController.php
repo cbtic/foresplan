@@ -39,9 +39,12 @@ class PersonaController extends Controller
         return view('frontend.persona.create');
     }
 
-    public function listar_persona_ajax(Request $request){
+  public function listar_persona_ajax(Request $request){
 
 		$id_user = Auth::user()->id;
+
+    $currentSedeId = session('current_sede_id');
+    $p_sede_actual = $currentSedeId ?: null;
 
 		$persona_model = new Persona;
 		$p[]=$request->numero_documento;
@@ -52,6 +55,7 @@ class PersonaController extends Controller
 		$p[]=$request->estado;
 		$p[]=$request->NumeroPagina;
 		$p[]=$request->NumeroRegistros;
+    $p[] = $p_sede_actual;  // p_sede_actual (integer o null)
 		$data = $persona_model->listar_persona_ajax($p);
 		$iTotalDisplayRecords = isset($data[0]->totalrows)?$data[0]->totalrows:0;
 
