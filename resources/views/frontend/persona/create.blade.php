@@ -154,8 +154,11 @@
                         @php
                             $user = auth()->user();
                             $canSeeSalary = $user->hasAnyRole(['Administrator', 'Jefe RRHH']);
+                            $canSeeContract = $user->hasAnyRole(['Administrator', 'Jefe RRHH']);
                         @endphp
-                    <table id="tblAfiliado" class="table table-hover table-sm" data-salary="{{ $canSeeSalary ? 1 : 0 }}">
+                    <table id="tblAfiliado" class="table table-hover table-sm"
+                        data-salary="{{ $canSeeSalary ? 1 : 0 }}"
+                        data-contract="{{ $canSeeContract ? 1 : 0 }}">
                         <thead>
                         <tr style="font-size:13px">
                             <th>Id</th>
@@ -171,7 +174,7 @@
                             <th>Estado</th>
                             <th>{{$canSeeSalary ? "Sueldo" : ""}}</th>
 							<th>Acciones</th>
-                            <th width="5%">Contrato</th>
+                            <th width="5%">{{$canSeeContract ? "Contrato" : ""}}</th>
 
 				        </tr>
                         </thead>

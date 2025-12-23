@@ -633,10 +633,13 @@ function datatablenew(){
                 },
 				{
 					"mRender": function (data, type, row) {
-						var html = '<div class="btn-group btn-group-sm" role="group" aria-label="Log Viewer Actions">';
-						html += '<button style="font-size:12px" type="button" class="btn btn-sm btn-info" data-toggle="modal" onclick="modalPersonaContrato('+row.id_pe+')" ><i class="fa fa-file"></i> Nuevo</button>';
-						html += '</div>';
-						return html;
+						var canSeeContract = $('#tblAfiliado').data('contract');
+            if(canSeeContract){
+              var html = '<div class="btn-group btn-group-sm" role="group" aria-label="Log Viewer Actions">';
+              html += '<button style="font-size:12px" type="button" class="btn btn-sm btn-info" data-toggle="modal" onclick="modalPersonaContrato('+row.id_pe+')" ><i class="fa fa-file"></i> Nuevo</button>';
+              html += '</div>';
+              return html;
+            }else{ return '' }
 					},
 					"bSortable": false,
 					"aTargets": [13]
