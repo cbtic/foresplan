@@ -133,26 +133,34 @@
                         </div>
                     </li>
 
-                    {{-- Selector de sede --}}
-                    @if($dropdownSedes->isNotEmpty())
-                        <li class="nav-item dropdown nuevo">
-                            <form action="{{ route('frontend.sede.cambiar') }}" method="POST" class="form-inline my-2 my-lg-0">
-                                @csrf
-                                <select name="sede_id"
-                                        id="navbarSedeSelect"
-                                        class="form-control"
-                                        onchange="this.form.submit()">
-                                    @foreach($dropdownSedes as $sede)
-                                        <option value="{{ $sede->id }}"
-                                            {{ ($dropdownSelectedSedeId == $sede->id || session('current_sede_id') == $sede->id) ? 'selected' : '' }}>
-                                            {{ $sede->denominacion }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </form>
-                        </li>
-                    @endif
+                    @php
+                        $currentSedeId = session('current_sede_id') ?? $dropdownSelectedSedeId ?? null;
+                        $currentSede   = $dropdownSedes->firstWhere('id', $currentSedeId);
+                    @endphp
 
+                    <li class="nav-item dropdown">
+                        <a href="#"
+                           class="nav-link dropdown-toggle"
+                           id="navbarDropdownSede"
+                           data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">
+                            Sede: {{ $currentSede->denominacion ?? 'Seleccionar sede' }}
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownSede">
+                            @foreach($dropdownSedes as $sede)
+                                <form action="{{ route('frontend.sede.cambiar') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="sede_id" value="{{ $sede->id }}">
+                                    <button type="submit"
+                                            class="dropdown-item {{ $currentSedeId == $sede->id ? 'active' : '' }}">
+                                        {{ $sede->denominacion }}
+                                    </button>
+                                </form>
+                            @endforeach
+                        </div>
+                    </li>
 
                     <li class="nav-item dropdown">
                         <x-utils.link

@@ -153,9 +153,7 @@
                     <div class="table-responsive">
                         @php
                             $user = auth()->user();
-                            $canSeeSalary=
-                                $user->hasRole('Administrator')
-                                ;
+                            $canSeeSalary = $user->hasAnyRole(['Administrator', 'Jefe RRHH']);
                         @endphp
                     <table id="tblAfiliado" class="table table-hover table-sm" data-salary="{{ $canSeeSalary ? 1 : 0 }}">
                         <thead>
