@@ -158,10 +158,7 @@ class BoletaController extends Controller
             $condicion = 'DOMICILIADO';
         }else{$condicion='NO DOMICILIADO';}
 
-        if ($persona_detalle->id_sede){
-          $sede_model = new TablaUbicacione;
-          $sede = $sede_model->getFieldFromTablaTipo($persona_detalle->id_sede, "denominacion");
-        }else{ $sede = ''; }
+        $sede = $persona_detalle->id_sede;
 
        // print_r($unidad_trabajo);
        // exit();
@@ -392,10 +389,7 @@ class BoletaController extends Controller
             $condicion = 'DOMICILIADO';
         }else{$condicion='NO DOMICILIADO';}
 
-        if ($persona_detalle->id_sede){
-          $sede_model = new TablaUbicacione;
-          $sede = $sede_model->getFieldFromTablaTipo($persona_detalle->id_sede, "denominacion");
-        }else{ $sede = ''; }
+        $sede = $persona_detalle->id_sede;
 
         return PDF::loadView('frontend/boletas/boleta-pdf', compact(
             'persona',
