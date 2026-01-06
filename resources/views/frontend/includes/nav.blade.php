@@ -73,6 +73,7 @@
                                 <!--<a href="/planilla/create" class="dropdown-item">Registrar Planilla Persona</a>-->
                                 <a href="/planilla/listar_planilla_resumen" class="dropdown-item">Planilla Resumen</a>
                                 <a href="/planilla/create" class="dropdown-item">Planilla Calculada</a>
+                                <a href="/terceros" class="dropdown-item">Lista de terceros</a>
                                 <!--<a href="/planilla/create_resumen_asistencia" class="dropdown-item">Registrar Resumen Asistencia</a>-->
                             </div>
                         </li>

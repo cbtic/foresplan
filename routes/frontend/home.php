@@ -30,6 +30,7 @@ use App\Http\Controllers\Frontend\ClienteUserController;
 use App\Http\Controllers\Frontend\TarjetaController;
 use App\Http\Controllers\Frontend\PersonaController;
 use App\Http\Controllers\Frontend\SedeController;
+use App\Http\Controllers\Frontend\TerceroController;
 use Tabuna\Breadcrumbs\Trail;
 
 Route::get('/info', function () {
@@ -44,6 +45,9 @@ Route::get('/', [HomeController::class, 'index'])
 
 Route::middleware('auth')->group(function () {
 
+
+        Route::get('terceros', [TerceroController::class, 'index'])->name('terceros.index');
+        Route::post('terceros/buscar', [TerceroController::class, 'buscar'])->name('terceros.buscar');
     /*
      * ADMINISTRATOR: puede ver TODO
      */
