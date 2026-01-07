@@ -185,7 +185,7 @@ function datatablenew(){
           clase = "btn-danger";
           accion = "1";
           var html = '<div class="btn-group btn-group-sm" role="group" aria-label="Log Viewer Actions">';
-          // html += '<button style="font-size:12px" type="button" class="btn btn-sm btn-success" data-toggle="modal" onclick="modalPersona('+row.id_pe+')" ><i class="fa fa-edit"></i> Registrar recibo</button>';
+          html += '<button style="font-size:12px" type="button" class="btn btn-sm btn-success" data-toggle="modal" onclick="modalTercero('+row.id_pe+')" ><i class="fa fa-edit"></i> Registrar recibo</button>';
 
           html += '</div>';
           return html;
@@ -215,4 +215,67 @@ function datatablenew(){
 function fn_ListarBusqueda() {
     datatablenew();
 };
+
+function modalTercero(persona_id){
+
+  $(".modal-dialog").css("width","85%");
+  $('#openOverlayOpc .modal-body').css('height', 'auto');
+
+  $.ajax({
+    url: "/terceros/"+persona_id+"/recibos/create",
+    type: "GET",
+    success: function (result) {
+      $("#diveditpregOpc").html(result);
+      $('#openOverlayOpc').modal('show');
+    }
+  });
+
+}
+
+$(function () {
+    var RETENCION_PORCENTAJE = 0.08;
+
+    function sanitizePositive($input) {
+        var val = parseFloat($input.val());
+        if (isNaN(val) || val < 0) {
+            $input.val('');
+        }
+    }
+
+    function calcularImporteRetenido() {
+        var aplicaRetencion = $('#retencion_si').is(':checked');
+        var importe = parseFloat($('#importe').val());
+
+        if (!aplicaRetencion || isNaN(importe)) {
+            $('#importe_retenido').val('');
+            return;
+        }
+
+        var retenido = importe * RETENCION_PORCENTAJE;
+        $('#importe_retenido').val(retenido.toFixed(2));
+    }
+
+    // Solo positivos en inputs numéricos (incluidos los del modal)
+    $(document).on('input', '#importe, #importe_retenido', function () {
+        sanitizePositive($(this));
+    });
+
+    // Recalcular cuando cambia importe
+    $(document).on('input', '#importe', function () {
+        calcularImporteRetenido();
+    });
+
+    // Radio: Sí → calcular, No → limpiar
+    $(document).on('change', '#retencion_si', function () {
+        if ($(this).is(':checked')) {
+            calcularImporteRetenido();
+        }
+    });
+
+    $(document).on('change', '#retencion_no', function () {
+        if ($(this).is(':checked')) {
+            $('#importe_retenido').val('');
+        }
+    });
+});
 

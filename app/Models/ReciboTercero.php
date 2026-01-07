@@ -20,7 +20,7 @@ class ReciboTercero extends Model
         'importe_retenido',
     ];
 
-    public function tercero()
+    public function persona()
     {
         return $this->belongsTo(Persona::class, 'persona_id');
     }

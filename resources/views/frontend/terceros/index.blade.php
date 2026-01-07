@@ -40,6 +40,13 @@
     display: none;
 	}
 
+  .modal-dialog.modal-85w {
+    max-width: 50%;      /* o un valor fijo, ej. 1000px */
+    width: 50%;
+    margin: 30px auto;
+  }
+
+
 </style>
 
 @extends('frontend.layouts.app')
@@ -154,12 +161,12 @@
 @endsection
 
 <div id="openOverlayOpc" class="modal fade" role="dialog">
-  <div class="modal-dialog" >
-	  <div id="id_content_OverlayoneOpc" class="modal-content" style="padding: 0px;margin: 0px">
-	    <div class="modal-body" style="padding: 0px;margin: 0px">
-			  <div id="diveditpregOpc"></div>
-	    </div>
-	  </div>
+  <div class="modal-dialog modal-85w" role="document">
+    <div id="id_content_OverlayoneOpc" class="modal-content">
+      <div class="modal-body">
+        <div id="diveditpregOpc"></div>
+      </div>
+    </div>
   </div>
 </div>
 

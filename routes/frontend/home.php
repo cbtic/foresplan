@@ -31,6 +31,7 @@ use App\Http\Controllers\Frontend\TarjetaController;
 use App\Http\Controllers\Frontend\PersonaController;
 use App\Http\Controllers\Frontend\SedeController;
 use App\Http\Controllers\Frontend\TerceroController;
+use App\Http\Controllers\Frontend\ReciboTerceroController;
 use Tabuna\Breadcrumbs\Trail;
 
 Route::get('/info', function () {
@@ -42,6 +43,12 @@ Route::get('/', [HomeController::class, 'index'])
     ->breadcrumbs(function (Trail $trail) {
         $trail->push(__('Home'), route('frontend.user.account'));
     });
+
+Route::get('/terceros/{persona}/recibos/create', [ReciboTerceroController::class, 'create'])
+    ->name('terceros.recibos.create');
+
+Route::post('/terceros/{persona}/recibos', [ReciboTerceroController::class, 'store'])
+    ->name('terceros.recibos.store');
 
 Route::middleware('auth')->group(function () {
 
