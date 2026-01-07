@@ -115,8 +115,32 @@
                   <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12">
                     <input class="form-control form-control-sm" id="numero_documento" name="numero_documento" placeholder="Numero de documento">
                   </div>
-                  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <input class="form-control form-control-sm" id="persona" name="persona" placeholder="Apellidos y Nombres">
+                  </div>
+                  <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+                    <select class="form-control form-control-sm" id="periodo_anio" name="periodo_anio">
+                      @php
+                        $currentYear = now()->year;
+                      @endphp
+                      <option value="">Año</option>
+                      @for ($year = $currentYear; $year >= 2020; $year--)
+                        <option value="{{ $year }}" {{ $year == $currentYear ? 'selected' : '' }}>
+                          {{ $year }}
+                        </option>
+                      @endfor
+                    </select>
+                  </div>
+
+                  <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+                    <select class="form-control form-control-sm" id="periodo_mes" name="periodo_mes">
+                      <option value="">Mes</option>
+                      @foreach (range(1, 12) as $month)
+                        <option value="{{ $month }}" {{ $month == now()->month ? 'selected' : '' }}>
+                          {{ \Carbon\Carbon::create(null, $month, 1)->translatedFormat('F') }}
+                        </option>
+                      @endforeach
+                    </select>
                   </div>
                   <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-right:0px">
                     <input class="btn btn-warning pull-rigth" value="Buscar" type="button" id="btnBuscar" />
@@ -139,7 +163,8 @@
                           <th>Área Trab.</th>
                           <th>Unidad Trab.</th>
                           <th>Estado</th>
-                          <th>¿Sueldo? Registrar recibo?</th>
+                          <th>Monto último recibo</th>
+                          <th>Total recibos periodo</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>

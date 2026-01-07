@@ -44,15 +44,18 @@ function datatablenew(){
         var persona = $('#persona').val();
         var unidad = $('#unidad_trabajo').val();
         var estado = $('#estado').val();
+        var periodo_anio = $('#periodo_anio').val();
+        var periodo_mes = $('#periodo_mes').val();
         var _token = $('#_token').val();
         oSettings.jqXHR = $.ajax({
         "dataType": 'json',
           //"contentType": "application/json; charset=utf-8",
           "type": "POST",
           "url": sSource,
-          "data":{NumeroPagina:iNroPagina,NumeroRegistros:iCantMostrar,
-            numero_documento:numero_documento,persona:persona,
-            id_sede:sede, _token:_token
+          "data":{ NumeroPagina:iNroPagina, NumeroRegistros:iCantMostrar,
+            numero_documento:numero_documento, persona:persona,
+            id_sede:sede, periodo_anio: periodo_anio, periodo_mes: periodo_mes,
+            _token:_token
           },
           "success": function (result) {
             fnCallback(result);
@@ -96,8 +99,8 @@ function datatablenew(){
           },
           "bSortable": false,
           "aTargets": [2]
-                },
-                {
+        },
+        {
           "mRender": function (data, type, row) {
             var persona = "";
             if(row.persona!= null)persona = row.persona;
@@ -105,8 +108,8 @@ function datatablenew(){
           },
           "bSortable": false,
           "aTargets": [3]
-                },
-                {
+        },
+        {
           "mRender": function (data, type, row) {
             var fecha_nacimiento = "";
             if(row.fecha_nacimiento!= null)fecha_nacimiento = row.fecha_nacimiento;
@@ -114,7 +117,7 @@ function datatablenew(){
           },
           "bSortable": false,
           "aTargets": [4]
-                },
+        },
         {
           "mRender": function (data, type, row) {
             var sexo = "";
@@ -124,8 +127,8 @@ function datatablenew(){
           },
           "bSortable": false,
           "aTargets": [5]
-                },
-                {
+        },
+        {
           "mRender": function (data, type, row) {
             var condicion_laboral = "";
             if(row.condicion_laboral!= null)condicion_laboral = row.condicion_laboral;
@@ -133,8 +136,8 @@ function datatablenew(){
           },
           "bSortable": false,
           "aTargets": [6]
-                },
-                {
+        },
+        {
           "mRender": function (data, type, row) {
             var area_trabajo = "";
             if(row.area_trabajo!= null)area_trabajo= row.area_trabajo;
@@ -142,9 +145,8 @@ function datatablenew(){
           },
           "bSortable": false,
           "aTargets": [7]
-                },
-
-                {
+        },
+        {
           "mRender": function (data, type, row) {
             var unidad_trabajo = "";
             if(row.unidad_trabajo!= null)unidad_trabajo = row.unidad_trabajo;
@@ -163,7 +165,27 @@ function datatablenew(){
           },
           "bSortable": false,
           "aTargets": [9]
-                },
+        },
+        {
+          "mRender": function (data, type, row) {
+            var importe_ultimo_recibo = "";
+            if(row.importe_ultimo_recibo!= null)importe_ultimo_recibo= row.importe_ultimo_recibo;
+            return importe_ultimo_recibo;
+          },
+          "bSortable": false,
+          "aTargets": [10]
+        },
+        {
+          "mRender": function (data, type, row) {
+            var importe_total_recibos= "";
+            if(row.importe_total_recibos!= null)importe_total_recibos= row.importe_total_recibos;
+            return importe_total_recibos;
+          },
+          "bSortable": false,
+          "aTargets": [11]
+        },
+
+          /*
         {
           "mRender": function (data, type, row) {
             var mont_cont_ctr = "";
@@ -175,38 +197,25 @@ function datatablenew(){
           },
           "bSortable": false,
           "aTargets": [10]
-                },
+                },*/
 
         {
           "mRender": function (data, type, row) {
-          var estado = "";
-          var clase = "";
-          estado = "Eliminar";
-          clase = "btn-danger";
-          accion = "1";
-          var html = '<div class="btn-group btn-group-sm" role="group" aria-label="Log Viewer Actions">';
-          html += '<button style="font-size:12px" type="button" class="btn btn-sm btn-success" data-toggle="modal" onclick="modalTercero('+row.id_pe+')" ><i class="fa fa-edit"></i> Registrar recibo</button>';
+            var estado = "";
+            var clase = "";
+            estado = "Eliminar";
+            clase = "btn-danger";
+            accion = "1";
+            var html = '<div class="btn-group btn-group-sm" role="group" aria-label="Log Viewer Actions">';
+            html += '<button style="font-size:12px" type="button" class="btn btn-sm btn-success" data-toggle="modal" onclick="modalTercero('+row.id_pe+')" ><i class="fa fa-edit"></i> Registrar recibo</button>';
 
-          html += '</div>';
-          return html;
-                },
-                "bSortable": false,
-                "aTargets": [11],
-                },
-        {
-          "mRender": function (data, type, row) {
-            var canSeeContract = $('#tblAfiliado').data('contract');
-            if(canSeeContract){
-              var html = '<div class="btn-group btn-group-sm" role="group" aria-label="Log Viewer Actions">';
-              html += '<button style="font-size:12px" type="button" class="btn btn-sm btn-info" data-toggle="modal" onclick="modalPersonaContrato('+row.id_pe+')" ><i class="fa fa-file"></i> Nuevo</button>';
-              html += '</div>';
-              return html;
-            }else{ return '' }
+            html += '</div>';
+            return html;
           },
           "bSortable": false,
-          "aTargets": [12]
-          },
-            ]
+          "aTargets": [12],
+        },
+      ]
 
     });
 

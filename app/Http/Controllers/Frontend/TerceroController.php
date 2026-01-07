@@ -29,10 +29,14 @@ class TerceroController extends Controller
         $busqueda_nombre = $request->input('persona') ?: null;
         $id_sede         = $request->input('id_sede') ?: null;
 
+        // periodo
+        $periodo_anio = $request->input('periodo_anio') ?: null;
+        $periodo_mes  = $request->input('periodo_mes') ?: null;
+
         // obtenemos TODOS los terceros según filtros
         $rows = DB::select(
-            'SELECT * FROM sp_listar_pagos_terceros_por_sede(?, ?, ?)',
-            [$id_sede, $num_documento, $busqueda_nombre]
+            'SELECT * FROM sp_listar_pagos_terceros_por_sede(?, ?, ?, ?, ?)',
+            [$id_sede, $num_documento, $busqueda_nombre, $periodo_anio, $periodo_mes]
         );
 
         $total = count($rows);
@@ -43,19 +47,21 @@ class TerceroController extends Controller
         $data = [];
         foreach ($dataPage as $r) {
             $data[] = [
-                'id_pe'            => $r->id_persona,
-                'tipo_documento'   => $r->tipo_documento,
-                'numero_documento' => $r->numero_documento,
-                'persona'          => trim($r->apellido_paterno . ' ' . $r->apellido_materno . ' ' . $r->nombres),
-                'fecha_nacimiento' => $r->fecha_nacimiento,
-                'sexo'             => $r->sexo,
-                'condicion_laboral'=> $r->condicion_laboral,
-                'area_trabajo'     => $r->area_trabajo,
-                'unidad_trabajo'   => $r->unidad_trabajo,
-                // 'razon_social'     => null,
-                'estado'           => $r->estado,                  // o lo que corresponda
-                'mont_cont_ctr'    => null,
-                'id_pd'            => $r->id_persona,       // o id de persona_detalles si lo necesitas
+                'id_pe'                 => $r->id_persona,
+                'tipo_documento'        => $r->tipo_documento,
+                'numero_documento'      => $r->numero_documento,
+                'persona'               => trim($r->apellido_paterno . ' ' . $r->apellido_materno . ' ' . $r->nombres),
+                'fecha_nacimiento'      => $r->fecha_nacimiento,
+                'sexo'                  => $r->sexo,
+                'condicion_laboral'     => $r->condicion_laboral,
+                'area_trabajo'          => $r->area_trabajo,
+                'unidad_trabajo'        => $r->unidad_trabajo,
+                // 'razon_social'          => null,
+                'estado'                => $r->estado,
+                'importe_ultimo_recibo' => $r->importe_ultimo_recibo,
+                'importe_total_recibos' => $r->importe_total_recibos,
+                // 'mont_cont_ctr'         => null,
+                // 'id_pd'                 => $r->id_persona,       // o id de persona_detalles si lo necesitas
             ];
         }
 
