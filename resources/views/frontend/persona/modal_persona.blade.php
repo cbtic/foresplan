@@ -220,7 +220,7 @@ function validar_persona(){
 	}
 }
 
-function fn_save(){  
+function fn_save(){
 	var msg = "";
 	var _token = $('#_token').val();
 	var id = $('#id_per_det').val();
