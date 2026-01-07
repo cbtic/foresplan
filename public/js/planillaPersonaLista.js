@@ -2,7 +2,7 @@
 //jQuery.noConflict(true);
 
 $(document).ready(function () {
-	
+
 	$('#btnBuscar').click(function () {
 		fn_ListarBusqueda();
 	});
@@ -12,17 +12,17 @@ $(document).ready(function () {
 	});
 	*/
 	datatablenew();
-	
+
 	$("#plan_id").select2();
 	$("#ubicacion_id").select2();
-	
+
 	$('#fecha_inicio').datepicker({
         autoclose: true,
 		dateFormat: 'dd/mm/yy',
 		changeMonth: true,
 		changeYear: true,
     });
-	
+
 	//$("#fecha_vencimiento").datepicker($.datepicker.regional["es"]);
 	$('#fecha_vencimiento').datepicker({
         autoclose: true,
@@ -30,7 +30,7 @@ $(document).ready(function () {
 		changeMonth: true,
 		changeYear: true,
     });
-	
+
 	/*
     $('#tblAlquiler').dataTable({
     	"language": {
@@ -112,14 +112,14 @@ function habiliarTitular(){
 }
 
 function guardarAfiliacion(){
-    
+
     var msg = "";
     var persona_id = $('#persona_id').val();
     var titular_id = $('#titular_id').val();
 	var plan_id = $('#plan_id').val();
 	var fecha_inicio = $('#fecha_inicio').val();
 	var fecha_vencimiento = $('#fecha_vencimiento').val();
-	
+
 	if(persona_id == "")msg += "Debe ingresar el Numero de Documento <br>";
 	if(!$("#chkTitular").is(':checked')) {
     	if(titular_id == "")msg += "Debe ingresar el Numero de Documento del Titular<br>";
@@ -136,20 +136,20 @@ function guardarAfiliacion(){
 	}
 	*/
 
-	
+
     if(msg!=""){
-        bootbox.alert(msg); 
+        bootbox.alert(msg);
         return false;
     }
     else{
         fn_save();
 	}
-	
+
 	//fn_save();
 }
 
 function fn_save_(){
-    
+
     //var fecha_atencion_original = $('#fecha_atencion').val();
 	//var id_user = $('#id_user').val();
     $.ajax({
@@ -157,7 +157,7 @@ function fn_save_(){
             type: "POST",
             //data : $("#frmCita").serialize()+"&id_medico="+id_medico+"&fecha_cita="+fecha_cita,
             data : $("#frmAfiliacion").serialize(),
-            success: function (result) {  
+            success: function (result) {
                     /*$('#openOverlayOpc').modal('hide');
 					$('#calendar').fullCalendar("refetchEvents");
 					modalDelegar(fecha_atencion_original);*/
@@ -175,9 +175,9 @@ function validaTipoDocumento(){
 	$('#empresa_afiliado').val("");
 	$('#empresa_direccion').val("");
 	$('#empresa_representante').val("");
-	$('#codigo_afiliado').val("");	
+	$('#codigo_afiliado').val("");
 	$('#fecha_afiliado').val("");
-				
+
 	if(tipo_documento == "RUC"){
 		$('#divNombreApellido').hide();
 		$('#divCodigoAfliado').hide();
@@ -196,19 +196,19 @@ function validaTipoDocumento(){
 
 
 function obtenerPersona(){
-		
+
 	var tipo_documento = $("#tipo_documento").val();
 	var numero_documento = $("#numero_documento").val();
 	var msg = "";
-	
+
 	if (msg != "") {
 		bootbox.alert(msg);
 		return false;
 	}
-	
+
 	//$('#empresa_id').val("");
 	$('#persona_id').val("");
-	
+
 	$.ajax({
 		url: '/persona/obtener_persona/' + tipo_documento + '/' + numero_documento,
 		dataType: "json",
@@ -231,25 +231,25 @@ function obtenerPersona(){
 			alert("Persona no encontrada en la Base de Datos.");
 			$('#personaModal').modal('show');
 		}
-		
+
 	});
-	
+
 }
 
 function obtenerTitularActual(tipo_documento,numero_documento){
-		
+
 	//var tipo_documento = $("#tipo_documento_tit").val();
 	//var numero_documento = $("#numero_documento_tit").val();
 	var msg = "";
-	
+
 	if (msg != "") {
 		bootbox.alert(msg);
 		return false;
 	}
-	
+
 	//$('#empresa_id').val("");
 	$('#titular_id').val("");
-	
+
 	$.ajax({
 		url: '/persona/obtener_persona/' + tipo_documento + '/' + numero_documento,
 		dataType: "json",
@@ -262,25 +262,25 @@ function obtenerTitularActual(tipo_documento,numero_documento){
 			alert("Persona no encontrada en la Base de Datos.");
 			$('#personaTitularModal').modal('show');
 		}
-		
+
 	});
-	
+
 }
 
 function obtenerTitular(){
-		
+
 	var tipo_documento = $("#tipo_documento_tit").val();
 	var numero_documento = $("#numero_documento_tit").val();
 	var msg = "";
-	
+
 	if (msg != "") {
 		bootbox.alert(msg);
 		return false;
 	}
-	
+
 	//$('#empresa_id').val("");
 	$('#titular_id').val("");
-	
+
 	$.ajax({
 		url: '/persona/obtener_persona/' + tipo_documento + '/' + numero_documento,
 		dataType: "json",
@@ -293,18 +293,18 @@ function obtenerTitular(){
 			alert("Persona no encontrada en la Base de Datos.");
 			$('#personaTitularModal').modal('show');
 		}
-		
+
 	});
-	
+
 }
 
 function obtenerPlanDetalle(){
-	
+
 	var plan_costo = $('#plan_id option:selected').attr("plan_costo");
 	var periodo = $('#plan_id option:selected').attr("periodo");
 	$('#plan_costo').val(plan_costo);
 	$('#periodo').val(periodo);
-	
+
 	var id = $('#plan_id').val();
 	$.ajax({
 		url: '/supervision/obtener_plan_detalle/'+id,
@@ -318,22 +318,22 @@ function obtenerPlanDetalle(){
 			});
 			$('#tblPlan tbody').html(option);
 		}
-		
+
 	});
-	
+
 }
 
 /*
 function cargarAlquiler(){
-    
+
     var empresa_id = $('#empresa_id').val();
 	if(empresa_id == "")empresa_id=0;
-	
+
     $("#tblAlquiler tbody").html("");
 	$.ajax({
 			url: "/alquiler/obtener_alquiler/"+empresa_id,
 			type: "GET",
-			success: function (result) {  
+			success: function (result) {
 					$("#tblAlquiler tbody").html(result);
 					//$('#tblAlquiler').dataTable();
 			}
@@ -343,14 +343,14 @@ function cargarAlquiler(){
 
 
 function cargarDevolucion(){
-    
-    
+
+
     var numero_documento = $("#numero_documento").val();
     $("#tblPago tbody").html("");
 	$.ajax({
 			url: "/alquiler/obtener_devolucion/"+numero_documento,
 			type: "GET",
-			success: function (result) {  
+			success: function (result) {
 					$("#tblDevolucion tbody").html(result);
 			}
 	});
@@ -419,9 +419,9 @@ $('#modalPersonaTitularSaveBtn').click(function (e) {
   });
 });
 
-
 function datatablenew(){
-    var oTable1 = $('#tblPlanilla').dataTable({
+
+    var tblPlanilla = $('#tblPlanilla').DataTable({
         "bServerSide": true,
         "sAjaxSource": "/planilla/listar_planilla_persona_ajax",
         "bProcessing": true,
@@ -430,52 +430,56 @@ function datatablenew(){
         "bFilter": false,
         "bSort": false,
         "info": true,
-		//"responsive": true,
+		    //"responsive": true,
         "language": {"url": "/js/Spanish.json"},
         "autoWidth": false,
         "bLengthChange": true,
         "destroy": true,
         "lengthMenu": [[10, 50, 100, 200, 60000], [10, 50, 100, 200, "Todos"]],
         "aoColumns": [
-                        {},
+            {},
         ],
-		"dom": '<"top">rt<"bottom"flpi><"clear">',
+        "dom": '<"top">rt<"bottom"flpi><"clear">',
         "fnDrawCallback": function(json) {
             $('[data-toggle="tooltip"]').tooltip();
         },
-
         "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
 
-            var sEcho           = aoData[0].value;
-            var iNroPagina 	= parseFloat(fn_util_obtieneNroPagina(aoData[3].value, aoData[4].value)).toFixed();
-            var iCantMostrar 	= aoData[4].value;
-			
-			var numero_documento = $('#numero_documento').val();
-            var persona = $('#persona').val();
-			var empresa = $('#empresa').val();
-			var tipo = $('#tipo_justifica').val();
-			var estado = $('#estado').val();
-			var _token = $('#_token').val();
+            var sEcho        = aoData[0].value;
+            var iNroPagina   = parseFloat(fn_util_obtieneNroPagina(aoData[3].value, aoData[4].value)).toFixed();
+            var iCantMostrar = aoData[4].value;
+
+            var numero_documento = $('#numero_documento').val();
+            var persona          = $('#persona').val();
+            var empresa          = $('#empresa').val();
+            var tipo             = $('#tipo_justifica').val();
+            var estado           = $('#estado').val();
+            var _token           = $('#_token').val();
+
             oSettings.jqXHR = $.ajax({
-				"dataType": 'json',
-                //"contentType": "application/json; charset=utf-8",
-                "type": "POST",
-                "url": sSource,
-                "data":{NumeroPagina:iNroPagina,NumeroRegistros:iCantMostrar,
-						numero_documento:numero_documento,tipo:tipo,persona:persona,
-						empresa:empresa,estado:estado,_token:_token
-                       },
-                "success": function (result) {
+                dataType: 'json',
+                type: "POST",
+                url: sSource,
+                data: {
+                    NumeroPagina:    iNroPagina,
+                    NumeroRegistros: iCantMostrar,
+                    numero_documento: numero_documento,
+                    tipo:             tipo,
+                    persona:          persona,
+                    empresa:          empresa,
+                    estado:           estado,
+                    _token:           _token
+                },
+                success: function (result) {
                     fnCallback(result);
                 },
-                "error": function (msg, textStatus, errorThrown) {
-                    //location.href="login";
+                error: function (msg, textStatus, errorThrown) {
+                    // manejo de error
                 }
             });
         },
-
         "aoColumnDefs":
-            [	
+            [
 				{
 					"mRender": function (data, type, row) {
 						var empresa = "";
@@ -486,8 +490,8 @@ function datatablenew(){
 					"aTargets": [0],
 					"className": "dt-center",
 					//"className": 'control'
-                },
-				
+        },
+
 				{
 					"mRender": function (data, type, row) {
 						var planilla = "";
@@ -498,7 +502,7 @@ function datatablenew(){
 					"aTargets": [1],
 					"className": "dt-center",
 					//"className": 'control'
-					},				
+					},
 				{
 					"mRender": function (data, type, row) {
 						var subplanilla = "";
@@ -525,8 +529,8 @@ function datatablenew(){
 					},
 					"bSortable": false,
 					"aTargets": [4]
-                },			
-				
+                },
+
                 {
 					"mRender": function (data, type, row) {
 						var tipo_planilla = "";
@@ -535,7 +539,7 @@ function datatablenew(){
 					},
 					"bSortable": false,
 					"aTargets": [5]
-                },			
+                },
                 {
 					"mRender": function (data, type, row) {
 						var fech_inic_tpe = "";
@@ -545,7 +549,7 @@ function datatablenew(){
 					"bSortable": false,
 					"aTargets": [6]
                 },
-														
+
                 {
 					"mRender": function (data, type, row) {
 						var fech_fina_tpe = "";
@@ -602,7 +606,7 @@ function datatablenew(){
                 "aTargets": [10],
 				"className": "text-center",
                 },
-				
+
 				/*{
                 "mRender": function (data, type, row) {
 					var estado = "";
@@ -613,8 +617,8 @@ function datatablenew(){
 					var html = '<div class="btn-group btn-group-sm" role="group" aria-label="Log Viewer Actions">';
 					html += '<button style="font-size:12px" type="button" class="btn btn-sm btn-success" data-toggle="modal" onclick="modalPapeleta('+row.id+')" ><i class="fa fa-edit"></i> Editar</button>';
 					html += '<a href="javascript:void(0)" onclick=eliminarPapeleta('+row.id+','+accion+') class="btn btn-sm '+clase+'" style="font-size:12px;margin-left:10px">'+estado+'</a>';
-					
-	
+
+
 					html += '</div>';
 					return html;
                 },
@@ -633,14 +637,14 @@ function fn_ListarBusqueda() {
 };
 
 function modalPapeleta(id){
-	
+
 	$(".modal-dialog").css("width","85%");
 	$('#openOverlayOpc .modal-body').css('height', 'auto');
 
 	$.ajax({
 			url: "/papeleta/modal_papeleta/"+id,
 			type: "GET",
-			success: function (result) {  
+			success: function (result) {
 					$("#diveditpregOpc").html(result);
 					$('#openOverlayOpc').modal('show');
 			}
@@ -663,9 +667,9 @@ function eliminarPapeleta(id,estado){
 		estado_="N";
 		//eliminado = "N";
 	}
-    bootbox.confirm({ 
+    bootbox.confirm({
         size: "small",
-        message: "&iquest;Deseas "+act_estado+" la Papeleta?", 
+        message: "&iquest;Deseas "+act_estado+" la Papeleta?",
         callback: function(result){
             if (result==true) {
                 fn_eliminar_papeleta(id,estado_);
@@ -676,7 +680,7 @@ function eliminarPapeleta(id,estado){
 }
 
 function fn_eliminar_papeleta(id,estado){
-	
+
     $.ajax({
             url: "/papeleta/eliminar_papeleta/"+id+"/"+estado,
             type: "GET",
@@ -687,43 +691,81 @@ function fn_eliminar_papeleta(id,estado){
     });
 }
 
-function cerrarPeriodo(id,estado){
-	var act_estado = "";
-	if(estado==1){
-		act_estado = "Cerrar";
-		estado_=2;
-	}
-	if(estado==2){
-		act_estado = "Abrir";
-		estado_=1;
-	}
+function showTblLoader() {
+    $('#tblPlanilla_loader').css('display', 'flex');
+}
+
+function hideTblLoader() {
+    $('#tblPlanilla_loader').css('display', 'none');
+}
+
+function cerrarPeriodo(id, estado) {
+    var act_estado = "";
+    var estado_ = estado;
+
+    if (estado == 1) {
+        act_estado = "Cerrar";
+        estado_ = 2;
+    }
+    if (estado == 2) {
+        act_estado = "Abrir";
+        estado_ = 1;
+    }
+
     bootbox.confirm({
         size: "small",
-        message: "&iquest;Deseas "+act_estado+" el Periodo?", 
-        callback: function(result){
-            if (result==true) {
-                fn_cerrar_periodo(id,estado_);
+        message: "&iquest;Deseas " + act_estado + " el Periodo?",
+        callback: function (result) {
+            if (result === true) {
+
+                showTblLoader(); // mostrar loader antes del ajax
+
+                $.ajax({
+                    url: "/planilla/actualizar_periodo/" + id + "/" + estado_,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (result) {
+
+                        if (result.sw == false) {
+                            hideTblLoader();
+                            bootbox.alert(result.msg);
+                            return;
+                        }
+
+                        datatablenew();   // tu lógica actual para recargar tabla
+                        setTimeout(hideTblLoader, 500);
+                    },
+                    error: function () {
+                        hideTblLoader();
+                        bootbox.alert("Ocurrió un error al actualizar el periodo.");
+                    }
+                });
             }
         }
     });
+
     $(".modal-dialog").css("width","30%");
 }
 
+
 function fn_cerrar_periodo(id,estado){
-	
+
     $.ajax({
-            url: "/planilla/actualizar_periodo/"+id+"/"+estado,
-            type: "GET",
+      url: "/planilla/actualizar_periodo/"+id+"/"+estado,
+      type: "GET",
 			dataType: 'json',
-            success: function (result) {
-                //if(result="success")obtenerPlanDetalle(id_plan);
-				
+      success: function (result) {
+      //if(result="success")obtenerPlanDetalle(id_plan);
+
 				if(result.sw==false){
+          hideTblLoader();
 					bootbox.alert(result.msg);
+          return;
 				}
-				
+
 				datatablenew();
-            }
+        setTimeout(hideTblLoader, 500);
+      }
     });
 }
 

@@ -173,4 +173,9 @@ class Persona extends Model
 
 	}
 
+  public function recibos()
+  {
+      return $this->hasMany(ReciboTercero::class, 'persona_id');
+  }
+
 }

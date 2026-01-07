@@ -16,10 +16,10 @@
         cursor: move;
     }
 	/*
-    #global {        
-        width: 95%;        
-        margin: 15px 15px 15px 15px;     
-        height: 380px !important;        
+    #global {
+        width: 95%;
+        margin: 15px 15px 15px 15px;
+        height: 380px !important;
         border: 1px solid #ddd;
         overflow-y: scroll !important;
     }
@@ -32,7 +32,7 @@
        /* background: #f1f1f1;*/
         /*overflow-y: scroll !important;*/
     }
-	
+
     .margin{
 
         margin-bottom: 20px;
@@ -47,12 +47,12 @@
         padding: 0 10px;
     }*/
     .clickable{
-        cursor: pointer;   
+        cursor: pointer;
     }
 
     /*.panel-heading div {
         margin-top: -18px;
-        font-size: 15px;        
+        font-size: 15px;
     }
     .panel-heading div span{
         margin-left:5px;
@@ -60,7 +60,7 @@
     .panel-body{
         display: block;
     }
-	
+
 	.dataTables_filter {
 	   display: none;
 	}
@@ -69,7 +69,7 @@
     .ui-front {
         z-index: 9999!important;
     }
-	
+
 	.flotante {
     display:inline;
         position:fixed;
@@ -83,6 +83,54 @@
 			bottom:65px;
 			right:0px;
 	}
+
+  #tblPlanilla_container {
+      position: relative;
+  }
+
+  #tblPlanilla_loader {
+      display: none;
+  }
+
+  /* Overlay encima de la tabla */
+  .loader-overlay {
+      display: none;                /* se muestra por JS */
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.7);
+      z-index: 10;
+      // display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  }
+
+  /* Spinner simple con CSS */
+  .loader-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #ccc;
+      border-top-color: #3498db;
+      border-radius: 50%;
+      animation: spinLoader 0.8s linear infinite;
+      margin-bottom: 8px;
+      display: block;
+  }
+
+  .loader-text {
+      font-size: 13px;
+      color: #333;
+  }
+
+  @keyframes spinLoader {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+  }
 
 </style>
 
@@ -114,7 +162,7 @@
         <div class="card-body">
 
             <form class="form-horizontal" method="post" action="{{ route('frontend.planilla.create')}}" id="frmPlanilla" autocomplete="off">
-				
+
                 <div class="row justify-content-center" style="margin-top:15px">
 
                     <div class="col col-sm-12 align-self-center">
@@ -123,19 +171,19 @@
 
                         <input type="hidden" name="id_periodo" id="id_periodo" value="0">
 						<input type="hidden" name="id_persona" id="id_persona" value="0">
-                        
+
 					<div class="row">
 
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
 						<div class="card">
-						
+
 						<div class="card-header">
 							<strong>Registrar Planilla</strong>
 						</div>
-						
+
 						<div class="row" style="padding:10px 20px 10px 20px;">
-						
+
 							<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 								<select class="form-control form-control-sm" id="id_ubicacion" name="id_ubicacion" onchange="fn_ListarBusqueda();">
 									<option value="0">- Seleccione Empresa -</option>
@@ -144,7 +192,7 @@
 									<?php } ?>
 								</select>
 							</div>
-							
+
 							<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 								<select class="form-control form-control-sm" id="id_planilla" name="id_planilla" onChange="obtenerSubPlanilla()">
 									<option value="0">- Seleccione Planilla -</option>
@@ -153,7 +201,7 @@
 									<?php } ?>
 								</select>
 							</div>
-							
+
 							<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 								<select class="form-control form-control-sm" id="id_subplanilla" name="id_subplanilla" onchange="fn_ListarBusqueda();">
 									<option value="0">- Seleccione SubPlanilla -</option>
@@ -163,17 +211,17 @@
 							<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
 								<input class="form-control form-control-sm" id="numero_documento_buscar" name="numero_documento_buscar" placeholder="Doc. Identidad">
 							</div>
-							
+
 							<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 								<input class="form-control form-control-sm" id="nombre_buscar" name="nombre_buscar" placeholder="Nombre">
 							</div>
 							-->
-							
+
 							<!--
 							<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
 								<input class="form-control form-control-sm" id="fecha_desde" name="fecha_desde" placeholder="Fecha Desde">
 							</div>
-							
+
 							<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
 								<input class="form-control form-control-sm" id="fecha_hasta" name="fecha_hasta" placeholder="Fecha Hasta">
 							</div>
@@ -202,27 +250,33 @@
 								</select>
 							</div>
 							-->
-							
+
 							<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 								<input class="btn btn-warning pull-rigth" value="Buscar" type="button" id="btnBuscar" />
-								
+
 								<!--<input class="btn btn-success pull-rigth" value="Nuevo" type="button" id="btnNuevo" style="margin-left:15px">-->
-								
+
 								<a class="btn btn-success pull-rigth" href="create_planilla_persona" id="btnNuevo" style="margin-left:15px">Nuevo</a>
-								
+
 							</div>
-							
+
 						</div>
-						
+
 						<div class="card-body">
-						
+
 							<div id="" class="row">
-							
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">	
-								
+
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
 									<strong>Personas Asignados</strong>
-									
+
 									<div class="table-responsive overflow-auto" style="max-height: 500px;padding-top:20px">
+                    <div id="tblPlanilla_container">
+                      <div id="tblPlanilla_loader" class="loader-overlay">
+                        <div class="loader-spinner"></div>
+                        <span class="loader-text">Procesando, esto puede tardar unos segundos...</span>
+                      </div>
+
 										<table id="tblPlanilla" class="table table-hover table-sm">
 										<thead>
 										<tr style="font-size:13px">
@@ -242,24 +296,25 @@
 										<tbody style="font-size:13px">
 										</tbody>
 										</table>
+                    </div>
 									</div>
 								</div>
-	
+
 							</div>
-						
+
 						</div>
-						
-                    </div>						
+
+                    </div>
 
                 </div>
 
 
         </div>
         <!--col-->
-				
+
         </form>
 
-        
+
 
     </div>
     <!--row-->
@@ -267,19 +322,19 @@
 
 	<div id="openOverlayOpc" class="modal fade" role="dialog">
 	  <div class="modal-dialog" >
-	
+
 		<div id="id_content_OverlayoneOpc" class="modal-content" style="padding: 0px;margin: 0px">
-		
+
 		  <div class="modal-body" style="padding: 0px;margin: 0px">
-	
+
 				<div id="diveditpregOpc"></div>
-	
+
 		  </div>
-		
+
 		</div>
-	
+
 	  </div>
-		
+
 	</div>
 
 @push('after-scripts')
