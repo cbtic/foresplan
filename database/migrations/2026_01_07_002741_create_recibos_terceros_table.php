@@ -15,7 +15,7 @@ class CreateRecibosTercerosTable extends Migration
     {
         Schema::create('recibos_terceros', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tercero_id');
+            $table->unsignedBigInteger('persona_id');
             $table->unsignedBigInteger('medio_pago_id');
             $table->text('descripcion');
             $table->text('observacion')->nullable();
@@ -25,6 +25,9 @@ class CreateRecibosTercerosTable extends Migration
             $table->boolean('retencion')->default(false);
             $table->decimal('importe_retenido', 12, 2)->nullable();
             $table->timestamps();
+
+            $table->foreign('persona_id')->references('id')->on('personas');
+            $table->foreign('medio_pago_id')->references('id')->on('medio_pagos');
         });
     }
 
