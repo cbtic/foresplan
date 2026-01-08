@@ -258,6 +258,10 @@ Route::middleware('auth')->group(function () {
         Route::get('asistencia/exportar_listar_reporte_asistencia/{id_area_trabajo}/{id_unidad_trabajo}/{id_persona}/{anio}/{mes}/{fecha_ini}/{fecha_fin}/{id_sede}/{id_condicion_laboral}/{estado}', [AsistenciaController::class, 'exportar_listar_reporte_asistencia'])->name('asistencia.exportar_listar_reporte_asistencia');
     });
 
+    Route::middleware(['role:Administrator|Jefe RRHH|Asistente RRHH VES|Asistente RRHH OXA', 'sede.access'])->group(function () {
+        Route::get('manten/tturnos', [TturnoController::class, 'index'])->name('manten.tturnos');
+    });
+
     Route::post('/cambiar-sede-actual', [SedeController::class, 'cambiarSedeActual'])->name('sede.cambiar');
 
 });
