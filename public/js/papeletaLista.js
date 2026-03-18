@@ -454,8 +454,10 @@ function datatablenew(){
             var persona = $('#persona').val();
 			var empresa = $('#empresa').val();
 			var tipo = $('#tipo_justifica').val();
+			var id_sede = $('#id_sede_').val();
 			var estado = $('#estado').val();
 			var _token = $('#_token').val();
+			
             oSettings.jqXHR = $.ajax({
 				"dataType": 'json',
                 //"contentType": "application/json; charset=utf-8",
@@ -463,7 +465,7 @@ function datatablenew(){
                 "url": sSource,
                 "data":{NumeroPagina:iNroPagina,NumeroRegistros:iCantMostrar,
 						numero_documento:numero_documento,tipo:tipo,persona:persona,
-						empresa:empresa,estado:estado,_token:_token
+						empresa:empresa,id_sede:id_sede,estado:estado,_token:_token
                        },
                 "success": function (result) {
                     fnCallback(result);

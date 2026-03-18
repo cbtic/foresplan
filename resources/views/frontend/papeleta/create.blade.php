@@ -130,6 +130,23 @@
 						
 						<div class="row" style="padding:10px 20px 10px 20px;">
                             
+                            <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+                                <select class="form-control form-control-sm" id="id_sede_" name="id_sede_">
+                                    <option value="">Seleccion Sede</option>
+
+                                    @foreach($dropdownSedes as $sede)
+                                        @php
+                                            $isSelected =
+                                                (session('current_sede_id') == $sede->id) ||
+                                                ($dropdownSelectedSedeId == $sede->id && ! session()->has('current_sede_id'));
+                                        @endphp
+
+                                        <option value="{{ $sede->id }}" {{ $isSelected ? 'selected' : '' }}>
+                                            {{ $sede->denominacion }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                                 <input class="form-control form-control-sm" id="numero_documento" name="numero_documento" placeholder="N&uacute;mero Documento">
                                 <div id="numero_documento" style="position: absolute;z-index: 100;background-color:#ffffff;width: 400px;"></div>

@@ -49,6 +49,7 @@ class DetaOperacioneController extends Controller
 		$p[]=$request->persona;
 		$p[]=$request->tipo;
 		$p[]=$request->empresa;
+		$p[]=$request->id_sede;
 		$p[]=$request->estado;
 		$p[]=$request->NumeroPagina;
 		$p[]=$request->NumeroRegistros;
